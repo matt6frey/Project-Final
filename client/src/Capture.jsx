@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
-
+import { Link } from "react-router-dom";
 class Capture extends Component {
   constructor() {
     super();
@@ -10,10 +10,6 @@ class Capture extends Component {
       imageURL: ""
     };
     this.showImage = this.showImage.bind(this);
-  }
-
-  componentWillMount (){
-    window.location.reload()
   }
   showImage(event) {
     console.log(event.target.files[0]);
@@ -33,6 +29,7 @@ class Capture extends Component {
     //   let data = new FormData()
     //   data.append('file', file)
     // }
+
     const fd = new FormData();
     fd.append("image", this.state.imageURL);
     axios
@@ -53,19 +50,22 @@ class Capture extends Component {
             type="file"
             accept="image/*"
             capture="camera"
-            name="ingFile"
+            name="imgFile"
             onChange={this.showImage}
           />
           <img src={this.state.imageURL} alt="" />
+          <Link to = "/ingredients">
           <button
             className="btn btn-primary submit"
             type="submit"
-            onClick={this.submitPic}
+            // onClick={this.submitPic}
           >
             {" "}
             Submit{" "}
           </button>
+          </Link>
         </form>
+        <Link to ="/"> <button> Start Over </button> </Link>
         <Footer />
       </div>
     );
