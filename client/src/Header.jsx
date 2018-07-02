@@ -5,8 +5,8 @@ class Header extends Component {
     render() {
       return (
       <header>
-        <div class="logo">
-          <img src={logo} width="75px" height="auto" class="logo"/>
+        <div className="logo">
+          <img src={logo} width="75px" height="auto" className="logo"/>
         </div>
         <h1 className="text-center">Right Recipe</h1>
       </header>

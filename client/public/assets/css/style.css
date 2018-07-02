@@ -61,20 +61,28 @@
         z-index: 1;
     }
 
-    form.add-photo > input[type="file"] {
+    form.add-photo > p {
+        padding-bottom: 0;
+    }
+
+    form.add-photo > p > input[type="file"] {
+        display: inline;
         margin-top: 2rem;
-        border: solid 3px red;
+        margin-bottom: 0;
         padding: 5rem 3rem;
+        border: solid 3px red;
         width: 200px;
         height: 200px;
-        display: inline;
     }
 
     form.add-photo > img {
-        display: inline-block;
         margin: 2rem auto 1rem;
         width: 300px;
         height: auto;
+    }
+
+    form.add-photo > img.preview {
+        display: none;
     }
 
     button.submit {

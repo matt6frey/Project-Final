@@ -37,8 +37,10 @@ class Capture extends Component {
   render() {
     return (
       <form className='form-group text-center add-photo' >
-      <input type="file" accept="image/*" capture="camera" name='ingFile' onChange={this.showImage} />
-      <img src={this.state.imageURL} alt=""/>
+      <p>
+        <input type="file" accept="image/*" capture="camera" name='ingFile' onChange={this.showImage} />
+      </p>
+      <img src={this.state.imageURL} alt="" className="preview" />
       <button className="btn btn-primary submit" type="submit" onClick={this.submitPic}> Submit </button>
       </form>
     );

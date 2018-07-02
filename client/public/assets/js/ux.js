@@ -1,6 +1,12 @@
 // User Experience
 
-$('input[type="file"]').on('change', function() {
-  $(this).hide();
+$(document).ready(function () {
+
+  $('input[type="file"]').on('change', function() {
+    $('img.preview').css('display', 'inline-block');
+    $(this).hide();
+  });
+
 });
+
 
