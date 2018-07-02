@@ -77,7 +77,7 @@
         height: auto;
     }
 
-    input.submit {
+    button.submit {
         z-index: 3;
         width: 200px;
         display: block;
