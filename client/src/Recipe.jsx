@@ -63,6 +63,7 @@ class Recipe extends Component {
             <button> Go back to Recipe List </button>
           </Link>
         </section>
+        <Link to ="/"> <button> Start Over </button> </Link>
         <Footer />
       </div>
     );
