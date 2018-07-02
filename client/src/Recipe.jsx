@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
+import { Link } from "react-router-dom";
 
 class Recipe extends Component {
   constructor(props) {
@@ -58,6 +59,9 @@ class Recipe extends Component {
               </li>
             </ol>
           </div>
+          <Link to="/list">
+            <button> Go back to Recipe List </button>
+          </Link>
         </section>
         <Footer />
       </div>
