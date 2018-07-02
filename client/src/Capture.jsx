@@ -3,44 +3,52 @@ import axios from "axios";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
+
+// import cloudinary from "cloudinary-core";
+
+
+// const cl = new cloudinary.Cloudinary({cloud_name:'dybwmffcu', api_key: '371654911193898', api_secret: '-QocRetk-uD_gz7pSYVSaaT6iTc'})
 class Capture extends Component {
   constructor() {
     super();
     this.state = {
-      imageURL: ""
+      imageURL: "",
+      imageName: ""
     };
     this.showImage = this.showImage.bind(this);
   }
   showImage(event) {
-    console.log(event.target.files[0]);
+    const name = event.target.files[0].name;
     const reader = new FileReader();
     reader.onload = () => {
       this.setState({
-        imageURL: reader.result
+        imageURL: reader.result,
+        imageName: name
       });
     };
     reader.readAsDataURL(event.target.files[0]);
   }
   submitPic = event => {
     event.preventDefault();
-    // let file = event.target.files[0]
-
-    // if (file){
-    //   let data = new FormData()
-    //   data.append('file', file)
-    // }
-
     const fd = new FormData();
-    fd.append("image", this.state.imageURL);
+    fd.append('public_id', this.state.imageName)
+    fd.append('upload_preset', 'bkb49fvr')
+    fd.append('file', this.state.imageURL);
+    
     axios
-      .post("http://" + window.location.hostname + ":3001/photos", {
-        image: this.state.imgURL
+      .post('https://api.cloudinary.com/v1_1/dybwmffcu/upload',fd)
+      .then(res => {
+        console.log(res.data.secure_url)
+        console.log(`img=${res.data.secure_url}`)
+        axios.post('/upload', {
+          img: `img=${res.data.secure_url}`
+        }).then(res => {
+          console.log(res)
+        })
       })
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+    };
 
-    // console.log(event.target.files[0])
-  };
+
   render() {
     return (
       <div>
@@ -58,7 +66,7 @@ class Capture extends Component {
           <button
             className="btn btn-primary submit"
             type="submit"
-            // onClick={this.submitPic}
+            onClick={this.submitPic}
           >
             {" "}
             Submit{" "}
