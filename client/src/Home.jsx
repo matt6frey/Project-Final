@@ -9,11 +9,11 @@ class Home extends Component {
       <React.Fragment>
         <Header />
         <div className="app">
-          <span className="text-center enter">
-            <Link to="/capture">
-              <button>Get Started! </button>
+          <p className="text-center enter">
+            <Link to="/capture" className="btn btn-primary">
+              Get Started!
             </Link>
-          </span>
+          </p>
         </div>
         <Footer />
       </React.Fragment>
