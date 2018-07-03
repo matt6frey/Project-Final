@@ -63,7 +63,7 @@ class Capture extends Component {
             onChange={this.showImage}
           />
           <img className='preview' src={this.state.imageURL} alt="" />
-          <Link to = "/ingredients">
+          
           <button
             className="btn btn-primary submit"
             type="submit"
@@ -71,9 +71,10 @@ class Capture extends Component {
           >
             {" "}
             Submit{" "}
+            
           </button>
-          </Link>
         </form>
+        <Link to = "/ingredients"> <button>Check Ingredients </button></Link>
         <Link to ="/"> <button> Start Over </button> </Link>
         <Footer />
       </React.Fragment>
