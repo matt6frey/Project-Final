@@ -28,7 +28,7 @@ class Capture extends Component {
         imageName: name
       });
     };
-    console.log(reader.result, this.state.imgURL)
+    console.log(reader.result, this.state.imgURL);
     reader.readAsDataURL(event.target.files[0]);
   }
   submitPic = event => {
@@ -45,9 +45,9 @@ class Capture extends Component {
         axios.post('/upload', {
           img: res.data.secure_url
         }).then(res => {
-          console.log(res)
-        })
-      })
+          console.log(res);
+        });
+      });
     };
 
   render() {

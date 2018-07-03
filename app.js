@@ -22,6 +22,7 @@ const clApp = new Clarifai.App({
  apiKey: process.env.CLARIFAI
 });
 
+const curl = require('tiny-curl');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -73,7 +74,37 @@ app.post('/upload', (req, res) => {
 });
 
 app.post('/recipe-lookup', (req,res) => {
+  let params = "";
+  const items = req.body.items.join("+"); // Join items into an http friendly str.
+  const url = `https://api.edamam.com/search?q=${items}&app_id=${process.env.APP_ID}&app_key=${process.env.EDAMAM}&from=0&to=10`;
 
+  console.log(items, url);
+  curl(url).then(( result ) => {
+    console.log(JSON.parse(result.body), typeof result.body);
+    result = JSON.parse(result.body);
+    const recipeList = [];
+    const entries = result.hits.forEach( (entry) => {
+      let recipe = entry.recipe;
+      recipeList.push({
+        title: recipe.label,
+        image: recipe.image,
+        url: recipe.url,
+        labels: recipe.healthLabels,
+        ingredients: recipe.ingredientLines
+      });
+    });
+    return recipeList;
+  }).then( (recipeList) => {
+    console.log(recipeList);
+    res.status(200);
+    res.json(recipeList);
+  });
+
+  // async/await
+  // (async => {
+  //   const { body } = await curl(url, { json: true });
+  //   console.log(body.name); // 楼教主
+  // })();
 });
 
 // catch 404 and forward to error handler
