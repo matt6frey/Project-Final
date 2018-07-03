@@ -44,10 +44,10 @@ function termEvaluator (terms) {
   terms.forEach( (term) => {
     items.push(term.name);
   });
-  console.log("start Knex filter");
+  console.log("start Knex filter", items );
   knex('foods').whereIn('name', items).then( (matches) => {
     console.log("V1:matches => ", matches);
-    matches.map( (match) => {
+    matches.filter( (match) => {
       console.log("Match Attemp: ", terms[match]);
       if(terms[match]) {
         return terms[match];
@@ -72,8 +72,8 @@ app.post('/upload', (req, res) => {
       });
     // console.log("TERMS: ", newTerms);
     terms = termEvaluator(newTerms); // go line 40
-
-    res.sendStatus(200);
+    res.status(200);
+    res.json(terms);
   },
   function(err) {
     // there was an error

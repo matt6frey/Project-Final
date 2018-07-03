@@ -220,7 +220,7 @@ exports.seed = function(knex, Promise) {
         {id: 213, name: "butternut squash", type: "vegetable"},
         {id: 214, name: "banana squash", type: "vegetable"},
         {id: 215, name: "zucchini ", type: "vegetable"},
-        {id: 216, name: "cucumber ", type: "vegetable"},
+        {id: 216, name: "enoki mushrooms ", type: "vegetable"},
         {id: 217, name: "delicata", type: "vegetable"},
         {id: 218, name: "gem squash", type: "vegetable"},
         {id: 219, name: "hubbard squash", type: "vegetable"},
