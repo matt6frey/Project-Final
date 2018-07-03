@@ -15,7 +15,6 @@ class Capture extends Component {
       imageURL: "",
       imageName: ""
     };
-    this.showImage = this.showImage.bind(this);
   }
   showImage(event) {
     const name = event.target.files[0].name;
@@ -60,14 +59,14 @@ class Capture extends Component {
             accept="image/*"
             capture="camera"
             name="imgFile"
-            onChange={this.showImage}
+            onChange={this.showImage.bind(this)}
           />
           <img className='preview' src={this.state.imageURL} alt="" />
           
           <button
             className="btn btn-primary submit"
             type="submit"
-            onClick={this.submitPic}
+            onClick={this.submitPic.bind(this)}
           >
             {" "}
             Submit{" "}
