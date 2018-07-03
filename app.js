@@ -37,49 +37,42 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // Evaluate Terms
-
-function termEvaluator (terms) {
+function termEvaluator (terms, cb) {
   const items = [];
-  console.log("start term filter");
-  terms.forEach( (term) => {
-    items.push(term.name);
-  });
-  console.log("start Knex filter", items );
+  terms.forEach( (term) => items.push(term.name)); // add items to check in DB
   knex('foods').whereIn('name', items).then( (matches) => {
-    console.log("V1:matches => ", matches);
-    matches.filter( (match) => {
-      console.log("Match Attemp: ", terms[match]);
-      if(terms[match]) {
-        return terms[match];
-      }
-    });
-    console.log("V2:matches => ", matches);
-    return matches; // Return all appropriate matches
+    matches.filter( (match) => terms[match] === match); // Only return matches in Matches array.
+    return cb(matches); // Return all appropriate matches
   });
 }
 
 
 app.post('/upload', (req, res) => {
-  console.log("REQ: ", req.body.img);
+  // console.log("REQ: ", req.body.img);
 
   clApp.models.predict(Clarifai.GENERAL_MODEL, req.body.img).then(
   function(response) {
-    // console.log(response.outputs[0].data);
     let terms = response.outputs[0].data.concepts;
     const newTerms = [];
+    // Format the data to be returned.
     terms.forEach((term) => {
       newTerms.push(Object.assign({}, { name: term.name, value: Math.round(term.value * 100) }));
-      });
-    // console.log("TERMS: ", newTerms);
-    terms = termEvaluator(newTerms); // go line 40
-    res.status(200);
-    res.json(terms);
+    });
+      // Double check Clarifai terms against food terms and send JSON back to client.
+      terms = termEvaluator(newTerms, (terms) => {
+        res.status(200);
+        res.json(terms);
+      }); // go line 40
   },
   function(err) {
     // there was an error
     console.log("error: ", err);
   }
   );
+
+});
+
+app.post('/recipe-lookup', (req,res) => {
 
 });
 
