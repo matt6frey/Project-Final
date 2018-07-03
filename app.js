@@ -10,9 +10,10 @@ const usersRouter = require('./routes/users');
 
 const app = express();
 // DB Packages
-const pg = require('pg');
+// const pg = require('pg');
+const ENV = process.env.ENV || "development";
 const knexConfig = require('./knexfile');
-const knex = require("knex");
+const knex = require("knex")(knexConfig[ENV]);
 // Image Recogition API
 const Clarifai = require('clarifai');
 
@@ -35,6 +36,29 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+// Evaluate Terms
+
+function termEvaluator (terms) {
+  const items = [];
+  console.log("start term filter");
+  terms.forEach( (term) => {
+    items.push(term.name);
+  });
+  console.log("start Knex filter");
+  knex('foods').whereIn('name', items).then( (matches) => {
+    console.log("V1:matches => ", matches);
+    matches.map( (match) => {
+      console.log("Match Attemp: ", terms[match]);
+      if(terms[match]) {
+        return terms[match];
+      }
+    });
+    console.log("V2:matches => ", matches);
+    return matches; // Return all appropriate matches
+  });
+}
+
+
 app.post('/upload', (req, res) => {
   console.log("REQ: ", req.body.img);
 
@@ -46,10 +70,10 @@ app.post('/upload', (req, res) => {
     terms.forEach((term) => {
       newTerms.push(Object.assign({}, { name: term.name, value: Math.round(term.value * 100) }));
       });
-    console.log("TERMS: ", newTerms);
+    // console.log("TERMS: ", newTerms);
+    terms = termEvaluator(newTerms); // go line 40
 
-
-    res.send(200);
+    res.sendStatus(200);
   },
   function(err) {
     // there was an error

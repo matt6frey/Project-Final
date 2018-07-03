@@ -3,20 +3,20 @@
 module.exports = {
 
   development: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
       database: 'recipe',
-      user:     'vagrant',
-      password: 'vagrant'
+      user:     'postgres',
+      password: 'postgres'
     }
   },
 
   staging: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
       database: 'recipe',
-      user:     'vagrant',
-      password: 'vagrant'
+      user:     'postgres',
+      password: 'postgres'
     },
     pool: {
       min: 2,
@@ -28,11 +28,11 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
       database: 'recipe',
-      user:     'vagrant',
-      password: 'vagrant'
+      user:     'postgres',
+      password: 'postgres'
     },
     pool: {
       min: 2,
