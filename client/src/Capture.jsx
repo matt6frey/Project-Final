@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 // const cl = new cloudinary.Cloudinary({cloud_name:'dybwmffcu', api_key: '371654911193898', api_secret: '-QocRetk-uD_gz7pSYVSaaT6iTc'})
 class Capture extends Component {
   render() {
-    console.log(this.props.route)
     return (
       <React.Fragment>
         <Header />
