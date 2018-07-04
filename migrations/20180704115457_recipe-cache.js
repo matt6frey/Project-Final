@@ -3,6 +3,7 @@ exports.up = function(knex, Promise) {
   return knex.schema.createTable('recipes', (table) => {
     table.increments('id').primary();
       table.integer('rid');
+      table.integer('query_id');
       table.string('title');
       table.string('image');
       table.integer('serves');

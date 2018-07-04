@@ -9,6 +9,8 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 const app = express();
+
+const uniqueString = require('unique-string');
 // DB Packages
 // const pg = require('pg');
 const ENV = process.env.ENV || "development";
@@ -26,8 +28,6 @@ const clApp = new Clarifai.App({
 const RapidAPI = new require('rapidapi-connect');
 const rapid = new RapidAPI(process.env.RAPIDAPI_PROJECT_KEY, process.env.RAPIDAPI_ID);
 const unirest = require('unirest');
-
-const curl = require('tiny-curl');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -75,45 +75,6 @@ app.post('/upload', (req, res) => {
 
 });
 
-// function getRecipeDetails (recipe, cb) {
-//   const recipeID = recipe.id;
-//   unirest.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${recipeID}/information`)
-//   .header("X-Mashape-Key", "UmggyaDjvCmsh4jkCmZdRKKLMQ7Dp1oLVUDjsnb1e0yJuWBKSr")
-//   .header("X-Mashape-Host", "spoonacular-recipe-food-nutrition-v1.p.mashape.com")
-//   .end(function (result) {
-//     // console.log(result.status, result.body);
-//     // send important details bacK: serves, preptime, ingredients, steps
-//     const details = result.body;
-//     const ingredients = [];
-//     const steps = [];
-
-//     // Append items to steps & ingredients
-//     details.analyzedInstructions[0].steps.forEach( (step) => {
-//       if (step.step.length > 0) {
-//         steps.push(step.step); // Add step
-//       }
-//     });
-
-//     details.extendedIngredients.forEach( (ingredient) => {
-//       if (ingredient.original.length > 1) {
-//         ingredients.push(ingredient.original); // Add ingredient
-//       }
-//     });
-//     console.log("IN GETRECIPEDETAILS: ", {
-//       serves: details.servings,
-//       prepTime: details.readyInMinutes,
-//       ingredients: ingredients,
-//       steps: steps
-//     });
-//     return cb({
-//       serves: details.servings,
-//       prepTime: details.readyInMinutes,
-//       ingredients: ingredients,
-//       steps: steps
-//     });
-//   });
-// }
-
 function getRecipeDetails(recipes, details, cb) {
   let d = details;
   if(!cb) {
@@ -151,7 +112,9 @@ function getRecipeDetails(recipes, details, cb) {
         ingredients.push(ingredient.original); // Add ingredient
       }
     });
-    details[detail.id] = { rid: recipe.id,
+    details[detail.id] = {
+      rid: recipe.id,
+      queryID: uniqueString(),
       title: recipe.title,
       image: recipe.image,
       serves: result.raw_body.servings,
@@ -168,7 +131,7 @@ function getRecipeDetails(recipes, details, cb) {
 app.post('/recipe-lookup', (req,res) => {
   const items = req.body.items.join(","); // Join items into an http friendly str.
   //Do knex DB check first
-
+  // knex('recipes').where()
 
   const number= 2; // Change number of results. Default: 5
   const recipeResults = {};
@@ -177,15 +140,12 @@ app.post('/recipe-lookup', (req,res) => {
   .header("X-Mashape-Key", "UmggyaDjvCmsh4jkCmZdRKKLMQ7Dp1oLVUDjsnb1e0yJuWBKSr")
   .header("X-Mashape-Host", "spoonacular-recipe-food-nutrition-v1.p.mashape.com")
   .end(function (result) {
-            // console.log("ITEM: ", item);
-          getRecipeDetails(result.body, (detail) => {
-
-            console.log("FOREACH OVER: ", detail);
-            res.status(200);
-            res.send(JSON.stringify(detail));
-            }); // Create object and append to recipeResults
-        });
-  // }); // End of .end
+    // Get recipe details and send them back to client
+    getRecipeDetails(result.body, (detail) => {
+      res.status(200);
+      res.send(JSON.stringify(detail));
+    });
+  });
 });
 
 // catch 404 and forward to error handler
