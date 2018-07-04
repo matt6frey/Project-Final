@@ -17,7 +17,9 @@
 .env.test.local
 .env.production.local
 curls.txt
-./knex/
+/knex/
+/client/src/img/foods/
+gather.js
 
 npm-debug.log*
 yarn-debug.log*

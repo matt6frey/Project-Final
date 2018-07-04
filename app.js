@@ -22,6 +22,11 @@ const clApp = new Clarifai.App({
  apiKey: process.env.CLARIFAI
 });
 
+// Rapid API to Spoonacular
+const RapidAPI = new require('rapidapi-connect');
+const rapid = new RapidAPI(process.env.RAPIDAPI_PROJECT_KEY, process.env.RAPIDAPI_ID);
+const unirest = require('unirest');
+
 const curl = require('tiny-curl');
 
 // view engine setup
@@ -42,15 +47,12 @@ function termEvaluator (terms, cb) {
   const items = [];
   terms.forEach( (term) => items.push(term.name)); // add items to check in DB
   knex('foods').whereIn('name', items).then( (matches) => {
-    matches.filter( (match) => terms[match] === match); // Only return matches in Matches array.
     return cb(matches); // Return all appropriate matches
   });
 }
 
 
 app.post('/upload', (req, res) => {
-  // console.log("REQ: ", req.body.img);
-
   clApp.models.predict(Clarifai.GENERAL_MODEL, req.body.img).then(
   function(response) {
     let terms = response.outputs[0].data.concepts;
@@ -60,10 +62,10 @@ app.post('/upload', (req, res) => {
       newTerms.push(Object.assign({}, { name: term.name, value: Math.round(term.value * 100) }));
     });
       // Double check Clarifai terms against food terms and send JSON back to client.
-      terms = termEvaluator(newTerms, (terms) => {
-        res.status(200);
-        res.json(terms);
-      }); // go line 40
+    terms = termEvaluator(newTerms, (terms) => {
+      res.status(200);
+      res.json(terms);
+    }); // go line 40
   },
   function(err) {
     // there was an error
@@ -73,38 +75,117 @@ app.post('/upload', (req, res) => {
 
 });
 
-app.post('/recipe-lookup', (req,res) => {
-  let params = "";
-  const items = req.body.items.join("+"); // Join items into an http friendly str.
-  const url = `https://api.edamam.com/search?q=${items}&app_id=${process.env.APP_ID}&app_key=${process.env.EDAMAM}&from=0&to=10`;
+// function getRecipeDetails (recipe, cb) {
+//   const recipeID = recipe.id;
+//   unirest.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${recipeID}/information`)
+//   .header("X-Mashape-Key", "UmggyaDjvCmsh4jkCmZdRKKLMQ7Dp1oLVUDjsnb1e0yJuWBKSr")
+//   .header("X-Mashape-Host", "spoonacular-recipe-food-nutrition-v1.p.mashape.com")
+//   .end(function (result) {
+//     // console.log(result.status, result.body);
+//     // send important details bacK: serves, preptime, ingredients, steps
+//     const details = result.body;
+//     const ingredients = [];
+//     const steps = [];
 
-  console.log(items, url);
-  curl(url).then(( result ) => {
-    console.log(JSON.parse(result.body), typeof result.body);
-    result = JSON.parse(result.body);
-    const recipeList = [];
-    const entries = result.hits.forEach( (entry) => {
-      let recipe = entry.recipe;
-      recipeList.push({
-        title: recipe.label,
-        image: recipe.image,
-        url: recipe.url,
-        labels: recipe.healthLabels,
-        ingredients: recipe.ingredientLines
-      });
+//     // Append items to steps & ingredients
+//     details.analyzedInstructions[0].steps.forEach( (step) => {
+//       if (step.step.length > 0) {
+//         steps.push(step.step); // Add step
+//       }
+//     });
+
+//     details.extendedIngredients.forEach( (ingredient) => {
+//       if (ingredient.original.length > 1) {
+//         ingredients.push(ingredient.original); // Add ingredient
+//       }
+//     });
+//     console.log("IN GETRECIPEDETAILS: ", {
+//       serves: details.servings,
+//       prepTime: details.readyInMinutes,
+//       ingredients: ingredients,
+//       steps: steps
+//     });
+//     return cb({
+//       serves: details.servings,
+//       prepTime: details.readyInMinutes,
+//       ingredients: ingredients,
+//       steps: steps
+//     });
+//   });
+// }
+
+function getRecipeDetails(recipes, details, cb) {
+  let d = details;
+  if(!cb) {
+    cb = d;
+    details = {};
+  }
+  if (!recipes.length) {
+    console.log("RESCURSIVE CALL:");
+    return cb(details);
+  }
+  let recipe = recipes.pop();
+  unirest.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${recipe.id}/information`)
+  .header("X-Mashape-Key", "UmggyaDjvCmsh4jkCmZdRKKLMQ7Dp1oLVUDjsnb1e0yJuWBKSr")
+  .header("X-Mashape-Host", "spoonacular-recipe-food-nutrition-v1.p.mashape.com")
+  .end(function (result) {
+    // reshape data
+    const detail = result.body;
+    const ingredients = [];
+    let steps = [];
+
+    if(result.body.analyzedInstructions.length > 0) {
+        // Append items to steps & ingredients
+        result.body.analyzedInstructions[0].steps.forEach( (step) => {
+          if (!step.step.search(/[123456789]/) > -1 && step.step.length > 1) {
+            steps.push(step.step); // Add step
+          }
+        });
+    } else {
+      // No instructions found :(, provide src URL instead...
+      steps = `No instructions found! Try checking out this <a target='_blank' href='${result.body.sourceUrl}' title='Instructions for this recipe "${result.body.title}".'>resource</a>`;
+    }
+
+    result.body.extendedIngredients.forEach( (ingredient) => {
+      if (ingredient.original.length > 1) {
+        ingredients.push(ingredient.original); // Add ingredient
+      }
     });
-    return recipeList;
-  }).then( (recipeList) => {
-    console.log(recipeList);
-    res.status(200);
-    res.json(recipeList);
+    details[detail.id] = { rid: recipe.id,
+      title: recipe.title,
+      image: recipe.image,
+      serves: result.raw_body.servings,
+      prepTime: result.raw_body.prepTime,
+      rating: `${recipe.usedIngredientCount} of ${recipe.usedIngredientCount + recipe.missedIngredientCount}`,
+      ingredients: ingredients,
+      steps: steps
+    }; // Create Complete Recipe Object
+    getRecipeDetails(recipes, details, cb);
   });
+}
 
-  // async/await
-  // (async => {
-  //   const { body } = await curl(url, { json: true });
-  //   console.log(body.name); // 楼教主
-  // })();
+// Call to Spoonacular Recipe Lookup.
+app.post('/recipe-lookup', (req,res) => {
+  const items = req.body.items.join(","); // Join items into an http friendly str.
+  //Do knex DB check first
+
+
+  const number= 2; // Change number of results. Default: 5
+  const recipeResults = {};
+  // Make API call if none existent
+  unirest.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?ingredients=${items}&number=${number}&ranking=1`)
+  .header("X-Mashape-Key", "UmggyaDjvCmsh4jkCmZdRKKLMQ7Dp1oLVUDjsnb1e0yJuWBKSr")
+  .header("X-Mashape-Host", "spoonacular-recipe-food-nutrition-v1.p.mashape.com")
+  .end(function (result) {
+            // console.log("ITEM: ", item);
+          getRecipeDetails(result.body, (detail) => {
+
+            console.log("FOREACH OVER: ", detail);
+            res.status(200);
+            res.send(JSON.stringify(detail));
+            }); // Create object and append to recipeResults
+        });
+  // }); // End of .end
 });
 
 // catch 404 and forward to error handler
