@@ -2,51 +2,21 @@ import React, { Component } from "react";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
+// To do list --> Add image.
+//  Empty dont print. (loop through an array)
+// Axios post --> 
 
 class Recipe extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      recipeInfo: {
-        recipeName: "Mac and Cheese",
-        prepTime: "12 mins",
-        serveX: "4 people",
-        ingredients: ["Mac", "Cheese", "Item3", "Item4", "Item5"],
-        instructions: ["Step 1", "Step 2", "Step3"]
-      }
-    };
-  }
-
+  
   getIngredientList() {
-    return this.state.recipeInfo.ingredients.map(item => {
+    console.log(this.props)
+    return this.props.selectedObj.ingredients.map(item => {
       return <li>{item}</li>;
     });
   }
 
-  getRecipe() {
-    return this.state.recipes.map(item => {
-      let complete_link = `/list/${item.id}`;
-      return (
-        <div className="recipe">
-          <img src="" alt="" className="item-image" />
-          <h3>
-            <a href="">{item.recipeName}</a>
-          </h3>
-          <p className="description">{item.recipeDescription}</p>
-          <p className="text-right">
-            <Link to={complete_link}>
-              <button href="" className="btn btn-primary">
-                <span className="fas fa-utensils" /> Select
-              </button>
-            </Link>
-          </p>
-        </div>
-      );
-    });
-  }
-
   getInstructionList() {
-    return this.state.recipeInfo.instructions.map(item => {
+    return this.props.selectedObj.steps.map(item => {
       return <li>{item}</li>;
     });
   }
@@ -57,13 +27,12 @@ class Recipe extends Component {
         <Header />
         <section className="recipe">
           <header>
-            <h2>{this.state.recipeInfo.recipeName}</h2>
+            <h2>{this.props.selectedObj.title}</h2>
           </header>
-
           <div className="recipe-stats">
             <p>
-              <strong>Prep Time:</strong> {this.state.recipeInfo.prepTime} |{" "}
-              <strong>Serves:</strong> {this.state.recipeInfo.serveX}
+              <strong>Prep Time:</strong> {this.props.selectedObj.prepTime} |{" "}
+              <strong>Serves:</strong> {this.props.selectedObj.serves}
             </p>
           </div>
 

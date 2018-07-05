@@ -8,17 +8,17 @@ class RecipeList extends Component {
 
   getRecipe() {
     return this.props.recipeList.map(item => {
-      let completeLink = `/list/${item.id}`;
+      let completeLink = `/list/${item.rid}`;
       return (
         <div className="recipe">
-          <img src="" alt="" className="item-image" />
+          <img src={item.image} alt="" className="item-image" />
           <h3>
-            <a href="">{item.recipeName}</a>
+            <a href="">{item.title}</a>
           </h3>
-          <p className="description">{item.recipeDescription}</p>
+          <p className="description">{item.rating}</p>
           <p className="text-right">
-            <Link to={completeLink}>
-              <button href="" className="btn btn-primary">
+            <Link to={completeLink} onClick={() => this.props.selectIDRecipe(item.rid)}>
+              <button href="" className="btn btn-primary" >
                 <span className="fas fa-utensils" /> Select
               </button>
             </Link>
