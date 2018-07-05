@@ -82,7 +82,6 @@ function getRecipeDetails(recipes, details, cb) {
     details = {};
   }
   if (!recipes.length) {
-    console.log("RESCURSIVE CALL:");
     return cb(details);
   }
   let recipe = recipes.pop();
@@ -117,8 +116,8 @@ function getRecipeDetails(recipes, details, cb) {
       queryID: uniqueString(),
       title: recipe.title,
       image: recipe.image,
-      serves: result.raw_body.servings,
-      prepTime: result.raw_body.prepTime,
+      serves: detail.servings,
+      prepTime: detail.readyInMinutes,
       rating: `${recipe.usedIngredientCount} of ${recipe.usedIngredientCount + recipe.missedIngredientCount}`,
       ingredients: ingredients,
       steps: steps
@@ -127,24 +126,58 @@ function getRecipeDetails(recipes, details, cb) {
   });
 }
 
+// checks database for matching ingredient item queries and returns a promise
+function checkDB(query_str) {
+  console.log(query_str);
+  return new Promise ( (resolve, reject) => {
+    knex('recipe_queries').where('query_str', 'like', query_str).then( (match) => {
+      // console.log(match);
+      if(Object.keys(match).length > 0) {
+        resolve(match);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+}
+
 // Call to Spoonacular Recipe Lookup.
 app.post('/recipe-lookup', (req,res) => {
   const items = req.body.items.join(","); // Join items into an http friendly str.
   //Do knex DB check first
-  // knex('recipes').where()
+  checkDB(items).then( (hasEntry) => {
+    if (!hasEntry) {
+    const number= 2; // Change number of results. Default: 5
+    const recipeResults = {};
+    // Make API call if none existent
+    unirest.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?ingredients=${items}&number=${number}&ranking=1`)
+    .header("X-Mashape-Key", "UmggyaDjvCmsh4jkCmZdRKKLMQ7Dp1oLVUDjsnb1e0yJuWBKSr")
+    .header("X-Mashape-Host", "spoonacular-recipe-food-nutrition-v1.p.mashape.com")
+    .end(function (result) {
+      // Get recipe details and send them back to client
 
-  const number= 2; // Change number of results. Default: 5
-  const recipeResults = {};
-  // Make API call if none existent
-  unirest.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?ingredients=${items}&number=${number}&ranking=1`)
-  .header("X-Mashape-Key", "UmggyaDjvCmsh4jkCmZdRKKLMQ7Dp1oLVUDjsnb1e0yJuWBKSr")
-  .header("X-Mashape-Host", "spoonacular-recipe-food-nutrition-v1.p.mashape.com")
-  .end(function (result) {
-    // Get recipe details and send them back to client
-    getRecipeDetails(result.body, (detail) => {
-      res.status(200);
-      res.send(JSON.stringify(detail));
+      getRecipeDetails(result.body, (detail) => {
+        let keys = Object.keys(detail);
+        knex('recipe_queries').insert({query_id: detail[keys[0]].queryID, query_str: items}).then( (submitted) => {
+            keys.forEach( (key) => {
+              knex('recipes').insert({rid: detail[key].red, query_id: detail[key].queryID, title: detail[key].title, image: detail[key].image, serves: detail[key].serves, prep_time: detail[key].prepTime, ingredients: detail[key].ingredients, steps: JSON.stringify(detail[key].steps) }).then( (submitted) => {
+                console.log(submitted);
+
+              });
+            });
+            res.status(200);
+            res.send(JSON.stringify(detail));
+        });
+      });
     });
+    } else {
+      console.log("Match Found");
+      knex('recipes').where('query_id', hasEntry[0].query_id).then( (result) => {
+        console.log(result);
+        res.status(200);
+        res.json(hasEntry);
+      })
+    }
   });
 });
 
