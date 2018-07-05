@@ -51,7 +51,6 @@ function termEvaluator (terms, cb) {
   });
 }
 
-
 app.post('/upload', (req, res) => {
   clApp.models.predict(Clarifai.GENERAL_MODEL, req.body.img).then(
   function(response) {
@@ -75,7 +74,7 @@ app.post('/upload', (req, res) => {
 
 });
 
-function getRecipeDetails(recipes, details, cb) {
+function getRecipeDetails(recipes, details, cb, uniqueID) {
   let d = details;
   if(!cb) {
     cb = d;
@@ -111,9 +110,10 @@ function getRecipeDetails(recipes, details, cb) {
         ingredients.push(ingredient.original); // Add ingredient
       }
     });
+
     details[detail.id] = {
       rid: recipe.id,
-      queryID: uniqueString(),
+      queryID: uniqueID,
       title: recipe.title,
       image: recipe.image,
       serves: detail.servings,
@@ -122,13 +122,12 @@ function getRecipeDetails(recipes, details, cb) {
       ingredients: ingredients,
       steps: steps
     }; // Create Complete Recipe Object
-    getRecipeDetails(recipes, details, cb);
+    getRecipeDetails(recipes, details, cb, uniqueID);
   });
 }
 
 // checks database for matching ingredient item queries and returns a promise
 function checkDB(query_str) {
-  console.log(query_str);
   return new Promise ( (resolve, reject) => {
     knex('recipe_queries').where('query_str', 'like', query_str).then( (match) => {
       if(Object.keys(match).length > 0) {
@@ -140,9 +139,24 @@ function checkDB(query_str) {
   });
 }
 
+function duplicateArray (array) {
+  let array2 = array.map((value) => {
+    if (value.endsWith('s')) {
+      return value = value + "es";
+    } else {
+      return value = value + "s";
+    }
+  });
+  return array.concat(array2);
+}
+
 // Call to Spoonacular Recipe Lookup.
 app.post('/recipe-lookup', (req,res) => {
-  const items = req.body.items.join(","); // Join items into an http friendly str.
+  if(req.body.items.length < 1 || typeof req.body.items === 'string') {
+    res.status(200);
+    res.json({status: 200, error: "No items were sent."});
+  }
+  const items = duplicateArray(req.body.items).join(","); // Join items into an http friendly str.
   //Do knex DB check first
   checkDB(items).then( (hasEntry) => {
     if (!hasEntry) {
@@ -159,21 +173,21 @@ app.post('/recipe-lookup', (req,res) => {
         let keys = Object.keys(detail);
         knex('recipe_queries').insert({query_id: detail[keys[0]].queryID, query_str: items}).then( (submitted) => {
             keys.forEach( (key) => {
-              knex('recipes').insert({rid: detail[key].red, query_id: detail[key].queryID, title: detail[key].title, image: detail[key].image, serves: detail[key].serves, prep_time: detail[key].prepTime, ingredients: detail[key].ingredients, steps: detail[key].steps }).then( (submitted) => {
-                console.log(`Added ${submitted.length} recipe entries to database.`);
+              knex('recipes').insert({rid: detail[key].rid, query_id: detail[key].queryID, title: detail[key].title, image: detail[key].image, serves: detail[key].serves, prep_time: detail[key].prepTime, ingredients: detail[key].ingredients, steps: detail[key].steps }).then( (submitted) => {
+                console.log(`Added ${keys.length} recipe entries to database.`);
               });
             });
             res.status(200);
             res.send(JSON.stringify(detail));
         });
-      });
+      }, null, uniqueString());
     });
     } else {
       console.log("Match Found");
       knex('recipes').where('query_id', hasEntry[0].query_id).then( (result) => {
-        console.log(`Found ${result.length} entries matching this query "${items}".`);
+        console.log(`Found ${hasEntry.length} entries matching this query "${items}".`);
         res.status(200);
-        res.json(hasEntry);
+        res.json(result);
       })
     }
   });
