@@ -103,7 +103,6 @@ class Ingredient extends Component {
           <button
             type="submit"
             value="Get Recipes"
-            {/*onClick={this.getIndvItem.bind(this)}*/}
             onClick={this.getIndvItem.bind(this)}
             className="btn btn-primary"
           >
