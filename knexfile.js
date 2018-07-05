@@ -6,8 +6,8 @@ module.exports = {
     client: 'pg',
     connection: {
       database: 'recipe',
-      user:     'postgres',
-      password: 'postgres'
+      user:     process.env.DB_USER,
+      password: process.env.DB_PASS
     }
   },
 
@@ -15,8 +15,8 @@ module.exports = {
     client: 'pg',
     connection: {
       database: 'recipe',
-      user:     'postgres',
-      password: 'postgres'
+      user:     process.env.DB_USER,
+      password: process.env.DB_PASS
     },
     pool: {
       min: 2,
@@ -31,8 +31,8 @@ module.exports = {
     client: 'pg',
     connection: {
       database: 'recipe',
-      user:     'postgres',
-      password: 'postgres'
+      user:     process.env.DB_USER,
+      password: process.env.DB_PASS
     },
     pool: {
       min: 2,
