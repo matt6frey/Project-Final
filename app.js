@@ -139,6 +139,7 @@ function checkDB(query_str) {
   });
 }
 
+// Adds pluralized elements to array
 function duplicateArray (array) {
   let array2 = array.map((value) => {
     if (value.endsWith('s')) {
