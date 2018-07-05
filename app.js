@@ -143,13 +143,31 @@ function checkDB(query_str) {
 function duplicateArray (array) {
   let array2 = array.map((value) => {
     if (value.endsWith('s')) {
-      return value = value + "es";
+      return value = value.substr(0, value.length-1);
     } else {
-      return value = value + "s";
+      return value = value;
     }
   });
+  // console.log
   return array.concat(array2);
 }
+
+app.get('/validate-item/:name', (req,res) => {
+  if(req.params.name) {
+    // res.send("example");
+    let names = duplicateArray([req.params.name]);
+    console.log(names instanceof Array, names);
+    knex('foods').whereIn('name', names).then( (result) => {
+      console.log(result, result instanceof Array, result.length);
+      if(result.length > 0) {
+        res.send(result);
+      } else {
+        res.send(false);
+      }
+
+    });
+  }
+});
 
 // Call to Spoonacular Recipe Lookup.
 app.post('/recipe-lookup', (req,res) => {
