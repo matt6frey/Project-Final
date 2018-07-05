@@ -131,11 +131,10 @@ function checkDB(query_str) {
   console.log(query_str);
   return new Promise ( (resolve, reject) => {
     knex('recipe_queries').where('query_str', 'like', query_str).then( (match) => {
-      // console.log(match);
       if(Object.keys(match).length > 0) {
-        resolve(match);
+        resolve(match); // Returns DB records of recipes
       } else {
-        resolve(false);
+        resolve(false); // None found
       }
     });
   });
@@ -147,7 +146,7 @@ app.post('/recipe-lookup', (req,res) => {
   //Do knex DB check first
   checkDB(items).then( (hasEntry) => {
     if (!hasEntry) {
-    const number= 2; // Change number of results. Default: 5
+    const number= 5; // Change number of results. Default: 5
     const recipeResults = {};
     // Make API call if none existent
     unirest.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?ingredients=${items}&number=${number}&ranking=1`)
@@ -160,9 +159,8 @@ app.post('/recipe-lookup', (req,res) => {
         let keys = Object.keys(detail);
         knex('recipe_queries').insert({query_id: detail[keys[0]].queryID, query_str: items}).then( (submitted) => {
             keys.forEach( (key) => {
-              knex('recipes').insert({rid: detail[key].red, query_id: detail[key].queryID, title: detail[key].title, image: detail[key].image, serves: detail[key].serves, prep_time: detail[key].prepTime, ingredients: detail[key].ingredients, steps: JSON.stringify(detail[key].steps) }).then( (submitted) => {
-                console.log(submitted);
-
+              knex('recipes').insert({rid: detail[key].red, query_id: detail[key].queryID, title: detail[key].title, image: detail[key].image, serves: detail[key].serves, prep_time: detail[key].prepTime, ingredients: detail[key].ingredients, steps: detail[key].steps }).then( (submitted) => {
+                console.log(`Added ${submitted.length} recipe entries to database.`);
               });
             });
             res.status(200);
@@ -173,7 +171,7 @@ app.post('/recipe-lookup', (req,res) => {
     } else {
       console.log("Match Found");
       knex('recipes').where('query_id', hasEntry[0].query_id).then( (result) => {
-        console.log(result);
+        console.log(`Found ${result.length} entries matching this query "${items}".`);
         res.status(200);
         res.json(hasEntry);
       })

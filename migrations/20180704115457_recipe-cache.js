@@ -8,8 +8,8 @@ exports.up = function(knex, Promise) {
       table.string('image');
       table.integer('serves');
       table.integer('prep_time');
-      table.string('ingredients');
-      table.json('steps');
+      table.text('ingredients', 'longtext');
+      table.text('steps', 'longtext');
       table.timestamp('created_at').defaultTo(knex.fn.now());
     });
 };
