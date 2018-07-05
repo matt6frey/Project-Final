@@ -34,26 +34,7 @@ class App extends Component {
         rating: '3/4',
         ingredients: ['mac', 'cheese'],
         steps:['Step1', 'Step2', 'Step3']
-      }], 
-            items: [
-        {
-          image:
-            "https://media.istockphoto.com/photos/red-apple-picture-id495878092?k=6&m=495878092&s=612x612&w=0&h=q9k5jN-1giBGZgTM6QhyKkPqtGf6vRpkgDzAwEz9DkY=",
-          name: "apple",
-          type: "fruit"
-        },
-        {
-          image: "http://soappotions.com/wp-content/uploads/2017/10/orange.jpg",
-          name: "orange",
-          type: "fruit"
-        },
-        {
-          image:
-            "https://media.istockphoto.com/photos/banana-bunch-picture-id173242750?k=6&m=173242750&s=612x612&w=0&h=QJB3WhqIWcF1umqELWFUVu32OJWCuePabFClaMfRWbo=",
-          name: "banana",
-          type: "fruit"
-        }
-      ]     
+      }],      
       selectedObj:null
     }
   }
