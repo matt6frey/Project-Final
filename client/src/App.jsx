@@ -34,10 +34,53 @@ class App extends Component {
         rating: '3/4',
         ingredients: ['mac', 'cheese'],
         steps:['Step1', 'Step2', 'Step3']
-      }],      
+      }],
+      items: [
+        {
+          image:
+            "https://media.istockphoto.com/photos/red-apple-picture-id495878092?k=6&m=495878092&s=612x612&w=0&h=q9k5jN-1giBGZgTM6QhyKkPqtGf6vRpkgDzAwEz9DkY=",
+          name: "apple",
+          type: "fruit"
+        },
+        {
+          image: "http://soappotions.com/wp-content/uploads/2017/10/orange.jpg",
+          name: "orange",
+          type: "fruit"
+        },
+        {
+          image:
+            "https://media.istockphoto.com/photos/banana-bunch-picture-id173242750?k=6&m=173242750&s=612x612&w=0&h=QJB3WhqIWcF1umqELWFUVu32OJWCuePabFClaMfRWbo=",
+          name: "banana",
+          type: "fruit"
+        }
+      ],      
       selectedObj:null
     }
   }
+
+  // ---- METHODS FOR INGREDIENTS
+
+  deleteItem(event) {
+    var array = [...this.state.items];
+    let newArray = array.filter(obj => {
+      return obj.name !== event.target.id;
+    });
+    this.setState({
+      items: newArray
+    });
+  }
+
+  addItem(new_item) {
+    // ADD AXIOS AND ROUTE RESPONSE. IF RESPONSE OKAY, THEN ADD , ESLE DO NOT ADD AND ALERT THE USEr
+    let newArray = this.state.items.concat({
+      name: new_item,
+      Image: null,
+      type: "fruit"
+    });
+
+    this.setState({ items: newArray });
+  }
+
 
   // -- METHODS FOR CAPTURE -------
   showImage(event) {
@@ -81,11 +124,8 @@ class App extends Component {
     let obj = this.state.recipes.find(obj => {  
       return obj.rid === selected_rid;
     });
-    console.log('SelectIDRecipe')
     this.setState({
       selectedObj: obj
-    }, () => {console.log(this.state.selectedObj)
-    console.log('Callback Complete')
     });
   }
 
@@ -127,9 +167,9 @@ class App extends Component {
               path="/ingredients"
               component={() => (
                 <Ingredient
-                  // items={this.state.items}
-                  // deleteItem={this.deleteItem.bind(this)}
-                  // addItem={this.addItem.bind(this)}
+                  items={this.state.items}
+                  deleteItem={this.deleteItem.bind(this)}
+                  addItem={this.addItem.bind(this)}
                 />
               )}
             />
