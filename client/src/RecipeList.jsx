@@ -4,95 +4,39 @@ import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
 
-
 class RecipeList extends Component {
-  constructor(props) {
-    super(props);
+
+  getRecipe() {
+    return this.props.recipeList.map(item => {
+      let completeLink = `/list/${item.rid}`;
+      return (
+        <div className="recipe">
+          <img src={item.image} alt="" className="item-image" />
+          <h3>
+            <a href="">{item.title}</a>
+          </h3>
+          <p className="description">{item.rating}</p>
+          <p className="text-right">
+            <Link to={completeLink} onClick={() => this.props.selectIDRecipe(item.rid)}>
+              <button href="" className="btn btn-primary" >
+                <span className="fas fa-utensils" /> Select
+              </button>
+            </Link>
+          </p>
+        </div>
+      );
+    });
   }
 
   render() {
     return (
       <React.Fragment>
         <Header />
-        <section className="recipe-list">
-          <div className="recipe">
-            <img src="" alt="" className="item-image" />
-            <h3>
-              <a href="">Title</a>
-            </h3>
-            <p className="description">
-              Lorem ipsum dolor sit amet, salutatus vituperata est eu, ut est
-              exerci appareat ponderum. Per in solet deleniti repudiandae, te
-              tibique ancillae disputationi his, quo adhuc delectus deseruisse
-              cu. Sit ex unum nemore delicatissimi.
-            </p>
-            <p className="text-right">
-              <Link to="/list/1">
-                <button href="" className="btn btn-primary">
-                  <span className="fas fa-utensils" /> Select
-                </button>
-              </Link>
-            </p>
-          </div>
-          <div className="recipe">
-            <img src="" alt="" className="item-image" />
-            <h3>
-              <a href="">Title</a>
-            </h3>
-            <p className="description">
-              Lorem ipsum dolor sit amet, salutatus vituperata est eu, ut est
-              exerci appareat ponderum. Per in solet deleniti repudiandae, te
-              tibique ancillae disputationi his, quo adhuc delectus deseruisse
-              cu. Sit ex unum nemore delicatissimi.
-            </p>
-            <p className="text-right">
-              <Link to="/list/1">
-                <button href="" className="btn btn-primary">
-                  <span className="fas fa-utensils" /> Select
-                </button>
-              </Link>
-            </p>
-          </div>
-          <div className="recipe">
-            <img src="" alt="" className="item-image" />
-            <h3>
-              <a href="">Title</a>
-            </h3>
-            <p className="description">
-              Lorem ipsum dolor sit amet, salutatus vituperata est eu, ut est
-              exerci appareat ponderum. Per in solet deleniti repudiandae, te
-              tibique ancillae disputationi his, quo adhuc delectus deseruisse
-              cu. Sit ex unum nemore delicatissimi.
-            </p>
-            <p className="text-right">
-              <Link to="/list/1">
-                <button href="" className="btn btn-primary">
-                  <span className="fas fa-utensils" /> Select
-                </button>
-              </Link>
-            </p>
-          </div>
-          <div className="recipe">
-            <img src="" alt="" className="item-image" />
-            <h3>
-              <a href="">Title</a>
-            </h3>
-            <p className="description">
-              Lorem ipsum dolor sit amet, salutatus vituperata est eu, ut est
-              exerci appareat ponderum. Per in solet deleniti repudiandae, te
-              tibique ancillae disputationi his, quo adhuc delectus deseruisse
-              cu. Sit ex unum nemore delicatissimi.
-            </p>
-            <p className="text-right">
-              <Link to="/list/1">
-                <button href="" className="btn btn-primary">
-                  <span className="fas fa-utensils" /> Select
-                </button>
-              </Link>
-            </p>
-          </div>
-        </section>
-        <Link to ="/"> <button> Start Over </button> </Link>
+        <section className="recipe-list">{this.getRecipe()}</section>
+        <Link to="/">
+          {" "}
+          <button> Start Over </button>{" "}
+        </Link>
         <Footer />
       </React.Fragment>
     );

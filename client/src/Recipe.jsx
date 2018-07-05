@@ -2,68 +2,59 @@ import React, { Component } from "react";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
+// To do list --> Add image.
+//  Empty dont print. (loop through an array)
+// Axios post --> 
 
 class Recipe extends Component {
-  constructor(props) {
-    super(props);
+  
+  getIngredientList() {
+    console.log(this.props)
+    return this.props.selectedObj.ingredients.map(item => {
+      return <li>{item}</li>;
+    });
   }
+
+  getInstructionList() {
+    return this.props.selectedObj.steps.map(item => {
+      return <li>{item}</li>;
+    });
+  }
+
   render() {
     return (
       <React.Fragment>
         <Header />
         <section className="recipe">
           <header>
-            <h2>Title</h2>
+            <h2>{this.props.selectedObj.title}</h2>
           </header>
-
           <div className="recipe-stats">
             <p>
-              <strong>Prep Time:</strong> XX mins | <strong>Serves:</strong> X
-              people
+              <strong>Prep Time:</strong> {this.props.selectedObj.prepTime} |{" "}
+              <strong>Serves:</strong> {this.props.selectedObj.serves}
             </p>
           </div>
 
           <div className="ingredients">
             <h3>Ingredients</h3>
-            <ul>
-              <li>Item</li>
-              <li>Item</li>
-              <li>Item</li>
-              <li>Item</li>
-              <li>Item</li>
-            </ul>
+            <ul>{this.getIngredientList()}</ul>
           </div>
 
           <hr />
 
           <div className="instructions">
             <h3>Instructions</h3>
-            <ol>
-              <li>
-                Lorem ipsum dolor sit amet, salutatus vituperata est eu, ut est
-                exerci appareat ponderum. Per in solet deleniti repudiandae, te
-                tibique ancillae disputationi his, quo adhuc delectus deseruisse
-                cu. Sit ex unum nemore delicatissimi
-              </li>
-              <li>
-                Lorem ipsum dolor sit amet, salutatus vituperata est eu, ut est
-                exerci appareat ponderum. Per in solet deleniti repudiandae, te
-                tibique ancillae disputationi his, quo adhuc delectus deseruisse
-                cu. Sit ex unum nemore delicatissimi
-              </li>
-              <li>
-                Lorem ipsum dolor sit amet, salutatus vituperata est eu, ut est
-                exerci appareat ponderum. Per in solet deleniti repudiandae, te
-                tibique ancillae disputationi his, quo adhuc delectus deseruisse
-                cu. Sit ex unum nemore delicatissimi
-              </li>
-            </ol>
+            <ol>{this.getInstructionList()}</ol>
           </div>
           <Link to="/list">
             <button> Go back to Recipe List </button>
           </Link>
         </section>
-        <Link to ="/"> <button> Start Over </button> </Link>
+        <Link to="/">
+          {" "}
+          <button> Start Over </button>{" "}
+        </Link>
         <Footer />
       </React.Fragment>
     );
