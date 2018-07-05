@@ -33,8 +33,8 @@ class Ingredient extends Component {
     var array = [...this.state.items];
     console.log("EVENT", event);
     let newArray = array.filter(obj => {
-      console.log('event name is ' + event.target.id + 'object name is' + obj.name)
-      if (obj.name === event.target.id) console.log(obj.name + 'names are same')
+      console.log('event name is ' + event.target.id + 'object name is' + obj.name);
+      if (obj.name === event.target.id) console.log(obj.name + 'names are same');
       return obj.name !== event.target.id;
     });
     console.log(newArray);
