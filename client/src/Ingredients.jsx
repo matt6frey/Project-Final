@@ -4,6 +4,8 @@ import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
 
 class Ingredient extends Component {
+
+  // Get the list of all items for rendering
   getItem() {
     return this.props.items.map(item => {
       return (
@@ -30,6 +32,7 @@ class Ingredient extends Component {
     });
   }
 
+  // Erorr handle for empty text boxes add to list if valid
   getIndvItem(event) {
     event.preventDefault();
     let tempArray = [...this.props.items];
@@ -52,18 +55,16 @@ class Ingredient extends Component {
           <input type="text" ref="newItem" />
           <button
             type="submit"
-            value="Get Recipes"
+            value="Add ingredient"
             onClick={this.getIndvItem.bind(this)}
             className="btn btn-primary"
           >
             Add Item
           </button>
         </div>
-        <button type="submit" value="Get Recipes" className="btn btn-primary">
-          {" "}
-          Submit{" "}
+        <button type="submit" value="Get Recipes" className="btn btn-primary" onClick={this.props.getRecipes}>
+          Submit
         </button>
-
         <Link to="/capture">
           {" "}
           <button className="btn btn-warning"> Retake Picture </button>{" "}

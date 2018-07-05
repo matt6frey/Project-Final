@@ -72,15 +72,13 @@ class App extends Component {
 
   addItem(new_item) {
     // ADD AXIOS AND ROUTE RESPONSE. IF RESPONSE OKAY, THEN ADD , ESLE DO NOT ADD AND ALERT THE USEr
-    let newArray = this.state.items.concat({
-      name: new_item,
-      Image: null,
-      type: "fruit"
-    });
-
-    this.setState({ items: newArray });
+    axios.get(`/validate-item/${new_item}`).then(res => {
+     if (res !== false){
+       let newArray = this.state.items.concat(res);
+       this.setState({ items: newArray });
+     }
+    })
   }
-
 
   // -- METHODS FOR CAPTURE -------
   showImage(event) {
@@ -112,14 +110,15 @@ class App extends Component {
             img: res.data.secure_url
           })
           .then(res => {
-            console.log(res);
+            this.setState({
+            items: res
+            });
           });
       });
   };
 
   //-- METHODS FOR CONFIRMATION/INGREDIENTS PAGE
-
-  // get ID from recipe List to render specific recipe page
+  // Gets the object for rendering on individual page
   selectIDRecipe(selected_rid) {
     let obj = this.state.recipes.find(obj => {
       return obj.rid === selected_rid;
@@ -127,6 +126,17 @@ class App extends Component {
     this.setState({
       selectedObj: obj
     });
+  }
+// Gets all recipes
+  getRecipes(event){
+    event.preventDefault();
+    let selectedIngredients = [...this.state.items]
+    axios.post('/recipe-lookup', selectedIngredients).then(res => {
+      this.setState({
+        recipes: res
+      })
+    })
+
   }
 
   render() {
@@ -170,6 +180,7 @@ class App extends Component {
                   items={this.state.items}
                   deleteItem={this.deleteItem.bind(this)}
                   addItem={this.addItem.bind(this)}
+                  getRecipes={this.getRecipes.bind(this)}
                 />
               )}
             />
