@@ -12,58 +12,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // photoLoad: {
-      //   imageURL: null,
-      //   imageName: null
-      // },
-      // recipes: [{
-      //   rid: 1,
-      //   title: 'MacAndCheese',
-      //   image: '#',
-      //   serves: 3,
-      //   prepTime: 30,
-      //   rating: '3/4',
-      //   ingredients: ['mac', 'cheese'],
-      //   steps:['Step1', 'Step2', 'Step3']
-      // },{
-      //   rid: 2,
-      //   title: 'TOMATO!',
-      //   image: '#',
-      //   serves: 3,
-      //   prepTime: 30,
-      //   rating: '3/4',
-      //   ingredients: ['mac', 'cheese'],
-      //   steps:['Step1', 'Step2', 'Step3']
-      // }],
-      // items: [
-      //   {
-      //     image:
-      //       "https://media.istockphoto.com/photos/red-apple-picture-id495878092?k=6&m=495878092&s=612x612&w=0&h=q9k5jN-1giBGZgTM6QhyKkPqtGf6vRpkgDzAwEz9DkY=",
-      //     name: "apple",
-      //     type: "fruit"
-      //   },
-      //   {
-      //     image: "http://soappotions.com/wp-content/uploads/2017/10/orange.jpg",
-      //     name: "orange",
-      //     type: "fruit"
-      //   },
-      //   {
-      //     image:
-      //       "https://media.istockphoto.com/photos/banana-bunch-picture-id173242750?k=6&m=173242750&s=612x612&w=0&h=QJB3WhqIWcF1umqELWFUVu32OJWCuePabFClaMfRWbo=",
-      //     name: "banana",
-      //     type: "fruit"
-      //   }
-      // ],
-      // selectedObj:{
-      //   rid: 1,
-      //   title: 'MacAndCheese',
-      //   image: '#',
-      //   serves: 3,
-      //   prepTime: 30,
-      //   rating: '3/4',
-      //   ingredients: ['mac', 'cheese'],
-      //   steps:['Step1', 'Step2', 'Step3']
-      // }
+      exists: true
     };
   }
 
@@ -127,6 +76,11 @@ class App extends Component {
       });
   };
 
+  deleteRecipes() {
+    delete this.state.recipes;
+    this.setState = { exists: true };
+  }
+
   //-- METHODS FOR CONFIRMATION/INGREDIENTS PAGE
   // Gets the object for rendering on individual page
   selectIDRecipe(selected_rid) {
@@ -173,6 +127,7 @@ class App extends Component {
                 <RecipeList
                   recipeList={this.state.recipes}
                   selectIDRecipe={this.selectIDRecipe.bind(this)}
+                  deleteRecipes={this.deleteRecipes.bind(this)}
                 />
               )}
           />
