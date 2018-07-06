@@ -31,7 +31,7 @@ class Recipe extends Component {
           </header>
           <div className="recipe-stats">
             <p>
-              <strong>Prep Time:</strong> {this.props.selectedObj.prepTime} |{" "}
+              <strong>Prep Time:</strong> {this.props.selectedObj.prep_time} minutes |{" "}
               <strong>Serves:</strong> {this.props.selectedObj.serves}
             </p>
           </div>

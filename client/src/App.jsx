@@ -77,14 +77,23 @@ class App extends Component {
   };
 
   deleteRecipes() {
-    delete this.state.recipes;
-    this.setState = { exists: true };
+    // delete this.state.recipes;
+    this.state.exists = true;
+    this.setState({ recipes: undefined });
   }
 
   //-- METHODS FOR CONFIRMATION/INGREDIENTS PAGE
   // Gets the object for rendering on individual page
   selectIDRecipe(selected_rid) {
-    let obj = this.state.recipes.find(obj => {
+    let recipes;
+    if (this.state.recipes instanceof Array) {
+      recipes = this.state.recipes;
+    } else {
+      recipes = Object.keys(this.state.recipes).map( (key) => {
+        return this.state.recipes[key];
+      });
+    }
+    let obj = recipes.find(obj => {
       return obj.rid === selected_rid;
     });
     console.log(obj);
@@ -132,6 +141,7 @@ class App extends Component {
               )}
           />
           <Redirect from='/ingredients' to='/list' />
+          <Route path="/about" component={About} />
           </Switch>
           ) : (
           <Switch>
@@ -143,23 +153,6 @@ class App extends Component {
                   showImage={this.showImage.bind(this)}
                   submitPic={this.submitPic.bind(this)}
                   imgURL={this.state.imageURL}
-                />
-              )}
-            />
-            {/*<Route
-              exact path="/list"
-              component={() => (
-                <RecipeList
-                  recipeList={this.state.recipes}
-                  selectIDRecipe={this.selectIDRecipe.bind(this)}
-                />
-              )}
-            />*/}
-            <Route
-              path="/list/:id"
-              component={() => (
-                <Recipe
-                selectedObj = {this.state.selectedObj}
                 />
               )}
             />

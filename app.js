@@ -101,7 +101,7 @@ function getRecipeDetails(recipes, details, cb, uniqueID) {
         });
     } else {
       // No instructions found :(, provide src URL instead...
-      steps = `No instructions found! Try checking out this <a target='_blank' href='${result.body.sourceUrl}' title='Instructions for this recipe "${result.body.title}".'>resource</a>`;
+      steps = `No instructions found! Try checking out this &lt;a target='_blank' href='${result.body.sourceUrl}' title='Instructions for this recipe "${result.body.title}".'&gt;resource&lt;/a&gt;`;
     }
 
     result.body.extendedIngredients.forEach( (ingredient) => {
@@ -112,17 +112,15 @@ function getRecipeDetails(recipes, details, cb, uniqueID) {
     if(steps instanceof Array) {
      steps = steps.join('LOLOL');
     }
-    console.log("BEFORE: ", ingredients);
     ingredients = ingredients.join('LOLOL');
-    console.log("AFTER: ", ingredients);
-    console.log(steps instanceof Array, ingredients instanceof Array);
+    let prepTime = (detail.readyInMinutes !== ''|| detail.readyInMinutes !== null) ? detail.readyInMinutes : 0;
     details[detail.id] = {
       rid: recipe.id,
       queryID: uniqueID,
       title: recipe.title,
       image: recipe.image,
       serves: detail.servings,
-      prepTime: detail.readyInMinutes,
+      prepTime: prepTime,
       rating: `${recipe.usedIngredientCount} of ${recipe.usedIngredientCount + recipe.missedIngredientCount}`,
       ingredients: ingredients,
       steps: steps
@@ -160,7 +158,7 @@ function duplicateArray (array) {
 app.get('/validate-item/:name', (req,res) => {
   if(req.params.name) {
     // res.send("example");
-    let names = duplicateArray([req.params.name]);
+    let names = duplicateArray([req.params.name.toLowerCase()]);
     console.log(names instanceof Array, names);
     knex('foods').whereIn('name', names).then( (result) => {
       console.log(result, result instanceof Array, result.length);
@@ -180,7 +178,7 @@ app.post('/recipe-lookup', (req,res) => {
     res.status(200);
     res.json({status: 200, error: "No items were sent."});
   }
-  const items = duplicateArray(req.body.items).join(","); // Join items into an http friendly str.
+  const items = duplicateArray(req.body.items).join(",").toLowerCase(); // Join items into an http friendly str.
   //Do knex DB check first
   checkDB(items).then( (hasEntry) => {
     if (!hasEntry) {

@@ -7,17 +7,18 @@ import { Link } from "react-router-dom";
 class RecipeList extends Component {
 
   getRecipe() {
-    return this.props.recipeList.map(item => {
-      let completeLink = `/list/${item.rid}`;
+    return Object.keys(this.props.recipeList).map(item => {
+      let recipelist = this.props.recipeList;
+      let completeLink = `/list/${recipelist[item].rid}`;
       return (
         <div className="recipe">
-          <img src={item.image} alt="" className="item-image" />
+          <img src={recipelist[item].image} alt="" className="item-image" />
           <h3>
-            <a href="">{item.title}</a>
+            <a href="">{recipelist[item].title}</a>
           </h3>
-          <p className="description">{item.rating}</p>
+          <p className="description">{recipelist[item].rating}</p>
           <p className="text-right">
-            <Link to={completeLink} onClick={() => this.props.selectIDRecipe(item.rid)}>
+            <Link to={completeLink} onClick={() => this.props.selectIDRecipe(recipelist[item].rid)}>
               <button href="" className="btn btn-primary" >
                 <span className="fas fa-utensils" /> Select
               </button>
