@@ -101,7 +101,7 @@ function getRecipeDetails(recipes, details, cb, uniqueID) {
         });
     } else {
       // No instructions found :(, provide src URL instead...
-      steps = `No instructions found! Try checking out this &lt;a target='_blank' href='${result.body.sourceUrl}' title='Instructions for this recipe "${result.body.title}".'&gt;resource&lt;/a&gt;`;
+      steps = `No instructions found! Try checking out this ${result.body.sourceUrl}`;
     }
 
     result.body.extendedIngredients.forEach( (ingredient) => {
