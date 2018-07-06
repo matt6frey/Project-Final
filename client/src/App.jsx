@@ -54,7 +54,16 @@ class App extends Component {
           type: "fruit"
         }
       ],
-      selectedObj:null
+      selectedObj:{
+        rid: 1,
+        title: 'MacAndCheese',
+        image: '#',
+        serves: 3,
+        prepTime: 30,
+        rating: '3/4',
+        ingredients: ['mac', 'cheese'],
+        steps:['Step1', 'Step2', 'Step3']
+      }
     };
   }
 
@@ -73,8 +82,8 @@ class App extends Component {
   addItem(new_item) {
     // ADD AXIOS AND ROUTE RESPONSE. IF RESPONSE OKAY, THEN ADD , ESLE DO NOT ADD AND ALERT THE USEr
     axios.get(`/validate-item/${new_item}`).then(res => {
-     if (res !== false){
-       let newArray = this.state.items.concat(res);
+     if (res.data !== false){
+       let newArray = this.state.items.concat(res.data);
        this.setState({ items: newArray });
      }
     });
@@ -124,6 +133,7 @@ class App extends Component {
     let obj = this.state.recipes.find(obj => {
       return obj.rid === selected_rid;
     });
+    console.log(obj);
     this.setState({
       selectedObj: obj
     });
@@ -131,10 +141,12 @@ class App extends Component {
 // Gets all recipes
   getRecipes(event){
     event.preventDefault();
-    let selectedIngredients = [...this.state.items]
-    axios.post('/recipe-lookup', selectedIngredients).then(res => {
+    let selectedIngredients = [...this.state.items].map( i => i.name );
+
+    console.log(selectedIngredients);
+    axios.post('/recipe-lookup', { items: selectedIngredients }).then(res => {
       this.setState({
-        recipes: res
+        recipes: res.data
       });
     });
 

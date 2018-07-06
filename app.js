@@ -89,7 +89,7 @@ function getRecipeDetails(recipes, details, cb, uniqueID) {
   .end(function (result) {
     // reshape data
     const detail = result.body;
-    const ingredients = [];
+    let ingredients = [];
     let steps = [];
 
     if(result.body.analyzedInstructions.length > 0) {
@@ -109,7 +109,13 @@ function getRecipeDetails(recipes, details, cb, uniqueID) {
         ingredients.push(ingredient.original); // Add ingredient
       }
     });
-
+    if(steps instanceof Array) {
+     steps = steps.join('LOLOL');
+    }
+    console.log("BEFORE: ", ingredients);
+    ingredients = ingredients.join('LOLOL');
+    console.log("AFTER: ", ingredients);
+    console.log(steps instanceof Array, ingredients instanceof Array);
     details[detail.id] = {
       rid: recipe.id,
       queryID: uniqueID,
@@ -204,6 +210,7 @@ app.post('/recipe-lookup', (req,res) => {
       console.log("Match Found");
       knex('recipes').where('query_id', hasEntry[0].query_id).then( (result) => {
         console.log(`Found ${hasEntry.length} entries matching this query "${items}".`);
+        console.log(result);
         res.status(200);
         res.json(result);
       })

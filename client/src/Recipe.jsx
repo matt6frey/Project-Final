@@ -4,19 +4,19 @@ import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
 // To do list --> Add image.
 //  Empty dont print. (loop through an array)
-// Axios post --> 
+// Axios post -->
 
 class Recipe extends Component {
-  
+
   getIngredientList() {
     console.log(this.props)
-    return this.props.selectedObj.ingredients.map(item => {
+    return this.props.selectedObj.ingredients.split('LOLOL').map(item => {
       return <li>{item}</li>;
     });
   }
 
   getInstructionList() {
-    return this.props.selectedObj.steps.map(item => {
+    return this.props.selectedObj.steps.split('LOLOL').map(item => {
       return <li>{item}</li>;
     });
   }
