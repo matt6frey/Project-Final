@@ -55,7 +55,7 @@ class App extends Component {
         }
       ],
       selectedObj:null
-    }
+    };
   }
 
   // ---- METHODS FOR INGREDIENTS
@@ -77,7 +77,7 @@ class App extends Component {
        let newArray = this.state.items.concat(res);
        this.setState({ items: newArray });
      }
-    })
+    });
   }
 
   // -- METHODS FOR CAPTURE -------
@@ -110,8 +110,9 @@ class App extends Component {
             img: res.data.secure_url
           })
           .then(res => {
+            console.log(res);
             this.setState({
-            items: res
+            items: res.data
             });
           });
       });
@@ -134,8 +135,8 @@ class App extends Component {
     axios.post('/recipe-lookup', selectedIngredients).then(res => {
       this.setState({
         recipes: res
-      })
-    })
+      });
+    });
 
   }
 

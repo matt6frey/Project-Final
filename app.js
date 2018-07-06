@@ -12,7 +12,6 @@ const app = express();
 
 const uniqueString = require('unique-string');
 // DB Packages
-// const pg = require('pg');
 const ENV = process.env.ENV || "development";
 const knexConfig = require('./knexfile');
 const knex = require("knex")(knexConfig[ENV]);
@@ -60,11 +59,11 @@ app.post('/upload', (req, res) => {
     terms.forEach((term) => {
       newTerms.push(Object.assign({}, { name: term.name, value: Math.round(term.value * 100) }));
     });
-      // Double check Clarifai terms against food terms and send JSON back to client.
+    // Double check Clarifai terms against food terms and send JSON back to client.
     terms = termEvaluator(newTerms, (terms) => {
       res.status(200);
       res.json(terms);
-    }); // go line 40
+    });
   },
   function(err) {
     // there was an error
