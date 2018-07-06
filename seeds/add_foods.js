@@ -419,7 +419,8 @@ exports.seed = function(knex, Promise) {
         { id: 436, name: "sorghum", type: "grains" },
         { id: 437, name: "spelt", type: "grains" },
         { id: 438, name: "spelt wheat", type: "grains" },
-        { id: 439, name: "wheat", type: "grains" }
+        { id: 439, name: "wheat", type: "grains" },
+        { id: 440, name: "rice", type: "grains" }
       ]);
     });
 };

@@ -188,4 +188,8 @@
     .instructions h3 {
         margin-bottom: 1rem;
     }
+
+    .actions {
+    padding-bottom: 5rem;
+    }
 }

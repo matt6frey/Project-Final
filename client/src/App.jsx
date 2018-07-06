@@ -4,7 +4,7 @@ import Capture from "./Capture.jsx";
 import Home from "./Home.jsx";
 import Recipe from "./Recipe.jsx";
 import RecipeList from "./RecipeList.jsx";
-import { Switch, HashRouter, Route } from "react-router-dom";
+import { Switch, HashRouter, Route, Redirect } from "react-router-dom";
 import About from "./About.jsx";
 import Ingredient from "./Ingredients.jsx";
 
@@ -12,58 +12,58 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      photoLoad: {
-        imageURL: null,
-        imageName: null
-      },
-      recipes: [{
-        rid: 1,
-        title: 'MacAndCheese',
-        image: '#',
-        serves: 3,
-        prepTime: 30,
-        rating: '3/4',
-        ingredients: ['mac', 'cheese'],
-        steps:['Step1', 'Step2', 'Step3']
-      },{
-        rid: 2,
-        title: 'TOMATO!',
-        image: '#',
-        serves: 3,
-        prepTime: 30,
-        rating: '3/4',
-        ingredients: ['mac', 'cheese'],
-        steps:['Step1', 'Step2', 'Step3']
-      }],
-      items: [
-        {
-          image:
-            "https://media.istockphoto.com/photos/red-apple-picture-id495878092?k=6&m=495878092&s=612x612&w=0&h=q9k5jN-1giBGZgTM6QhyKkPqtGf6vRpkgDzAwEz9DkY=",
-          name: "apple",
-          type: "fruit"
-        },
-        {
-          image: "http://soappotions.com/wp-content/uploads/2017/10/orange.jpg",
-          name: "orange",
-          type: "fruit"
-        },
-        {
-          image:
-            "https://media.istockphoto.com/photos/banana-bunch-picture-id173242750?k=6&m=173242750&s=612x612&w=0&h=QJB3WhqIWcF1umqELWFUVu32OJWCuePabFClaMfRWbo=",
-          name: "banana",
-          type: "fruit"
-        }
-      ],
-      selectedObj:{
-        rid: 1,
-        title: 'MacAndCheese',
-        image: '#',
-        serves: 3,
-        prepTime: 30,
-        rating: '3/4',
-        ingredients: ['mac', 'cheese'],
-        steps:['Step1', 'Step2', 'Step3']
-      }
+      // photoLoad: {
+      //   imageURL: null,
+      //   imageName: null
+      // },
+      // recipes: [{
+      //   rid: 1,
+      //   title: 'MacAndCheese',
+      //   image: '#',
+      //   serves: 3,
+      //   prepTime: 30,
+      //   rating: '3/4',
+      //   ingredients: ['mac', 'cheese'],
+      //   steps:['Step1', 'Step2', 'Step3']
+      // },{
+      //   rid: 2,
+      //   title: 'TOMATO!',
+      //   image: '#',
+      //   serves: 3,
+      //   prepTime: 30,
+      //   rating: '3/4',
+      //   ingredients: ['mac', 'cheese'],
+      //   steps:['Step1', 'Step2', 'Step3']
+      // }],
+      // items: [
+      //   {
+      //     image:
+      //       "https://media.istockphoto.com/photos/red-apple-picture-id495878092?k=6&m=495878092&s=612x612&w=0&h=q9k5jN-1giBGZgTM6QhyKkPqtGf6vRpkgDzAwEz9DkY=",
+      //     name: "apple",
+      //     type: "fruit"
+      //   },
+      //   {
+      //     image: "http://soappotions.com/wp-content/uploads/2017/10/orange.jpg",
+      //     name: "orange",
+      //     type: "fruit"
+      //   },
+      //   {
+      //     image:
+      //       "https://media.istockphoto.com/photos/banana-bunch-picture-id173242750?k=6&m=173242750&s=612x612&w=0&h=QJB3WhqIWcF1umqELWFUVu32OJWCuePabFClaMfRWbo=",
+      //     name: "banana",
+      //     type: "fruit"
+      //   }
+      // ],
+      // selectedObj:{
+      //   rid: 1,
+      //   title: 'MacAndCheese',
+      //   image: '#',
+      //   serves: 3,
+      //   prepTime: 30,
+      //   rating: '3/4',
+      //   ingredients: ['mac', 'cheese'],
+      //   steps:['Step1', 'Step2', 'Step3']
+      // }
     };
   }
 
@@ -147,7 +147,7 @@ class App extends Component {
     axios.post('/recipe-lookup', { items: selectedIngredients }).then(res => {
       this.setState({
         recipes: res.data
-      });
+      })
     });
 
   }
@@ -156,6 +156,29 @@ class App extends Component {
     return (
       <div className="app">
         <HashRouter>
+
+        {(this.state.recipes) ? (
+          <Switch>
+          <Route
+              path="/list/:id"
+              component={() => (
+                <Recipe
+                selectedObj = {this.state.selectedObj}
+                />
+              )}
+            />
+          <Route
+              exact path="/list"
+              component={() => (
+                <RecipeList
+                  recipeList={this.state.recipes}
+                  selectIDRecipe={this.selectIDRecipe.bind(this)}
+                />
+              )}
+          />
+          <Redirect from='/ingredients' to='/list' />
+          </Switch>
+          ) : (
           <Switch>
             <Route exact path="/" component={Home} />
             <Route
@@ -168,7 +191,7 @@ class App extends Component {
                 />
               )}
             />
-            <Route
+            {/*<Route
               exact path="/list"
               component={() => (
                 <RecipeList
@@ -176,7 +199,7 @@ class App extends Component {
                   selectIDRecipe={this.selectIDRecipe.bind(this)}
                 />
               )}
-            />
+            />*/}
             <Route
               path="/list/:id"
               component={() => (
@@ -197,7 +220,8 @@ class App extends Component {
                 />
               )}
             />
-          </Switch>
+            </Switch>
+          )}
         </HashRouter>
       </div>
     );

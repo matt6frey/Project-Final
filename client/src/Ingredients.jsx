@@ -62,17 +62,19 @@ class Ingredient extends Component {
             Add Item
           </button>
         </div>
-        <button type="submit" value="Get Recipes" className="btn btn-primary" onClick={this.props.getRecipes}>
-          Submit
-        </button>
-        <Link to="/capture">
-          {" "}
-          <button className="btn btn-warning"> Retake Picture </button>{" "}
-        </Link>
+        <div className="actions">
+          <button type="submit" value="Get Recipes" className="btn btn-primary" onClick={this.props.getRecipes}>
+            Submit
+          </button>
+          <Link to="/capture">
+            {" "}
+            <button className="btn btn-warning"> Retake Picture </button>{" "}
+          </Link>
 
-        <Link to="/list">
-          <button className="btn btn-primary"> See Receipes </button>
-        </Link>
+          <Link to="/list" onClick={this.props.getRecipes}>
+            See Recipes
+          </Link>
+        </div>
         <Footer />
       </React.Fragment>
     );

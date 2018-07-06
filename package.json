@@ -19,7 +19,8 @@
     "pg": "^7.4.3",
     "rapidapi-connect": "0.0.6",
     "sqlite3": "^4.0.1",
-    "unique-string": "^1.0.0"
+    "unique-string": "^1.0.0",
+    "unirest": "^0.5.1"
   },
   "main": "app.js",
   "devDependencies": {},
