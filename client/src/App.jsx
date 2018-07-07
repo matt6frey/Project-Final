@@ -12,7 +12,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      exists: true
+      exists: true,
+      photoLoad: {
+        imageURL: null
+      },
+      display:{
+        image: 'none',
+        choose_file: 'block'
+      }
     };
   }
 
@@ -31,26 +38,34 @@ class App extends Component {
   addItem(new_item) {
     // ADD AXIOS AND ROUTE RESPONSE. IF RESPONSE OKAY, THEN ADD , ESLE DO NOT ADD AND ALERT THE USEr
     axios.get(`/validate-item/${new_item}`).then(res => {
-     if (res.data !== false){
-       let newArray = this.state.items.concat(res.data);
-       this.setState({ items: newArray });
-     }
+      if (res.data !== false) {
+        let newArray = this.state.items.concat(res.data);
+        this.setState({ items: newArray });
+      }
     });
   }
 
   // -- METHODS FOR CAPTURE -------
   showImage(event) {
+    console.log(event.target)
     const name = event.target.files[0].name;
     const reader = new FileReader();
     reader.onload = () => {
+
       this.setState({
+        display:{
+          image: 'block',
+          chooseFile: 'none'
+        },
         photoLoad: {
           imageURL: reader.result,
           imageName: name
         }
       });
     };
+    
     reader.readAsDataURL(event.target.files[0]);
+
   }
 
   submitPic = event => {
@@ -70,11 +85,14 @@ class App extends Component {
           .then(res => {
             console.log(res);
             this.setState({
-            items: res.data
+              items: res.data
             });
           });
       });
   };
+
+
+  // Recipes Method
 
   deleteRecipes() {
     // delete this.state.recipes;
@@ -82,14 +100,13 @@ class App extends Component {
     this.setState({ recipes: undefined });
   }
 
-  //-- METHODS FOR CONFIRMATION/INGREDIENTS PAGE
   // Gets the object for rendering on individual page
   selectIDRecipe(selected_rid) {
     let recipes;
     if (this.state.recipes instanceof Array) {
       recipes = this.state.recipes;
     } else {
-      recipes = Object.keys(this.state.recipes).map( (key) => {
+      recipes = Object.keys(this.state.recipes).map(key => {
         return this.state.recipes[key];
       });
     }
@@ -101,73 +118,71 @@ class App extends Component {
       selectedObj: obj
     });
   }
-// Gets all recipes
-  getRecipes(event){
+  // Gets all recipes
+  getRecipes(event) {
     event.preventDefault();
-    let selectedIngredients = [...this.state.items].map( i => i.name );
+    let selectedIngredients = [...this.state.items].map(i => i.name);
 
     console.log(selectedIngredients);
-    axios.post('/recipe-lookup', { items: selectedIngredients }).then(res => {
+    axios.post("/recipe-lookup", { items: selectedIngredients }).then(res => {
       this.setState({
         recipes: res.data
-      })
+      });
     });
-
   }
 
   render() {
     return (
       <div className="app">
         <HashRouter>
-
-        {(this.state.recipes) ? (
-          <Switch>
-          <Route
-              path="/list/:id"
-              component={() => (
-                <Recipe
-                selectedObj = {this.state.selectedObj}
-                />
-              )}
-            />
-          <Route
-              exact path="/list"
-              component={() => (
-                <RecipeList
-                  recipeList={this.state.recipes}
-                  selectIDRecipe={this.selectIDRecipe.bind(this)}
-                  deleteRecipes={this.deleteRecipes.bind(this)}
-                />
-              )}
-          />
-          <Redirect from='/ingredients' to='/list' />
-          <Route path="/about" component={About} />
-          </Switch>
+          {this.state.recipes ? (
+            <Switch>
+              <Route
+                path="/list/:id"
+                component={() => (
+                  <Recipe selectedObj={this.state.selectedObj} />
+                )}
+              />
+              <Route
+                exact
+                path="/list"
+                component={() => (
+                  <RecipeList
+                    recipeList={this.state.recipes}
+                    selectIDRecipe={this.selectIDRecipe.bind(this)}
+                    deleteRecipes={this.deleteRecipes.bind(this)}
+                  />
+                )}
+              />
+              <Redirect from="/ingredients" to="/list" />
+              <Route path="/about" component={About} />
+            </Switch>
           ) : (
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route
-              path="/capture"
-              component={() => (
-                <Capture
-                  showImage={this.showImage.bind(this)}
-                  submitPic={this.submitPic.bind(this)}
-                  imgURL={this.state.imageURL}
-                />
-              )}
-            />
-            <Route path="/about" component={About} />
-            <Route
-              path="/ingredients"
-              component={() => (
-                <Ingredient
-                  items={this.state.items}
-                  deleteItem={this.deleteItem.bind(this)}
-                  addItem={this.addItem.bind(this)}
-                  getRecipes={this.getRecipes.bind(this)}
-                />
-              )}
-            />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route
+                path="/capture"
+                component={() => (
+                  <Capture
+                    showImage={this.showImage.bind(this)}
+                    submitPic={this.submitPic.bind(this)}
+                    imageURL={this.state.photoLoad.imageURL}
+                    displayStateProp={this.state.display}
+                  />
+                )}
+              />
+              <Route path="/about" component={About} />
+              <Route
+                path="/ingredients"
+                component={() => (
+                  <Ingredient
+                    items={this.state.items}
+                    deleteItem={this.deleteItem.bind(this)}
+                    addItem={this.addItem.bind(this)}
+                    getRecipes={this.getRecipes.bind(this)}
+                  />
+                )}
+              />
             </Switch>
           )}
         </HashRouter>

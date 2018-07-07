@@ -82,7 +82,7 @@
     }
 
     form.add-photo > img.preview {
-        display: none;
+        padding-top: 2rem
     }
 
     button.submit {
