@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
+import { CSSTransitionGroup } from "react-transition-group/CSSTransitionGroup";
 
 class Ingredient extends Component {
-
   // Get the list of all items for rendering
   getItem() {
     return this.props.items.map(item => {
@@ -21,11 +21,12 @@ class Ingredient extends Component {
             {" "}
             Name: {item.name} => Type: {item.type}
           </p>
-          <button
-            className="btn btn-secondary delete"
-            value="delete"
-          >
-            <span className="fas fa-trash-alt fa-lg" id={item.name} onClick={(e) => this.props.deleteItem(e)} />
+          <button className="btn btn-secondary delete" value="delete">
+            <span
+              className="fas fa-trash-alt fa-lg"
+              id={item.name}
+              onClick={e => this.props.deleteItem(e)}
+            />
           </button>
         </div>
       );
@@ -63,7 +64,12 @@ class Ingredient extends Component {
           </button>
         </div>
         <div className="actions">
-          <button type="submit" value="Get Recipes" className="btn btn-primary" onClick={this.props.getRecipes}>
+          <button
+            type="submit"
+            value="Get Recipes"
+            className="btn btn-primary"
+            onClick={this.props.getRecipes}
+          >
             Submit
           </button>
           <Link to="/capture">

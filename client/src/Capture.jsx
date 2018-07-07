@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
@@ -11,12 +10,14 @@ class Capture extends Component {
     };
     let imageDisplay = {
       display: this.props.displayStateProp.image
-    }
-
+    };
     return (
       <React.Fragment>
         <Header />
-        <form className="form-group text-center add-photo">
+        <form
+          className="form
+        -group text-center add-photo"
+        >
           <input
             style={inputDisplay}
             type="file"
@@ -25,12 +26,12 @@ class Capture extends Component {
             name="imgFile"
             onChange={this.props.showImage}
           />
-          <img className='preview'
+          <img
+            className="preview"
             style={imageDisplay}
             src={this.props.imageURL}
             alt=""
           />
-
           <button
             className="btn btn-primary submit"
             type="submit"

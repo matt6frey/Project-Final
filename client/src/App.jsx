@@ -16,9 +16,9 @@ class App extends Component {
       photoLoad: {
         imageURL: null
       },
-      display:{
-        image: 'none',
-        choose_file: 'block'
+      display: {
+        image: "none",
+        choose_file: "block"
       }
     };
   }
@@ -47,15 +47,14 @@ class App extends Component {
 
   // -- METHODS FOR CAPTURE -------
   showImage(event) {
-    console.log(event.target)
+    console.log(event.target);
     const name = event.target.files[0].name;
     const reader = new FileReader();
     reader.onload = () => {
-
       this.setState({
-        display:{
-          image: 'block',
-          chooseFile: 'none'
+        display: {
+          image: "block",
+          chooseFile: "none"
         },
         photoLoad: {
           imageURL: reader.result,
@@ -63,9 +62,8 @@ class App extends Component {
         }
       });
     };
-    
-    reader.readAsDataURL(event.target.files[0]);
 
+    reader.readAsDataURL(event.target.files[0]);
   }
 
   submitPic = event => {
@@ -90,7 +88,6 @@ class App extends Component {
           });
       });
   };
-
 
   // Recipes Method
 
