@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Capture from "./Capture.jsx";
-import Home from "./Home.jsx";
+// import Home from "./Home.jsx";
 import Recipe from "./Recipe.jsx";
 import RecipeList from "./RecipeList.jsx";
 import { Switch, HashRouter, Route, Redirect } from "react-router-dom";
@@ -119,7 +119,6 @@ class App extends Component {
     return (
       <div className="app">
         <HashRouter>
-
         {(this.state.recipes) ? (
           <Switch>
           <Route
@@ -145,9 +144,8 @@ class App extends Component {
           </Switch>
           ) : (
           <Switch>
-            <Route exact path="/" component={Home} />
             <Route
-              path="/capture"
+             exact path="/"
               component={() => (
                 <Capture
                   showImage={this.showImage.bind(this)}

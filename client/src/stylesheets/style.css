@@ -123,9 +123,14 @@
         position: absolute;
         top: 1.75rem;
         right: 0.25rem;
-        border-radius: 0 7px 7px 0;
+        border-radius: 7px;
         width: 50px;
         height: 48px;
+    }
+
+    button.delete > span {
+        padding: 1rem;
+        margin: -1rem;
     }
 
     p.form-options > .btn {

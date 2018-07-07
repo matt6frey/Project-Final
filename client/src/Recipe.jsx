@@ -54,13 +54,12 @@ class Recipe extends Component {
             <h3>Instructions</h3>
             <ol>{this.getInstructionList()}</ol>
           </div>
-          <Link to="/list">
-            <button> Go back to Recipe List </button>
+          <Link to="/list" className="btn btn-primary">
+            Go back to Recipe List
           </Link>
         </section>
-        <Link to="/">
-          {" "}
-          <button> Start Over </button>{" "}
+        <Link to="/" className="btn btn-primary">
+          Start Over
         </Link>
         <Footer />
       </React.Fragment>

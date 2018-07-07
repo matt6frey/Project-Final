@@ -23,8 +23,7 @@ class Ingredient extends Component {
           </p>
           <button
             className="btn btn-secondary delete"
-            value="delete"
-          >
+            value="delete">
             <span className="fas fa-trash-alt fa-lg" id={item.name} onClick={(e) => this.props.deleteItem(e)} />
           </button>
         </div>
@@ -66,9 +65,8 @@ class Ingredient extends Component {
           <button type="submit" value="Get Recipes" className="btn btn-primary" onClick={this.props.getRecipes}>
             Submit
           </button>
-          <Link to="/capture">
-            {" "}
-            <button className="btn btn-warning"> Retake Picture </button>{" "}
+          <Link to="/" className="btn btn-primary">
+           Retake Picture
           </Link>
 
           <Link to="/list" onClick={this.props.getRecipes}>

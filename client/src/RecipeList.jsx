@@ -12,10 +12,8 @@ class RecipeList extends Component {
       let completeLink = `/list/${recipelist[item].rid}`;
       return (
         <div className="recipe">
+          <h3>{recipelist[item].title}</h3>
           <img src={recipelist[item].image} alt="" className="item-image" />
-          <h3>
-            <a href="">{recipelist[item].title}</a>
-          </h3>
           <p className="description">{recipelist[item].rating}</p>
           <p className="text-right">
             <Link to={completeLink} onClick={() => this.props.selectIDRecipe(recipelist[item].rid)}>
