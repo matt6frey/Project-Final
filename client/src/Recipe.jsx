@@ -4,24 +4,33 @@ import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
 
 class Recipe extends Component {
-
   getIngredientList() {
-    console.log(this.props)
-    return this.props.selectedObj.ingredients.split('LOLOL').map(item => {
+    console.log(this.props);
+    return this.props.selectedObj.ingredients.split("LOLOL").map(item => {
       return <li>{item}</li>;
     });
   }
 
   getInstructionList() {
-    return this.props.selectedObj.steps.split('LOLOL').map(item => {
-      if (this.props.selectedObj.steps.split('LOLOL').length === 1 && item.search(/(http:\/\/){1}[\S]{1,}/) > -1) {
+    return this.props.selectedObj.steps.split("LOLOL").map(item => {
+      if (
+        this.props.selectedObj.steps.split("LOLOL").length === 1 &&
+        item.search(/(http:\/\/){1}[\S]{1,}/) > -1
+      ) {
         let string = item.substr(0, item.search(/(http:\/\/){1}[\S]{1,}/));
         let href = item.substr(item.search(/(http:\/\/){1}[\S]{1,}/));
         console.log("STRING", string, "HREF:", href);
-      return <li>{string} <a target="_blank" href={href}>link</a>.</li>;
-    } else {
-      return <li>{item}</li>;
-    }
+        return (
+          <li>
+            {string}{" "}
+            <a target="_blank" href={href}>
+              link
+            </a>.
+          </li>
+        );
+      } else {
+        return <li>{item}</li>;
+      }
     });
   }
 
@@ -35,8 +44,8 @@ class Recipe extends Component {
           </header>
           <div className="recipe-stats">
             <p>
-              <strong>Prep Time:</strong> {this.props.selectedObj.prep_time} minutes |{" "}
-              <strong>Serves:</strong> {this.props.selectedObj.serves}
+              <strong>Prep Time:</strong> {this.props.selectedObj.prep_time}{" "}
+              minutes | <strong>Serves:</strong> {this.props.selectedObj.serves}
             </p>
           </div>
 

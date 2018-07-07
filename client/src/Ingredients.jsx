@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
+// import { CSSTransitionGroup } from "react-transition-group/CSSTransitionGroup";
 
 class Ingredient extends Component {
-
   getImageType(items) {
     const foodTypes = {
       grains: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932405/Icons/grains.png',
@@ -78,7 +78,12 @@ class Ingredient extends Component {
           </button>
         </div>
         <div className="actions">
-          <button type="submit" value="Get Recipes" className="btn btn-primary" onClick={this.props.getRecipes}>
+          <button
+            type="submit"
+            value="Get Recipes"
+            className="btn btn-primary"
+            onClick={this.props.getRecipes}
+          >
             Submit
           </button>
           <Link to="/" className="btn btn-primary">

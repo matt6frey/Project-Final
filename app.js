@@ -59,7 +59,6 @@ app.post('/upload', (req, res) => {
     terms.forEach((term) => {
       newTerms.push(Object.assign({}, { name: term.name, value: Math.round(term.value * 100) }));
     });
-    // console.log(newTerms);
     // Double check Clarifai terms against food terms and send JSON back to client.
     terms = termEvaluator(newTerms, (terms) => {
       res.status(200);
