@@ -3,18 +3,18 @@ import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
 // import { CSSTransitionGroup } from "react-transition-group/CSSTransitionGroup";
+const foodTypes = {
+  grains: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932405/Icons/grains.png',
+  meat: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932454/Icons/meat.png',
+  seed: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932504/Icons/seed.png',
+  spice: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932506/Icons/spice.png',
+  vegetable: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932480/Icons/vegetables.png',
+  fruit: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932417/Icons/fruit.png',
+  nuts: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530940680/Icons/nuts_1.png'
+};
 
 class Ingredient extends Component {
   getImageType(items) {
-    const foodTypes = {
-      grains: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932405/Icons/grains.png',
-      meat: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932454/Icons/meat.png',
-      seed: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932504/Icons/seed.png',
-      spice: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932506/Icons/spice.png',
-      vegetable: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932480/Icons/vegetables.png',
-      fruit: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932417/Icons/fruit.png',
-      nuts: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530940680/Icons/nuts_1.png'
-    };
     items.forEach( (item) => {
       item.img = foodTypes[item.type];
     });
@@ -78,19 +78,7 @@ class Ingredient extends Component {
           </button>
         </div>
         <div className="actions">
-          <button
-            type="submit"
-            value="Get Recipes"
-            className="btn btn-primary"
-            onClick={this.props.getRecipes}
-          >
-            Submit
-          </button>
-          <Link to="/" className="btn btn-primary">
-           Retake Picture
-          </Link>
-
-          <Link to="/list" onClick={this.props.getRecipes}>
+          <Link to="/list" onClick={this.props.getRecipes} className="btn btn-primary">
             See Recipes
           </Link>
         </div>
