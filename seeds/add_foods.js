@@ -267,7 +267,7 @@ exports.seed = function(knex, Promise) {
         { id: 274, name: "shagbark hickory", type: "nuts" },
         { id: 275, name: "sweet chestnut", type: "nuts" },
         { id: 276, name: "ugu", type: "nuts" },
-        { id: 277, name: "walnuts", type: "nuts" },
+        { id: 277, name: "walnut", type: "nuts" },
         { id: 278, name: "water chestnut", type: "nuts" },
         { id: 279, name: "amaranth grain", type: "seed" },
         { id: 280, name: "breadnut", type: "seed" },
@@ -420,7 +420,9 @@ exports.seed = function(knex, Promise) {
         { id: 437, name: "spelt", type: "grains" },
         { id: 438, name: "spelt wheat", type: "grains" },
         { id: 439, name: "wheat", type: "grains" },
-        { id: 440, name: "rice", type: "grains" }
+        { id: 442, name: "rice", type: "grains" },
+        { id: 443, name: "peanut", type: "nuts" },
+        { id: 444, name: "pine nut", type: "nuts" },
       ]);
     });
 };
