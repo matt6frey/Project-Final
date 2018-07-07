@@ -17,7 +17,7 @@ class App extends Component {
       },
       display: {
         image: "none",
-        choose_file: "block"
+        choose_file: "inline"
       }
     };
   }
@@ -90,10 +90,15 @@ class App extends Component {
 
   // Recipes Method
 
-  deleteRecipes() {
+  clearStates() {
     // delete this.state.recipes;
     this.state.exists = true;
-    this.setState({ recipes: undefined });
+    this.setState({ 
+      display:{
+        image: "none",
+        chooseFile: "inline"
+      },
+      recipes: undefined });
   }
 
   // Gets the object for rendering on individual page
@@ -161,7 +166,7 @@ class App extends Component {
                 <RecipeList
                   recipeList={this.state.recipes}
                   selectIDRecipe={this.selectIDRecipe.bind(this)}
-                  deleteRecipes={this.deleteRecipes.bind(this)}
+                  clearStates={this.clearStates.bind(this)}
                 />
               )}
           />
