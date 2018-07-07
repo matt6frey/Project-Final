@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
-// To do list --> Add image.
-//  Empty dont print. (loop through an array)
-// Axios post -->
 
 class Recipe extends Component {
 

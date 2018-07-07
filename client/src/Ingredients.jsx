@@ -12,11 +12,12 @@ class Ingredient extends Component {
       seed: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932504/Icons/seed.png',
       spice: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932506/Icons/spice.png',
       vegetable: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932480/Icons/vegetables.png',
-      fruit: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932417/Icons/fruit.png'
+      fruit: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932417/Icons/fruit.png',
+      nuts: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530940680/Icons/nuts_1.png'
     };
     items.forEach( (item) => {
       item.img = foodTypes[item.type];
-    })
+    });
     return items;
   }
   // Get the list of all items for rendering

@@ -25,9 +25,7 @@ class Capture extends Component {
             type="submit"
             onClick={this.props.submitPic}
           >
-            {" "}
-            Submit{" "}
-
+          Submit
           </button>
         </form>
         <Link to = "/ingredients"> <button>Check Ingredients </button></Link>
