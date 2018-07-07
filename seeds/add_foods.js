@@ -4,6 +4,7 @@ exports.seed = function(knex, Promise) {
   return knex('foods').del()
     .then(function () {
       // Inserts seed entries
+      // All items for foods table.
       return knex('foods').insert([
         { id: 1, name: "apple", type: "fruit"  },
         { id: 2, name: "apricot", type: "fruit"  },
