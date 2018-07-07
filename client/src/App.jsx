@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Capture from "./Capture.jsx";
-// import Home from "./Home.jsx";
 import Recipe from "./Recipe.jsx";
 import RecipeList from "./RecipeList.jsx";
 import { Switch, HashRouter, Route, Redirect } from "react-router-dom";
