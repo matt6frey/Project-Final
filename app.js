@@ -51,6 +51,7 @@ function termEvaluator (terms, cb) {
 }
 
 app.post('/api/upload', (req, res) => {
+  console.log("ROUTE REACHED HEROKU");
   clApp.models.predict(Clarifai.GENERAL_MODEL, req.body.img).then(
   function(response) {
     let terms = response.outputs[0].data.concepts;
