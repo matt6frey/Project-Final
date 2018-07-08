@@ -11,6 +11,11 @@ class Capture extends Component {
     let imageDisplay = {
       display: this.props.displayStateProp.image
     };
+
+    let submitDisplay = {
+      display: this.props.displayStateProp.submitPic
+    };
+    
     return (
       <React.Fragment>
         <Header />
@@ -31,22 +36,16 @@ class Capture extends Component {
             src={this.props.imageURL}
             alt=""
           />
-          <button
-            className="btn btn-primary submit"
-            type="submit"
-            onClick={this.props.submitPic}
-          >
-            Submit
-          </button>
+          <Link to="/ingredients">
+            <button
+              className="btn btn-primary submit"
+              type="submit"
+              style={submitDisplay}
+            >
+              Submit
+            </button>
+          </Link>
         </form>
-        <Link to="/ingredients">
-          {" "}
-          <button>Check Ingredients </button>
-        </Link>
-        <Link to="/">
-          {" "}
-          <button> Start Over </button>{" "}
-        </Link>
         <Footer />
       </React.Fragment>
     );

@@ -32,7 +32,7 @@ class RecipeList extends Component {
       <React.Fragment>
         <Header />
         <section className="recipe-list">{this.getRecipe()}</section>
-        <Link to="/" className="btn btn-primary" onClick={this.props.deleteRecipes}>
+        <Link to="/" className="btn btn-primary" onClick={this.props.clearStates}>
           Start Over
         </Link>
         <Footer />

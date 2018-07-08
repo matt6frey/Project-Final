@@ -37,10 +37,12 @@ class Ingredient extends Component {
             {" "}
             Name: {item.name} => Type: {item.type}
           </p>
-          <button
-            className="btn btn-secondary delete"
-            value="delete">
-            <span className="fas fa-trash-alt fa-lg" id={item.name} onClick={(e) => this.props.deleteItem(e)} />
+          <button className="btn btn-secondary delete" value="delete">
+            <span
+              className="fas fa-trash-alt fa-lg"
+              id={item.name}
+              onClick={e => this.props.deleteItem(e)}
+            />
           </button>
         </div>
       );
@@ -78,9 +80,11 @@ class Ingredient extends Component {
           </button>
         </div>
         <div className="actions">
-          <Link to="/list" onClick={this.props.getRecipes} className="btn btn-primary">
-            See Recipes
-          </Link>
+          <button className="btn btn-warning">
+            <Link to="/list" onClick={this.props.getRecipes}>
+              See Recipes
+            </Link>
+          </button>
         </div>
         <Footer />
       </React.Fragment>
