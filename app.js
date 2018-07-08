@@ -11,14 +11,16 @@ const usersRouter = require('./routes/users');
 const app = express();
 
 const uniqueString = require('unique-string');
+
 // DB Packages
 const ENV = process.env.ENV || "development";
 const knexConfig = require('./knexfile');
 const knex = require("knex")(knexConfig[ENV]);
+
 // Image Recogition API
 const Clarifai = require('clarifai');
 
-// Initialize API key: Clafifai
+// Initialize API key: Clarifai
 const clApp = new Clarifai.App({
  apiKey: process.env.CLARIFAI
 });
@@ -38,9 +40,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-// app.use('/', indexRouter);
-// app.use('/users', usersRouter);
-
 // Evaluate Terms
 function termEvaluator (terms, cb) {
   const items = [];
@@ -51,7 +50,6 @@ function termEvaluator (terms, cb) {
 }
 
 app.post('/api/upload', (req, res) => {
-  console.log("ROUTE REACHED HEROKU");
   clApp.models.predict(Clarifai.GENERAL_MODEL, req.body.img).then(
   function(response) {
     let terms = response.outputs[0].data.concepts;
@@ -152,13 +150,11 @@ function duplicateArray (array) {
       return value = value;
     }
   });
-  // console.log
   return array.concat(array2);
 }
 
 app.get('/api/validate-item/:name', (req,res) => {
   if(req.params.name) {
-    // res.send("example");
     let names = duplicateArray([req.params.name.toLowerCase()]);
     console.log(names instanceof Array, names);
     knex('foods').whereIn('name', names).then( (result) => {
