@@ -6,6 +6,7 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
+      port: process.env.DB_PORT,
       database: process.env.TABLE,
       user:     process.env.DB_USER,
       password: process.env.DB_PASS
@@ -15,6 +16,7 @@ module.exports = {
   staging: {
     client: 'pg',
     connection: {
+      port: process.env.DB_PORT,
       database: process.env.TABLE,
       user:     process.env.DB_USER,
       password: process.env.DB_PASS
@@ -31,6 +33,7 @@ module.exports = {
   production: {
     client: 'pg',
     connection: {
+      port: process.env.DB_PORT,
       database: process.env.TABLE,
       user:     process.env.DB_USER,
       password: process.env.DB_PASS
