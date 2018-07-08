@@ -38,8 +38,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-// app.use('/', indexRouter);
-// app.use('/users', usersRouter);
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
 // Evaluate Terms
 function termEvaluator (terms, cb) {
@@ -230,9 +230,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/build/index.html'));
-});
 
-app.listen(process.env.PORT | 3002);
-// module.exports = app;
+module.exports = app;
