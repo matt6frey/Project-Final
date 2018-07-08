@@ -37,7 +37,8 @@ class App extends Component {
 
   addItem(new_item) {
     // ADD AXIOS AND ROUTE RESPONSE. IF RESPONSE OKAY, THEN ADD , ESLE DO NOT ADD AND ALERT THE USEr
-    axios.get(`/api/validate-item/${new_item}`).then(res => {
+    axios.get(`/validate-item/${new_item}`).then(res => {
+    // Heroku Deploy // axios.get(`/api/validate-item/${new_item}`).then(res => {
       if (res.data !== false) {
         let newArray = this.state.items.concat(res.data);
         this.setState({ items: newArray });
@@ -127,7 +128,8 @@ class App extends Component {
     let selectedIngredients = [...this.state.items].map(i => i.name);
 
     console.log(selectedIngredients);
-    axios.post("/api/recipe-lookup", { items: selectedIngredients }).then(res => {
+    axios.post("/recipe-lookup", { items: selectedIngredients }).then(res => {
+    // Heroku Deploy // axios.post("/api/recipe-lookup", { items: selectedIngredients }).then(res => {
       this.setState({
         recipes: res.data
       });

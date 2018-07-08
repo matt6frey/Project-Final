@@ -49,7 +49,8 @@ function termEvaluator (terms, cb) {
   });
 }
 
-app.post('/api/upload', (req, res) => {
+app.post('/upload', (req, res) => {
+// Heroku Deploy // app.post('/api/upload', (req, res) => {
   clApp.models.predict(Clarifai.GENERAL_MODEL, req.body.img).then(
   function(response) {
     let terms = response.outputs[0].data.concepts;
@@ -153,7 +154,8 @@ function duplicateArray (array) {
   return array.concat(array2);
 }
 
-app.get('/api/validate-item/:name', (req,res) => {
+app.get('/validate-item/:name', (req,res) => {
+// Heroku Deploy // app.get('/api/validate-item/:name', (req,res) => {
   if(req.params.name) {
     let names = duplicateArray([req.params.name.toLowerCase()]);
     console.log(names instanceof Array, names);
@@ -170,7 +172,8 @@ app.get('/api/validate-item/:name', (req,res) => {
 });
 
 // Call to Spoonacular Recipe Lookup.
-app.post('/api/recipe-lookup', (req,res) => {
+app.post('/recipe-lookup', (req,res) => {
+// Heroku Deploy // app.post('/api/recipe-lookup', (req,res) => {
   if(req.body.items.length < 1 || typeof req.body.items === 'string') {
     res.status(200);
     res.json({status: 200, error: "No items were sent."});
