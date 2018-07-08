@@ -18,7 +18,8 @@ class App extends Component {
       display: {
         image: "none",
         chooseFile: "inline",
-        submitPic: "none"
+        submitPic: "none",
+        loadingBar: "none"
       }
     };
   }
@@ -56,7 +57,8 @@ class App extends Component {
         display: {
           image: "block",
           chooseFile: "none",
-          submitPic: "none"
+          submitPic: "none",
+          loadingBar: "block"
         },
         photoLoad: {
           imageURL: reader.result,
@@ -81,7 +83,8 @@ class App extends Component {
                 items: res.data,
                 display: {
                   submitPic: "block",
-                  chooseFile: "none"
+                  chooseFile: "none",
+                  loadingBar: "none"
                 }
               });
             });
