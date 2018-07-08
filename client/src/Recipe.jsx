@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
+import uuidv4 from "uuid/v4";
 
 class Recipe extends Component {
   getIngredientList() {
     console.log(this.props);
     return this.props.selectedObj.ingredients.split("LOLOL").map(item => {
-      return <li>{item}</li>;
+      return <li key={uuidv4()}>{item}</li>;
     });
   }
 
@@ -21,7 +22,7 @@ class Recipe extends Component {
         let href = item.substr(item.search(/(http:\/\/){1}[\S]{1,}/));
         console.log("STRING", string, "HREF:", href);
         return (
-          <li>
+          <li key={uuidv4()}>
             {string}{" "}
             <a target="_blank" href={href}>
               link
@@ -29,7 +30,7 @@ class Recipe extends Component {
           </li>
         );
       } else {
-        return <li>{item}</li>;
+        return <li key={uuidv4()}>{item}</li>;
       }
     });
   }

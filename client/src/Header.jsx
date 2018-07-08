@@ -6,7 +6,7 @@ class Header extends Component {
     return (
       <header>
         <div className="logo">
-          <img src={logo} width="75px" height="auto" className="logo" />
+          <img src={logo} width="75px" height="auto" className="logo" alt="Right Recipe Logo" />
         </div>
         <h1 className="text-center">Right Recipe</h1>
       </header>

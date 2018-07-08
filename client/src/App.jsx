@@ -94,7 +94,6 @@ class App extends Component {
   // Recipes Method
   clearStates() {
     // delete this.state.recipes;
-    this.state.exists = true;
     this.setState({
       display: {
         image: "none",

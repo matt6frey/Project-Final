@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Recipe from "./Recipe.jsx";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
@@ -11,7 +10,7 @@ class RecipeList extends Component {
       let recipelist = this.props.recipeList;
       let completeLink = `/list/${recipelist[item].rid}`;
       return (
-        <div className="recipe">
+        <div className="recipe" key={recipelist[item].rid}>
           <img src={recipelist[item].image} alt="" className="item-image" />
           <h3>{recipelist[item].title}</h3>
           <p className="description">{recipelist[item].rating}</p>
