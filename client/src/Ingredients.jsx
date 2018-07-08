@@ -4,18 +4,25 @@ import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
 // import { CSSTransitionGroup } from "react-transition-group/CSSTransitionGroup";
 const foodTypes = {
-  grains: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932405/Icons/grains.png',
-  meat: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932454/Icons/meat.png',
-  seed: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932504/Icons/seed.png',
-  spice: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932506/Icons/spice.png',
-  vegetable: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932480/Icons/vegetables.png',
-  fruit: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932417/Icons/fruit.png',
-  nuts: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530940680/Icons/nuts_1.png'
+  grains:
+    "https://res.cloudinary.com/dybwmffcu/image/upload/v1530932405/Icons/grains.png",
+  meat:
+    "https://res.cloudinary.com/dybwmffcu/image/upload/v1530932454/Icons/meat.png",
+  seed:
+    "https://res.cloudinary.com/dybwmffcu/image/upload/v1530932504/Icons/seed.png",
+  spice:
+    "https://res.cloudinary.com/dybwmffcu/image/upload/v1530932506/Icons/spice.png",
+  vegetable:
+    "https://res.cloudinary.com/dybwmffcu/image/upload/v1530932480/Icons/vegetables.png",
+  fruit:
+    "https://res.cloudinary.com/dybwmffcu/image/upload/v1530932417/Icons/fruit.png",
+  nuts:
+    "https://res.cloudinary.com/dybwmffcu/image/upload/v1530940680/Icons/nuts_1.png"
 };
 
 class Ingredient extends Component {
   getImageType(items) {
-    items.forEach( (item) => {
+    items.forEach(item => {
       item.img = foodTypes[item.type];
     });
     return items;
@@ -23,6 +30,7 @@ class Ingredient extends Component {
   // Get the list of all items for rendering
   getItem() {
     let items = this.getImageType(this.props.items);
+
     return items.map(item => {
       return (
         <div className="item" key={item.name}>
@@ -63,6 +71,19 @@ class Ingredient extends Component {
       this.refs.newItem.value = "";
     }
   }
+
+  showRecipeBtn() {
+    if (this.props.items.length > 0) {
+      return (
+        <button className="btn btn-warning">
+          <Link to="/list" onClick={this.props.getRecipes}>
+            See Recipes
+          </Link>
+        </button>
+      );
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -78,14 +99,9 @@ class Ingredient extends Component {
           >
             Add Item
           </button>
+          {this.showRecipeBtn()}
         </div>
-        <div className="actions">
-          <button className="btn btn-warning">
-            <Link to="/list" onClick={this.props.getRecipes}>
-              See Recipes
-            </Link>
-          </button>
-        </div>
+        <div className="actions">{this.showRecipeBtn}</div>
         <Footer />
       </React.Fragment>
     );
