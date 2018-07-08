@@ -7,15 +7,22 @@ import { Link } from "react-router-dom";
 class Ingredient extends Component {
   getImageType(items) {
     const foodTypes = {
-      grains: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932405/Icons/grains.png',
-      meat: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932454/Icons/meat.png',
-      seed: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932504/Icons/seed.png',
-      spice: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932506/Icons/spice.png',
-      vegetable: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932480/Icons/vegetables.png',
-      fruit: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932417/Icons/fruit.png',
-      nuts: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530940680/Icons/nuts_1.png'
+      grains:
+        "https://res.cloudinary.com/dybwmffcu/image/upload/v1530932405/Icons/grains.png",
+      meat:
+        "https://res.cloudinary.com/dybwmffcu/image/upload/v1530932454/Icons/meat.png",
+      seed:
+        "https://res.cloudinary.com/dybwmffcu/image/upload/v1530932504/Icons/seed.png",
+      spice:
+        "https://res.cloudinary.com/dybwmffcu/image/upload/v1530932506/Icons/spice.png",
+      vegetable:
+        "https://res.cloudinary.com/dybwmffcu/image/upload/v1530932480/Icons/vegetables.png",
+      fruit:
+        "https://res.cloudinary.com/dybwmffcu/image/upload/v1530932417/Icons/fruit.png",
+      nuts:
+        "https://res.cloudinary.com/dybwmffcu/image/upload/v1530940680/Icons/nuts_1.png"
     };
-    items.forEach( (item) => {
+    items.forEach(item => {
       item.img = foodTypes[item.type];
     });
     return items;
@@ -37,10 +44,12 @@ class Ingredient extends Component {
             {" "}
             Name: {item.name} => Type: {item.type}
           </p>
-          <button
-            className="btn btn-secondary delete"
-            value="delete">
-            <span className="fas fa-trash-alt fa-lg" id={item.name} onClick={(e) => this.props.deleteItem(e)} />
+          <button className="btn btn-secondary delete" value="delete">
+            <span
+              className="fas fa-trash-alt fa-lg"
+              id={item.name}
+              onClick={e => this.props.deleteItem(e)}
+            />
           </button>
         </div>
       );
@@ -78,21 +87,11 @@ class Ingredient extends Component {
           </button>
         </div>
         <div className="actions">
-          <button
-            type="submit"
-            value="Get Recipes"
-            className="btn btn-primary"
-            onClick={this.props.getRecipes}
-          >
-            Submit
+          <button className="btn btn-warning">
+            <Link to="/list" onClick={this.props.getRecipes}>
+              See Recipes
+            </Link>
           </button>
-          <Link to="/" className="btn btn-primary">
-           Retake Picture
-          </Link>
-
-          <Link to="/list" onClick={this.props.getRecipes}>
-            See Recipes
-          </Link>
         </div>
         <Footer />
       </React.Fragment>

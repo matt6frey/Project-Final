@@ -17,7 +17,8 @@ class App extends Component {
       },
       display: {
         image: "none",
-        choose_file: "inline"
+        chooseFile: "inline",
+        submitPic: "none"
       }
     };
   }
@@ -53,52 +54,53 @@ class App extends Component {
       this.setState({
         display: {
           image: "block",
-          chooseFile: "none"
+          chooseFile: "none",
+          submitPic: "none"
         },
         photoLoad: {
           imageURL: reader.result,
           imageName: name
         }
       });
+      const fd = new FormData();
+      fd.append("public_id", this.state.photoLoad.imageName);
+      fd.append("upload_preset", "bkb49fvr");
+      fd.append("file", this.state.photoLoad.imageURL);
+
+      axios
+        .post("https://api.cloudinary.com/v1_1/dybwmffcu/upload", fd)
+        .then(res => {
+          axios
+            .post("/upload", {
+              img: res.data.secure_url
+            })
+            .then(res => {
+              console.log(res);
+              this.setState({
+                items: res.data,
+                display: {
+                  submitPic: "block",
+                  chooseFile: "none"
+                }
+              });
+            });
+        });
     };
 
     reader.readAsDataURL(event.target.files[0]);
   }
-
-  submitPic = event => {
-    event.preventDefault();
-    const fd = new FormData();
-    fd.append("public_id", this.state.photoLoad.imageName);
-    fd.append("upload_preset", "bkb49fvr");
-    fd.append("file", this.state.photoLoad.imageURL);
-
-    axios
-      .post("https://api.cloudinary.com/v1_1/dybwmffcu/upload", fd)
-      .then(res => {
-        axios
-          .post("/upload", {
-            img: res.data.secure_url
-          })
-          .then(res => {
-            console.log(res);
-            this.setState({
-              items: res.data
-            });
-          });
-      });
-  };
-
   // Recipes Method
 
   clearStates() {
     // delete this.state.recipes;
     this.state.exists = true;
-    this.setState({ 
-      display:{
+    this.setState({
+      display: {
         image: "none",
         chooseFile: "inline"
       },
-      recipes: undefined });
+      recipes: undefined
+    });
   }
 
   // Gets the object for rendering on individual page
@@ -132,7 +134,7 @@ class App extends Component {
     });
   }
 
-/*
+  /*
 <Route
   exact
   path="/list"
@@ -150,54 +152,53 @@ class App extends Component {
     return (
       <div className="app">
         <HashRouter>
-        {(this.state.recipes) ? (
-          <Switch>
-          <Route
-              path="/list/:id"
-              component={() => (
-                <Recipe
-                selectedObj = {this.state.selectedObj}
-                />
-              )}
-            />
-          <Route
-              exact path="/list"
-              component={() => (
-                <RecipeList
-                  recipeList={this.state.recipes}
-                  selectIDRecipe={this.selectIDRecipe.bind(this)}
-                  clearStates={this.clearStates.bind(this)}
-                />
-              )}
-          />
-          <Redirect from='/ingredients' to='/list' />
-          <Route path="/about" component={About} />
-          </Switch>
+          {this.state.recipes ? (
+            <Switch>
+              <Route
+                path="/list/:id"
+                component={() => (
+                  <Recipe selectedObj={this.state.selectedObj} />
+                )}
+              />
+              <Route
+                exact
+                path="/list"
+                component={() => (
+                  <RecipeList
+                    recipeList={this.state.recipes}
+                    selectIDRecipe={this.selectIDRecipe.bind(this)}
+                    clearStates={this.clearStates.bind(this)}
+                  />
+                )}
+              />
+              <Redirect from="/ingredients" to="/list" />
+              <Route path="/about" component={About} />
+            </Switch>
           ) : (
-          <Switch>
-            <Route
-             exact path="/"
-              component={() => (
-                <Capture
-                  showImage={this.showImage.bind(this)}
-                  submitPic={this.submitPic.bind(this)}
-                  imageURL={this.state.photoLoad.imageURL}
-                  displayStateProp={this.state.display}
-                />
-              )}
-            />
-            <Route path="/about" component={About} />
-            <Route
-              path="/ingredients"
-              component={() => (
-                <Ingredient
-                  items={this.state.items}
-                  deleteItem={this.deleteItem.bind(this)}
-                  addItem={this.addItem.bind(this)}
-                  getRecipes={this.getRecipes.bind(this)}
-                />
-              )}
-            />
+            <Switch>
+              <Route
+                exact
+                path="/"
+                component={() => (
+                  <Capture
+                    showImage={this.showImage.bind(this)}
+                    imageURL={this.state.photoLoad.imageURL}
+                    displayStateProp={this.state.display}
+                  />
+                )}
+              />
+              <Route path="/about" component={About} />
+              <Route
+                path="/ingredients"
+                component={() => (
+                  <Ingredient
+                    items={this.state.items}
+                    deleteItem={this.deleteItem.bind(this)}
+                    addItem={this.addItem.bind(this)}
+                    getRecipes={this.getRecipes.bind(this)}
+                  />
+                )}
+              />
             </Switch>
           )}
         </HashRouter>
