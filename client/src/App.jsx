@@ -73,7 +73,7 @@ class App extends Component {
     fd.append("file", this.state.photoLoad.imageURL);
 
     axios
-      .post("https://api.cloudinary.com/v1_1/dybwmffcu/api/upload", fd)
+      .post("https://api.cloudinary.com/v1_1/dybwmffcu/upload", fd)
       .then(res => {
         axios
           .post("/api/upload", {

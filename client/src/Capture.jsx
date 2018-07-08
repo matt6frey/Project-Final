@@ -15,8 +15,7 @@ class Capture extends Component {
       <React.Fragment>
         <Header />
         <form
-          className="form
-        -group text-center add-photo"
+          className="form-group text-center add-photo"
         >
           <input
             style={inputDisplay}
