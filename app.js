@@ -2,8 +2,8 @@ require('dotenv').config();
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+// const cookieParser = require('cookie-parser');
+// const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -230,5 +230,9 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
 
-module.exports = app;
+app.listen(process.env.PORT | 3002);
+// module.exports = app;
