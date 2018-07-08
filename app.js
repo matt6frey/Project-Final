@@ -38,8 +38,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// app.use('/', indexRouter);
+// app.use('/users', usersRouter);
 
 // Evaluate Terms
 function termEvaluator (terms, cb) {
@@ -50,7 +50,7 @@ function termEvaluator (terms, cb) {
   });
 }
 
-app.post('/upload', (req, res) => {
+app.post('/api/upload', (req, res) => {
   clApp.models.predict(Clarifai.GENERAL_MODEL, req.body.img).then(
   function(response) {
     let terms = response.outputs[0].data.concepts;
@@ -155,7 +155,7 @@ function duplicateArray (array) {
   return array.concat(array2);
 }
 
-app.get('/validate-item/:name', (req,res) => {
+app.get('/api/validate-item/:name', (req,res) => {
   if(req.params.name) {
     // res.send("example");
     let names = duplicateArray([req.params.name.toLowerCase()]);
@@ -173,7 +173,7 @@ app.get('/validate-item/:name', (req,res) => {
 });
 
 // Call to Spoonacular Recipe Lookup.
-app.post('/recipe-lookup', (req,res) => {
+app.post('/api/recipe-lookup', (req,res) => {
   if(req.body.items.length < 1 || typeof req.body.items === 'string') {
     res.status(200);
     res.json({status: 200, error: "No items were sent."});
