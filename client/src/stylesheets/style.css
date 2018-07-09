@@ -21,7 +21,9 @@
         padding: 1.2rem 0;
         font-size: 1.5rem;
         display: inline-block;
-        margin-left: 80px;
+        margin-left: 60px;
+        position: relative;
+        right: 10px;
     }
 
     div.logo {
@@ -29,11 +31,13 @@
     width: 80px;
     text-align: center;
     display: inline-block;
+    margin-left: -10px;
     }
 
     img.logo {
     top:0.5rem;
     width: 60px;
+    margin-left: -15px;
     }
 
     p.text-center.enter {
@@ -52,12 +56,53 @@
      Take Photo Page
     */
     form.add-photo {
-        padding-top: 5rem;
+        padding-top: 12rem;
         padding-bottom: 1rem;
-        outline: solid 1px blue;
+        /*outline: solid 1px blue;*/
         display: block;
         position: relative;
         z-index: 1;
+    }
+
+    form.add-photo > div {
+        height: 0;
+        position: relative;
+        z-index: 1;
+        width: 200px;
+        text-align: center;
+        margin: auto;
+    }
+
+    form.add-photo > div > button {
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        border: dashed 3px #0513c1;
+        background-color: #fff;
+        border-radius: 7px;
+        text-align: center;
+        left: 10px;
+        top: 42px;
+    }
+
+    form.add-photo > div > button > span#camera {
+        position: absolute;
+        z-index: 1;
+        background-color: #fff;
+        top: 17px;
+        left: 34px;
+        color: #0513c1;
+        cursor: pointer !important;
+    }
+
+    form.add-photo > div::after {
+        position: absolute;
+        content: "Take Photo";
+        font-size: 20px;
+        font-weight: bold;
+        top: 175px;
+        left: 49px;
+        color: #0033c3;
     }
 
     form.add-photo > p {
@@ -65,19 +110,26 @@
     }
 
     form.add-photo input[type="file"] {
-        display: inline;
         margin-top: 2rem;
         margin-bottom: 0;
         padding: 5rem 3rem;
-        border: solid 3px red;
+        border: dashed 3px #2585e8;
         width: 200px;
         height: 200px;
+        border-radius: 10px;
+        position: relative;
+        z-index: 2;
+        opacity: 0;
+        cursor: pointer !important;
     }
 
     form.add-photo > img {
         margin: 2rem auto 1rem;
         width: 300px;
         height: auto;
+        position: relative;
+        z-index: 5;
+        top: -1.5rem;
     }
 
     form.add-photo > img.preview {
@@ -93,6 +145,7 @@
 
     .app > footer {
         position: fixed;
+        z-index: 6;
         width: 100%;
         padding: 1rem 1rem 0;
         bottom: 0;
@@ -218,13 +271,13 @@
 
     .actions {
         position: fixed;
-        z-index: 5;
+        z-index: 7;
         bottom: 0.5rem;
         left: 2.5%;
     }
 
     div.input-bar {
-        text-align: center;
+        text-align: center !important;
     }
 }
 
@@ -245,7 +298,7 @@
     div.input-bar {
         background-color: #fff;
         width: 100%;
-        text-align: left;
+        text-align: left !important;
         padding: 0.5rem 0;
         position: fixed;
         z-index: 5;

@@ -15,13 +15,18 @@ class Capture extends Component {
     let submitDisplay = {
       display: this.props.displayStateProp.submitPic
     };
-    
+
     return (
       <React.Fragment>
         <Header />
         <form
           className="form-group text-center add-photo"
         >
+          <div>
+            <button>
+              <span id="camera" style={inputDisplay} className="fas fa-camera-retro fa-7x"></span>
+            </button>
+          </div>
           <input
             style={inputDisplay}
             type="file"
