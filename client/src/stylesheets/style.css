@@ -270,20 +270,44 @@
         padding: 1rem 0;
     }
 
-    .ingredients ul > li,
+    section.recipe {
+        width:100%;
+        max-width: 1024px;
+        margin: 5rem 0;
+    }
+
+    section.recipe > header > h2 {
+        font-size: 1.75rem;
+    }
+
+    section.recipe > a.btn.btn-primary.return {
+        margin: 1rem auto;
+        text-align: center;
+    }
+
+    section.recipe > .ingredients ul > li,
     .instructions ol > li {
         padding: 0.5rem 1rem 0.5rem 0;
     }
 
-    .instructions ol > li {
+    section.recipe > .instructions ol > li {
         list-style: bold;
     }
 
-    .ingredients > h3, .instructions > h3 {
+    section.recipe > .ingredients > h3, .instructions > h3 {
         float: none;
     }
 
-    .ingredients h3,
+    section.recipe > .recipe-stats {
+        text-align: center;
+    }
+
+    img.recipe-image {
+        box-shadow: 0 0 5px #ccc;
+        border: solid 1px #ccc;
+    }
+
+    section.recipe > .ingredients h3,
     .instructions h3 {
         margin-bottom: 1rem;
     }
