@@ -45,6 +45,7 @@ function termEvaluator (terms, cb) {
   const items = [];
   terms.forEach( (term) => items.push(term.name)); // add items to check in DB
   knex('foods').whereIn('name', items).then( (matches) => {
+    console.log(matches);
     return cb(matches); // Return all appropriate matches
   });
 }
@@ -68,6 +69,7 @@ app.post('/upload', (req, res) => {
   function(err) {
     // there was an error
     console.log("error: ", err);
+    // res.send(400);
   }
   );
 

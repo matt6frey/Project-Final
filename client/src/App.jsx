@@ -29,6 +29,7 @@ class App extends Component {
   deleteItem(event) {
     var array = [...this.state.items];
     let newArray = array.filter(obj => {
+      console.log("Name: ", obj.name, "ID: ", event.target.id);
       return obj.name !== event.target.id;
     });
     this.setState({
@@ -97,8 +98,7 @@ class App extends Component {
   // Recipes Method
   clearStates() {
     // delete this.state.recipes;
-    this.state.exists = true;
-    this.setState({
+  this.setState({
       display: {
         image: "none",
         chooseFile: "inline"

@@ -9,8 +9,14 @@ class Capture extends Component {
     return (
       <React.Fragment>
         <Header />
-
-        <form className="form-group text-center add-photo">
+        <form
+          className="form-group text-center add-photo"
+        >
+          <div>
+            <button>
+              <span id="camera" style={{display: this.props.displayStateProp.chooseFile}} className="fas fa-camera-retro fa-7x"></span>
+            </button>
+          </div>
           <input
             style={{
               display: this.props.displayStateProp.chooseFile
