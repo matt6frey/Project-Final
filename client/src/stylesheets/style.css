@@ -217,7 +217,7 @@
      Recipe List Page
      */
 
-    .recipe {
+    div.recipe {
         width: 100%;
         border: solid 1px #ccc;
         border-radius: 7px;
@@ -226,7 +226,7 @@
         overflow: hidden;
     }
 
-     .recipe h3 {
+     div.recipe h3 {
         text-align: center;
         padding: 1rem 0.75rem 0.5rem;
         height: 90px;
@@ -235,11 +235,11 @@
         font-size: 24px;
     }
 
-    .recipe img {
+    div.recipe img, section.recipe img {
         width: 100%;
     }
 
-    .recipe > p.text-right {
+    div.recipe > p.text-right {
         margin-bottom: 0;
     }
 
@@ -280,6 +280,10 @@
         font-size: 1.75rem;
     }
 
+    .recipe-stats p > span {
+        vertical-align: super;
+    }
+
     section.recipe > a.btn.btn-primary.return {
         margin: 1rem auto;
         text-align: center;
@@ -302,9 +306,14 @@
         text-align: center;
     }
 
+    section.recipe > .recipe-stats  span {
+        margin-left: 1rem;
+    }
+
     img.recipe-image {
         box-shadow: 0 0 5px #ccc;
         border: solid 1px #ccc;
+        border-radius: 7px;
     }
 
     section.recipe > .ingredients h3,
@@ -410,7 +419,7 @@
         padding-bottom: 4rem;
     }
 
-    .recipe {
+    div.recipe {
         width: 30%;
         display: inline-block;
         margin-left:2.5%;

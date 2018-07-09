@@ -55,8 +55,8 @@ class Recipe extends Component {
           </header>
           <div className="recipe-stats">
             <p>
-              <strong>Prep Time:</strong> {prepTime}{" "}
-              minutes | <strong>Serves:</strong> {this.props.selectedObj.serves}
+              <strong><span className="far fa-clock fa-2x" alt="Prep Time"></span></strong> <span className="recipe-stats-text">{prepTime}
+              minutes</span><strong className="ml-3"><span className="fas fa-users fa-2x" alt="Serves"></span></strong> <span className="recipe-stats-text">{this.props.selectedObj.serves}</span>
             </p>
           </div>
 
