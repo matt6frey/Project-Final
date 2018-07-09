@@ -28,6 +28,7 @@ class App extends Component {
   deleteItem(event) {
     var array = [...this.state.items];
     let newArray = array.filter(obj => {
+      console.log("Name: ", obj.name, "ID: ", event.target.id);
       return obj.name !== event.target.id;
     });
     this.setState({

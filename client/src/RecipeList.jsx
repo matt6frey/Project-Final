@@ -11,7 +11,7 @@ class RecipeList extends Component {
     let end = str.search('-');
     if(end === -1) {
       console.log(str.length, "<-- Length!");
-      return str;
+      return str.split(' ').slice(0,3).join(' ') + "...";
     }
     return str.substr(0, end);
     }

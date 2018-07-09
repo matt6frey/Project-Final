@@ -19,12 +19,12 @@ class Ingredient extends Component {
       return (
         <div className="item" key={item.name} style={{backgroundImage: `url(${item.url})`}}>
           <p className="item-name form-group-item">
-            {item.name}
+            {name}
           </p>
-          <button className="btn btn-secondary delete" value="delete">
+          <button className="btn btn-secondary delete" value="delete" onClick={e => this.props.deleteItem(e)}>
             <span
               className="fas fa-times fa-2x"
-              id={name}
+              id={item.name}
               onClick={e => this.props.deleteItem(e)}
             />
           </button>
@@ -66,11 +66,9 @@ class Ingredient extends Component {
           {this.getItem()}
         </div>
         <div className="actions">
-          <button className="btn btn-warning">
-            <Link to="/list" onClick={this.props.getRecipes}>
-              See Recipes
-            </Link>
-          </button>
+          <Link to="/list" onClick={this.props.getRecipes} className="btn btn-warning">
+            See Recipes
+          </Link>
         </div>
         <Footer />
       </React.Fragment>

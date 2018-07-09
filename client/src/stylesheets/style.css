@@ -9,7 +9,8 @@
         position: fixed;
         z-index: 5;
         width: 100%;
-        background-color: #fff;
+        background-color: #ff8b19;
+        color: #fff;
         height: 67px;
         padding: 0.25rem 0 0.5rem;
         text-align: center;
@@ -32,6 +33,7 @@
     text-align: center;
     display: inline-block;
     margin-left: -10px;
+    filter: brightness(5);
     }
 
     img.logo {
@@ -77,7 +79,7 @@
         position: absolute;
         width: 180px;
         height: 180px;
-        border: dashed 3px #0513c1;
+        border: dashed 3px #cc5f00;
         background-color: #fff;
         border-radius: 7px;
         text-align: center;
@@ -89,9 +91,9 @@
         position: absolute;
         z-index: 1;
         background-color: #fff;
+        color: #cc5f00;
         top: 17px;
         left: 34px;
-        color: #0513c1;
         cursor: pointer !important;
     }
 
@@ -102,7 +104,7 @@
         font-weight: bold;
         top: 175px;
         left: 49px;
-        color: #0033c3;
+        color: #cc5f00;
     }
 
     form.add-photo > p {
@@ -149,8 +151,13 @@
         width: 100%;
         padding: 1rem 1rem 0;
         bottom: 0;
-        background-color: #fff;
-        border-top: solid 1px #000;
+        background-color: #ffbc5b;
+        color: #fff;
+    }
+
+    .app > footer > p > a {
+        color: #fff !important;
+        font-weight: bold;
     }
 
     /*
@@ -306,7 +313,7 @@
         text-align: center;
     }
 
-    section.recipe > .recipe-stats  span {
+    section.recipe > .recipe-stats span {
         margin-left: 1rem;
     }
 
@@ -399,9 +406,11 @@
 
     div.item > p.item-name {
         position: absolute;
-        left: 1rem;
-        top:0.5rem;
+        left: 0;
+        top: 0;
         font-weight: bold;
+        padding: 0.5rem 1rem;
+        background-color: #fff;
     }
 
     div.item > button {
@@ -459,4 +468,16 @@ div.input-bar button.btn {
 
 div.item > button > span.fas.fa-times {
     color: #d40808;
+}
+
+.actions > a.btn.btn-primary, .actions > a.btn.btn-warning, .btn.btn-primary, .btn.btn-warning {
+    background-color: #ff7600;
+    border-color: #ff7600;
+    color: #fff !important;
+    font-weight: bold;
+}
+
+.app > footer > p > a {
+    color: #fff !important;
+    font-weight: bold;
 }
