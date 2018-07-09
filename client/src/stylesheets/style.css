@@ -218,19 +218,34 @@
      */
 
     .recipe {
-        clear:both;
+        width: 100%;
+        border: solid 1px #ccc;
+        border-radius: 7px;
+        clear: both;
+        margin-bottom: 1rem;
+        overflow: hidden;
     }
 
      .recipe h3 {
-        margin-left: 1rem;
-    }
-
-    .recipe img, .recipe h3, .recipe p.description {
-        float: left;
+        text-align: center;
+        padding: 1rem 0.75rem 0.5rem;
+        height: 90px;
+        word-wrap: break-word;
+        width: 100%;
+        font-size: 24px;
     }
 
     .recipe img {
-        width: 100px;
+        width: 100%;
+    }
+
+    .recipe > p.text-right {
+        margin-bottom: 0;
+    }
+
+    a.select-recipe.btn.btn-primary {
+        width: 100%;
+        border-radius: 0;
     }
 
     p.description {
@@ -244,6 +259,10 @@
     section.recipe,
     section.recipe-list {
         padding: 1rem 1rem 2rem;
+    }
+
+    section.recipe-list {
+        padding-top: 5rem;
     }
 
     section.recipe > header,
@@ -331,7 +350,7 @@
         border-radius: 7px;
         margin-left: 2.5%;
         margin-top:2%;
-        margin-bottom: 4%;
+        margin-bottom: 1%;
         background-image: url('https://upload.wikimedia.org/wikipedia/commons/b/bb/Table_grapes_on_white.jpg');
         background-size: cover;
     }
@@ -343,7 +362,6 @@
         border: solid 3px black;
         background-color: #fff;
         border-radius:50px;
-/*         padding: 1rem; */
     }
 
     div.item > p.item-name {
@@ -362,6 +380,21 @@
         background-color: #d40808;
         border: solid 1px #fff;
         background-color: #fff;
+    }
+
+    section.recipe-list {
+        padding-bottom: 4rem;
+    }
+
+    .recipe {
+        width: 30%;
+        display: inline-block;
+        margin-left:2.5%;
+        border: solid 1px #ccc;
+        border-radius: 7px;
+        clear: both;
+        margin-bottom: 1rem;
+        overflow: hidden;
     }
 
 }

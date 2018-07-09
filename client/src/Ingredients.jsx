@@ -6,19 +6,25 @@ import { Link } from "react-router-dom";
 
 class Ingredient extends Component {
 
+  capitalize(name) {
+      return name.charAt(0).toUpperCase() + name.substr(1);
+  }
+
   // Get the list of all items for rendering
   getItem() {
     let items = this.props.items;
+    console.log(items);
     return items.map(item => {
+      let name = this.capitalize(item.name);
       return (
-        <div className="item" key={item.name}>
+        <div className="item" key={item.name} style={{backgroundImage: `url(${item.url})`}}>
           <p className="item-name form-group-item">
             {item.name}
           </p>
           <button className="btn btn-secondary delete" value="delete">
             <span
               className="fas fa-times fa-2x"
-              id={item.name}
+              id={name}
               onClick={e => this.props.deleteItem(e)}
             />
           </button>
