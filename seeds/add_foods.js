@@ -423,7 +423,7 @@ exports.seed = function(knex, Promise) {
         { id: 439, name: "wheat", type: "grains" },
         { id: 442, name: "rice", type: "grains" },
         { id: 443, name: "peanut", type: "nuts" },
-        { id: 444, name: "pine nut", type: "nuts" },
+        { id: 444, name: "pine nut", type: "nuts" }
       ]);
     });
 };

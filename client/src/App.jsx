@@ -94,7 +94,7 @@ class App extends Component {
   // Recipes Method
   clearStates() {
     // delete this.state.recipes;
-    this.setState({
+  this.setState({
       display: {
         image: "none",
         chooseFile: "inline"

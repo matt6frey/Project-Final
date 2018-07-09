@@ -3,43 +3,21 @@ import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
 // import { CSSTransitionGroup } from "react-transition-group/CSSTransitionGroup";
-const foodTypes = {
-  grains: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932405/Icons/grains.png',
-  meat: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932454/Icons/meat.png',
-  seed: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932504/Icons/seed.png',
-  spice: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932506/Icons/spice.png',
-  vegetable: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932480/Icons/vegetables.png',
-  fruit: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530932417/Icons/fruit.png',
-  nuts: 'https://res.cloudinary.com/dybwmffcu/image/upload/v1530940680/Icons/nuts_1.png'
-};
 
 class Ingredient extends Component {
-  getImageType(items) {
-    items.forEach( (item) => {
-      item.img = foodTypes[item.type];
-    });
-    return items;
-  }
+
   // Get the list of all items for rendering
   getItem() {
-    let items = this.getImageType(this.props.items);
+    let items = this.props.items;
     return items.map(item => {
       return (
         <div className="item" key={item.name}>
-          <img
-            src={item.img}
-            alt="Ingredient"
-            className="item-image"
-            height="75px"
-            width="75px"
-          />
           <p className="item-name form-group-item">
-            {" "}
-            Name: {item.name} => Type: {item.type}
+            {item.name}
           </p>
           <button className="btn btn-secondary delete" value="delete">
             <span
-              className="fas fa-trash-alt fa-lg"
+              className="fas fa-times fa-2x"
               id={item.name}
               onClick={e => this.props.deleteItem(e)}
             />
@@ -68,7 +46,7 @@ class Ingredient extends Component {
       <React.Fragment>
         <Header />
         <div className="form-group items">
-          {this.getItem()}
+          <div className="input-bar">
           <input type="text" ref="newItem" />
           <button
             type="submit"
@@ -78,6 +56,8 @@ class Ingredient extends Component {
           >
             Add Item
           </button>
+          </div>
+          {this.getItem()}
         </div>
         <div className="actions">
           <button className="btn btn-warning">

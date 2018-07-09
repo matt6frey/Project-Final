@@ -4,33 +4,31 @@
  Main Page
 */
 
-@media only screen and (min-width: 360px) {
-    p.text-center.enter > a.btn.btn-primary {
-        text-align: center;
-        width: 320px;
-        font-size: 1.25rem;
-    }
-}
-
 @media only screen and (min-width: 320px) {
     .app > header {
-        outline: solid 1px blue;
-        background-image: url(../img/O5IJ8N0.jpg);
-        background-size: 200%;
+        position: fixed;
+        z-index: 5;
+        width: 100%;
+        background-color: #fff;
+        height: 67px;
+        padding: 0.25rem 0 0.5rem;
+        text-align: center;
+        top:0;
     }
 
     .app h1.text-center {
         text-align: center!important;
-        padding: 4.5rem 0 2rem;
-        outline: solid 1px red;
-        background-color: rgba(181, 9, 9, 0.75);
+        padding: 1.2rem 0;
         font-size: 1.5rem;
+        display: inline-block;
+        margin-left: 80px;
     }
 
     div.logo {
     position: absolute;
-    width: 100%;
+    width: 80px;
     text-align: center;
+    display: inline-block;
     }
 
     img.logo {
@@ -46,37 +44,47 @@
 
     p.text-center.enter > a.btn.btn-primary {
         text-align: center;
-        width: 300px;
         font-size: 1.25rem;
+        width: 300px;
     }
 
     /*
      Take Photo Page
     */
     form.add-photo {
-        height: 320px;
+        padding-top: 5rem;
+        padding-bottom: 1rem;
         outline: solid 1px blue;
-        margin-top: 3rem;
         display: block;
         position: relative;
         z-index: 1;
     }
 
-    form.add-photo > input[type="file"] {
+    form.add-photo > p {
+        padding-bottom: 0;
+    }
+
+    form.add-photo input[type="file"] {
+        display: inline;
         margin-top: 2rem;
-        border: solid 3px red;
+        margin-bottom: 0;
         padding: 5rem 3rem;
+        border: solid 3px red;
         width: 200px;
         height: 200px;
-        display: inline;
     }
 
     form.add-photo > img {
-        display: inline-block;
         margin: 2rem auto 1rem;
+        width: 300px;
+        height: auto;
     }
 
-    input.submit {
+    form.add-photo > img.preview {
+        padding-top: 2rem
+    }
+
+    button.submit {
         z-index: 3;
         width: 200px;
         display: block;
@@ -89,24 +97,35 @@
         padding: 1rem 1rem 0;
         bottom: 0;
         background-color: #fff;
+        border-top: solid 1px #000;
     }
 
     /*
      Ingredients
     */
 
+    div.form-group.items {
+        padding-top: 7.5rem;
+        padding-bottom:3rem;
+    }
+
     form.form-group.items {
+        padding-top: 9rem;
         padding: 1rem;
         overflow-y: scroll;
         height: 425px;
     }
 
-    .item {
+    div.item {
         position: relative;
         margin-bottom: 0.5rem;
         height: 120px;
         padding-top: 1rem;
         border-top: solid 1px #ccc;
+        background-image: url('https://upload.wikimedia.org/wikipedia/commons/b/bb/Table_grapes_on_white.jpg');
+        background-size: 80px;
+        background-repeat: no-repeat;
+        background-position: 2px 50%;
     }
 
     input.item-name {
@@ -119,18 +138,21 @@
         border-radius: 7px;
     }
 
-    button.delete {
+    div.item > p.item-name {
         position: absolute;
-        top: 1.75rem;
-        right: 0.25rem;
-        border-radius: 7px;
-        width: 50px;
-        height: 48px;
+        left: 90px;
+        top: 3rem;
+        font-weight: bold;
     }
 
-    button.delete > span {
-        padding: 1rem;
-        margin: -1rem;
+    button.delete {
+        position: absolute;
+        top: 2.5rem;
+        right: 0.5rem;
+        width: 50px;
+        height: 48px;
+        background-color: #fff !important;
+        border: none;
     }
 
     p.form-options > .btn {
@@ -195,6 +217,127 @@
     }
 
     .actions {
-    padding-bottom: 5rem;
+        position: fixed;
+        z-index: 5;
+        bottom: 0.5rem;
+        left: 2.5%;
     }
+
+    div.input-bar {
+        text-align: center;
+    }
+}
+
+@media only screen and (min-width: 360px) {
+    p.text-center.enter > a.btn.btn-primary {
+        text-align: center;
+        width: 320px;
+        font-size: 1.25rem;
+    }
+}
+
+@media only screen and (min-width: 480px) {
+
+    div.form-group.items {
+        padding-top: 9rem;
+    }
+
+    div.input-bar {
+        background-color: #fff;
+        width: 100%;
+        text-align: left;
+        padding: 0.5rem 0;
+        position: fixed;
+        z-index: 5;
+        top: 4.15rem;
+        border-bottom: solid 1px #ccc;
+    }
+
+    div.input-bar input[type="text"] {
+        margin-right: -3px;
+        margin-left: 2.5%;
+        height: 38px;
+        border-radius: 7px 0 0 7px;
+        border: solid 1px #666;
+        padding-left: 0.5rem;
+    }
+
+    div.input-bar button.btn {
+        margin-top: -1px;
+        border-radius: 0 7px 7px 0 ;
+    }
+
+    div.item {
+        position:relative;
+        width: 30%;
+        display: inline-block;
+        height: 300px;
+        margin-left:auto;
+        margin-right:auto;
+        border: solid 1px #ccc;
+        border-radius: 7px;
+        margin-left: 2.5%;
+        margin-top:2%;
+        margin-bottom: 4%;
+        background-image: url('https://upload.wikimedia.org/wikipedia/commons/b/bb/Table_grapes_on_white.jpg');
+        background-size: cover;
+    }
+
+    div.item  > .item-image {
+        position: absolute;
+        bottom:-10px;
+        left: -8px;
+        border: solid 3px black;
+        background-color: #fff;
+        border-radius:50px;
+/*         padding: 1rem; */
+    }
+
+    div.item > p.item-name {
+        position: absolute;
+        left: 1rem;
+        top:0.5rem;
+        font-weight: bold;
+    }
+
+    div.item > button {
+        position:absolute;
+        border-radius: 50px;
+        top:0;
+        right: 0;
+        border: solid 1px #d40808;
+        background-color: #d40808;
+        border: solid 1px #fff;
+        background-color: #fff;
+    }
+
+}
+
+div.input-bar {
+    background-color: #fff;
+    width: 100%;
+    text-align: left;
+    padding: 0.5rem 0;
+    position: fixed;
+    z-index: 5;
+    top: 4.15rem;
+    border-bottom: solid 1px #ccc;
+}
+
+div.input-bar input[type="text"] {
+    margin-right: -3px;
+    margin-left: 2.5%;
+    height: 38px;
+    border-radius: 7px 0 0 7px;
+    border: solid 1px #666;
+    padding-left: 0.5rem;
+}
+
+div.input-bar button.btn {
+    margin-top: -1px;
+    border-radius: 0 7px 7px 0 ;
+}
+
+div.item > button > span.fas.fa-times {
+    color: #d40808;
 }
