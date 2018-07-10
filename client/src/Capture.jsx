@@ -8,15 +8,19 @@ class Capture extends Component {
   getCameraDiv(prop) {
     if (prop === "inline") {
       return (
-      <div>
-        <button>
-          <span id="camera" style={{display: this.props.displayStateProp.chooseFile}} className="fas fa-camera-retro fa-7x"></span>
-          <span className="take-photo">Take Photo</span>
-        </button>
-      </div>
+        <div>
+          <button>
+            <span
+              id="camera"
+              style={{ display: this.props.displayStateProp.chooseFile }}
+              className="fas fa-camera-retro fa-7x"
+            />
+            <span className="take-photo">Take Photo</span>
+          </button>
+        </div>
       );
     } else {
-      return (<div></div>);
+      return <div />;
     }
   }
 
@@ -24,9 +28,7 @@ class Capture extends Component {
     return (
       <React.Fragment>
         <Header />
-        <form
-          className="form-group text-center add-photo"
-        >
+        <form className="form-group text-center add-photo">
           {this.getCameraDiv(this.props.displayStateProp.chooseFile)}
           <input
             style={{
@@ -49,7 +51,7 @@ class Capture extends Component {
           />
           <Spinner
             style={{
-              'margin-left': '50%',
+              "margin-left": "50%",
               display: this.props.displayStateProp.loadingBar
             }}
             name="ball-spin-fade-loader"

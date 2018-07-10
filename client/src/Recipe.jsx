@@ -35,7 +35,7 @@ class Recipe extends Component {
   }
 
   getPrepTime(prepTime) {
-    if(prepTime.prep_time) {
+    if (prepTime.prep_time) {
       return prepTime.prep_time;
     } else {
       return prepTime.prepTime;
@@ -50,11 +50,24 @@ class Recipe extends Component {
         <section className="recipe">
           <header>
             <h2>{this.props.selectedObj.title}</h2>
-            <img src={this.props.selectedObj.image} className="recipe-image" alt={`Image for the recipe ${this.props.selectedObj.title}`} />
+            <img
+              src={this.props.selectedObj.image}
+              className="recipe-image"
+              alt={`Image for the recipe ${this.props.selectedObj.title}`}
+            />
           </header>
           <div className="recipe-stats">
             <p>
-              <strong><span className="far fa-clock fa-2x" alt="Prep Time"></span></strong><span className="recipe-stats-text">{prepTime} minutes</span><strong className="ml-3"><span className="fas fa-users fa-2x" alt="Serves"></span></strong> <span className="recipe-stats-text">{this.props.selectedObj.serves}</span>
+              <strong>
+                <span className="far fa-clock fa-2x" alt="Prep Time" />
+              </strong>
+              <span className="recipe-stats-text">{prepTime} minutes</span>
+              <strong className="ml-3">
+                <span className="fas fa-users fa-2x" alt="Serves" />
+              </strong>{" "}
+              <span className="recipe-stats-text">
+                {this.props.selectedObj.serves}
+              </span>
             </p>
           </div>
 

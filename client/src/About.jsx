@@ -8,10 +8,13 @@ class About extends Component {
       <React.Fragment>
         <Header />
         <h1> About Us </h1>
-        <p className="text-center" >
+        <p className="text-center">
           This project was developed by Lighthouse Labs Students
         </p>
-        <Link to = "/"> <button> Go home </button> </Link>
+        <Link to="/">
+          {" "}
+          <button> Go home </button>{" "}
+        </Link>
       </React.Fragment>
     );
   }
