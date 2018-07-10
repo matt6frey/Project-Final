@@ -97,13 +97,12 @@
         cursor: pointer !important;
     }
 
-    form.add-photo > div::after {
+    form.add-photo > div > button > span.take-photo {
         position: absolute;
-        content: "Take Photo";
-        font-size: 20px;
+        font-size: 25px;
         font-weight: bold;
-        top: 175px;
-        left: 49px;
+        top: 128px;
+        left: 22px;
         color: #cc5f00;
     }
 
@@ -439,6 +438,53 @@
         overflow: hidden;
     }
 
+}
+
+@media only screen and (min-width: 500px) {
+    section.recipe > header {
+        text-align: center;
+    }
+
+    section.recipe > header > img.recipe-image {
+        width: 60%;
+        max-width: 400px;
+        height: auto;
+        margin: 1rem 0;
+        display: inline-block;
+    }
+
+    section.recipe > .instructions, section.recipe > .ingredients {
+        width: 100%;
+        max-width: 1024px;
+        padding: 1rem 1%;
+    }
+
+    section.recipe > .ingredients > h3, section.recipe > .instructions > h3 {
+        text-align: center;
+    }
+
+    section.recipe > .ingredients > ul, section.recipe > .instructions > ol {
+        margin: 1rem auto;
+        padding-left: 0;
+        width: 600px;
+    }
+
+    section.recipe > .ingredients > ul li {
+        width: 32%;
+        display: inline-block;
+        margin-left: 1%;
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
+        vertical-align: middle;
+    }
+
+    section.recipe > hr {
+        margin: 2rem 0;
+    }
+
+    section.recipe > div.return-recipelist {
+        text-align: center;
+    }
 }
 
 div.input-bar {

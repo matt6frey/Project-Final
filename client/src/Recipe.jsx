@@ -20,7 +20,6 @@ class Recipe extends Component {
       ) {
         let string = item.substr(0, item.search(/(http:\/\/){1}[\S]{1,}/));
         let href = item.substr(item.search(/(http:\/\/){1}[\S]{1,}/));
-        console.log("STRING", string, "HREF:", href);
         return (
           <li key={uuidv4()}>
             {string}{" "}
@@ -55,8 +54,7 @@ class Recipe extends Component {
           </header>
           <div className="recipe-stats">
             <p>
-              <strong><span className="far fa-clock fa-2x" alt="Prep Time"></span></strong> <span className="recipe-stats-text">{prepTime}
-              minutes</span><strong className="ml-3"><span className="fas fa-users fa-2x" alt="Serves"></span></strong> <span className="recipe-stats-text">{this.props.selectedObj.serves}</span>
+              <strong><span className="far fa-clock fa-2x" alt="Prep Time"></span></strong><span className="recipe-stats-text">{prepTime} minutes</span><strong className="ml-3"><span className="fas fa-users fa-2x" alt="Serves"></span></strong> <span className="recipe-stats-text">{this.props.selectedObj.serves}</span>
             </p>
           </div>
 
@@ -71,9 +69,11 @@ class Recipe extends Component {
             <h3>Instructions</h3>
             <ol>{this.getInstructionList()}</ol>
           </div>
-          <Link to="/list" className="btn btn-primary return">
-            Go back to Recipe List
-          </Link>
+          <div className="return-recipelist">
+            <Link to="/list" className="btn btn-primary return">
+              Go back to Recipe List
+            </Link>
+          </div>
         </section>
         <div className="actions">
           <Link to="/" className="btn btn-primary">

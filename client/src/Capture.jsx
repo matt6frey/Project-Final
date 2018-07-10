@@ -5,6 +5,21 @@ import { Link } from "react-router-dom";
 import Spinner from "react-spinkit";
 
 class Capture extends Component {
+  getCameraDiv(prop) {
+    if (prop === "inline") {
+      return (
+      <div>
+        <button>
+          <span id="camera" style={{display: this.props.displayStateProp.chooseFile}} className="fas fa-camera-retro fa-7x"></span>
+          <span className="take-photo">Take Photo</span>
+        </button>
+      </div>
+      );
+    } else {
+      return (<div></div>);
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -12,11 +27,7 @@ class Capture extends Component {
         <form
           className="form-group text-center add-photo"
         >
-          <div>
-            <button>
-              <span id="camera" style={{display: this.props.displayStateProp.chooseFile}} className="fas fa-camera-retro fa-7x"></span>
-            </button>
-          </div>
+          {this.getCameraDiv(this.props.displayStateProp.chooseFile)}
           <input
             style={{
               display: this.props.displayStateProp.chooseFile
