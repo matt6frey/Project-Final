@@ -2,9 +2,17 @@ import React, { Component } from "react";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
+import axios from "axios";
 // import { CSSTransitionGroup } from "react-transition-group/CSSTransitionGroup";
 
 class Ingredient extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      recommend: []
+    };
+  }
+
   capitalize(name) {
     return name.charAt(0).toUpperCase() + name.substr(1);
   }
@@ -42,9 +50,8 @@ class Ingredient extends Component {
     event.preventDefault();
     let tempArray = [...this.props.items];
     let checkObject = tempArray.find(obj => {
-      return obj.IngredientName === this.refs.newItem.value;
+      return obj.name === this.refs.newItem.value;
     });
-
     if (!checkObject && this.refs.newItem.value !== "") {
       let newItem = this.refs.newItem.value;
       this.props.addItem(newItem);
@@ -64,13 +71,39 @@ class Ingredient extends Component {
     }
   }
 
+  autofillRecommend({ target: { value } }) {
+    if (value.length > 1) {
+      axios.post("/recommend", { recommend: value }).then(res => {
+        this.setState({
+          recommend: res.data
+        });
+      });
+    }
+  }
+
+  displayRecommendations() {
+    let recommendations = this.state.recommend;
+
+    return recommendations.map(item => {
+      return <option value={item.name} />;
+    });
+  }
+
   render() {
     return (
       <React.Fragment>
         <Header />
         <div className="form-group items">
           <div className="input-bar">
-            <input type="text" ref="newItem" />
+            <input
+              type="text"
+              ref="newItem"
+              onKeyUp={this.autofillRecommend.bind(this)}
+              list="suggestions"
+            />
+            <datalist id="suggestions">
+              {this.displayRecommendations()}
+            </datalist>
             <button
               type="submit"
               value="Add ingredient"
@@ -82,15 +115,7 @@ class Ingredient extends Component {
           </div>
           {this.getItem()}
         </div>
-        <div className="actions">
-          <Link
-            to="/list"
-            onClick={this.props.getRecipes}
-            className="btn btn-warning"
-          >
-            See Recipes
-          </Link>
-        </div>
+        <div className="actions">{this.showRecipeBtn()}</div>
         <Footer />
       </React.Fragment>
     );

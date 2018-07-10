@@ -202,6 +202,17 @@ app.get("/validate-item/:name", (req, res) => {
   }
 });
 
+// Route for getting ingredient recommendations
+app.post("/recommend", (req, res) => {
+  console.log(req.body);
+  knex("foods")
+    .where("name", "like", `${req.body.recommend}%`)
+    .then(result => {
+      res.json(result);
+      console.log(result);
+    });
+});
+
 // Call to Spoonacular Recipe Lookup.
 app.post("/recipe-lookup", (req, res) => {
   // Heroku Deploy // app.post('/api/recipe-lookup', (req,res) => {
