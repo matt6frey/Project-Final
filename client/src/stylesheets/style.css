@@ -559,3 +559,9 @@ p.how-to-ingredients {
     z-index: 7;
 }
 
+
+div.spinner {
+    margin-left: 50%;
+    position: absolute;
+    top: 50%
+}

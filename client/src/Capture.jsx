@@ -28,10 +28,10 @@ class Capture extends Component {
     return (
       <React.Fragment>
         <Header />
-        <p className="how-to">Take a photo of the ingredients you want to cook with</p>
-        <form
-          className="form-group text-center add-photo"
-        >
+        <p className="how-to">
+          Take a photo of the ingredients you want to cook with
+        </p>
+        <form className="form-group text-center add-photo">
           {this.getCameraDiv(this.props.displayStateProp.chooseFile)}
           <input
             style={{
@@ -52,13 +52,14 @@ class Capture extends Component {
             src={this.props.imageURL}
             alt=""
           />
-          <Spinner
+          <div
             style={{
-              marginLeft: '50%',
               display: this.props.displayStateProp.loadingBar
             }}
-            name="ball-spin-fade-loader"
-          />
+            className="spinner"
+          >
+            <Spinner name="ball-spin-fade-loader" />
+          </div>
           <Link to="/ingredients">
             <button
               className="btn btn-primary submit"
