@@ -14,7 +14,7 @@ exports.seed = function(knex, Promise) {
         { id: 6, name: "blackberry", type: "fruit", url: "https://www.znaturalfoods.com/597-thickbox_default/blackberry-powder-organic-freeze-dried.jpg"},
         { id: 7, name: "blackcurrant", type: "fruit", url: "http://www.my-vb.com/img/assets/product_flavors/cassis.jpg"},
         { id: 8, name: "blood orange", type: "fruit", url: "https://cdn3.volusion.com/kceqm.mleru/v/vspfiles/photos/1432-2.jpg?1521734349"},
-        { id: 9, name: "blueberry", type: "fruit", url: "https://img.staticbg.com/thumb/view/2014/lianghuiyi/05/SKU131787/SKU131787(9).jpg"},
+        { id: 9, name: "blueberry", type: "fruit", url: "http://www.malibusuperfoods.com/image/cache/catalog/blueberry-500x500.jpg"},
         { id: 10, name: "boysenberry", type: "fruit", url: "https://www.naturesflavors.com/23247-large_default/organic-boysenberry-syrup-vegan-kosher-gluten-free.jpg"},
         { id: 11, name: "buddha's hand", type: "fruit", url: "http://www.freshplaza.com/2018/0130/Buddhas_hand_image_edited.jpg"},
         { id: 12, name: "cantaloupe", type: "fruit", url: "https://i1.wp.com/invorma.com/wp-content/uploads/2015/06/Hami-Melon.jpg"},
