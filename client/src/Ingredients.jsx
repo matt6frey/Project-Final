@@ -74,7 +74,8 @@ class Ingredient extends Component {
 
   autofillRecommend({ target: { value } }) {
     if (value.length > 1) {
-      axios.post("/recommend", { recommend: value }).then(res => {
+      axios.post("/api/recommend", { recommend: value }).then(res => {
+      // axios.post("/recommend", { recommend: value }).then(res => {
         this.setState({
           recommend: res.data
         });
