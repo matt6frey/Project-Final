@@ -29,7 +29,6 @@ class App extends Component {
   deleteItem(event) {
     var array = [...this.state.items];
     let newArray = array.filter(obj => {
-      console.log("Name: ", obj.name, "ID: ", event.target.id);
       return obj.name !== event.target.id;
     });
     this.setState({
@@ -50,7 +49,6 @@ class App extends Component {
 
   // -- METHODS FOR CAPTURE -------
   showImage(event) {
-    console.log(event.target);
     const name = event.target.files[0].name;
     const reader = new FileReader();
     reader.onload = () => {
@@ -79,7 +77,6 @@ class App extends Component {
               img: res.data.secure_url
             })
             .then(res => {
-              console.log(res);
               this.setState({
                 items: res.data,
                 display: {
@@ -120,7 +117,6 @@ class App extends Component {
     let obj = recipes.find(obj => {
       return obj.rid === selected_rid;
     });
-    console.log(obj);
     this.setState({
       selectedObj: obj
     });
@@ -129,8 +125,6 @@ class App extends Component {
   getRecipes(event) {
     event.preventDefault();
     let selectedIngredients = [...this.state.items].map(i => i.name);
-
-    console.log(selectedIngredients);
     axios.post("/recipe-lookup", { items: selectedIngredients }).then(res => {
       // Heroku Deploy // axios.post("/api/recipe-lookup", { items: selectedIngredients }).then(res => {
       this.setState({
