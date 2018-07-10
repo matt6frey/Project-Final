@@ -528,6 +528,8 @@ div.item > button > span.fas.fa-times {
     font-weight: bold;
 }
 
-a {
-    color: white
-}
+
+/* .sk-fade-in.sk-spinner.ball-spin-fade-loader {
+    position: fixed !important;
+    top: 50% !important;
+  } */

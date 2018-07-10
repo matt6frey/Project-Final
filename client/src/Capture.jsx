@@ -51,7 +51,7 @@ class Capture extends Component {
           />
           <Spinner
             style={{
-              "margin-left": "50%",
+              marginLeft: "50%",
               display: this.props.displayStateProp.loadingBar
             }}
             name="ball-spin-fade-loader"

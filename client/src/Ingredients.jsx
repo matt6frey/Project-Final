@@ -3,6 +3,8 @@ import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Spinner from "react-spinkit";
+
 // import { CSSTransitionGroup } from "react-transition-group/CSSTransitionGroup";
 
 class Ingredient extends Component {
@@ -10,6 +12,7 @@ class Ingredient extends Component {
     super(props);
     this.state = {
       recommend: []
+      // loadingBar: 'none'
     };
   }
 
@@ -104,6 +107,13 @@ class Ingredient extends Component {
             <datalist id="suggestions">
               {this.displayRecommendations()}
             </datalist>
+            <Spinner
+              style={{
+                // marginRight: "25%",
+                display: this.props.loadingBarDisplay
+              }}
+              name="ball-spin-fade-loader"
+            />
             <button
               type="submit"
               value="Add ingredient"
@@ -113,9 +123,11 @@ class Ingredient extends Component {
               Add Item
             </button>
           </div>
+
           {this.getItem()}
         </div>
         <div className="actions">{this.showRecipeBtn()}</div>
+
         <Footer />
       </React.Fragment>
     );

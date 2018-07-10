@@ -19,7 +19,8 @@ class App extends Component {
         image: "none",
         chooseFile: "inline",
         submitPic: "none",
-        loadingBar: "none"
+        loadingBar: "none",
+        loadingBarIngredient: "none"
       }
     };
   }
@@ -82,7 +83,8 @@ class App extends Component {
                 display: {
                   submitPic: "block",
                   chooseFile: "none",
-                  loadingBar: "none"
+                  loadingBar: "none",
+                  loadingBarIngredient: "none"
                 }
               });
             });
@@ -98,7 +100,8 @@ class App extends Component {
     this.setState({
       display: {
         image: "none",
-        chooseFile: "inline"
+        chooseFile: "inline",
+        loadingBar: "none"
       },
       recipes: undefined
     });
@@ -125,6 +128,11 @@ class App extends Component {
   getRecipes(event) {
     event.preventDefault();
     let selectedIngredients = [...this.state.items].map(i => i.name);
+    this.setState({
+      display: {
+        loadingBarIngredient: "inline"
+      }
+    });
     axios.post("/recipe-lookup", { items: selectedIngredients }).then(res => {
       // Heroku Deploy // axios.post("/api/recipe-lookup", { items: selectedIngredients }).then(res => {
       this.setState({
@@ -181,6 +189,7 @@ class App extends Component {
                     deleteItem={this.deleteItem.bind(this)}
                     addItem={this.addItem.bind(this)}
                     getRecipes={this.getRecipes.bind(this)}
+                    loadingBarDisplay={this.state.display.loadingBarIngredient}
                   />
                 )}
               />
