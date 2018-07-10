@@ -224,7 +224,7 @@ app.post("/recipe-lookup", (req, res) => {
   //Do knex DB check first
   checkDB(items).then(hasEntry => {
     if (!hasEntry) {
-    const number= 5; // Change number of results. Default: 5
+    const number= 6; // Change number of results. Default: 5
     // Make API call if none existent
     unirest.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?ingredients=${items}&number=${number}&ranking=2`)
     .header("X-Mashape-Key", "UmggyaDjvCmsh4jkCmZdRKKLMQ7Dp1oLVUDjsnb1e0yJuWBKSr")
