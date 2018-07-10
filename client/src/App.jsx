@@ -6,7 +6,7 @@ import RecipeList from "./RecipeList.jsx";
 import { Switch, HashRouter, Route, Redirect } from "react-router-dom";
 import About from "./About.jsx";
 import Ingredient from "./Ingredients.jsx";
-
+import NotFound from "./NotFound.jsx";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -167,6 +167,7 @@ class App extends Component {
               />
               <Redirect from="/ingredients" to="/list" />
               <Route path="/about" component={About} />
+              <Route path="*" component={NotFound} />
             </Switch>
           ) : (
             <Switch>
@@ -194,6 +195,7 @@ class App extends Component {
                   />
                 )}
               />
+              <Route path="*" component={NotFound} />
             </Switch>
           )}
         </HashRouter>
