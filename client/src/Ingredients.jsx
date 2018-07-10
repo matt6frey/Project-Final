@@ -2,12 +2,22 @@ import React, { Component } from "react";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import Spinner from "react-spinkit";
+
 // import { CSSTransitionGroup } from "react-transition-group/CSSTransitionGroup";
 
 class Ingredient extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      recommend: []
+      // loadingBar: 'none'
+    };
+  }
 
   capitalize(name) {
-      return name.charAt(0).toUpperCase() + name.substr(1);
+    return name.charAt(0).toUpperCase() + name.substr(1);
   }
 
   // Get the list of all items for rendering
@@ -16,11 +26,17 @@ class Ingredient extends Component {
     return items.map(item => {
       let name = this.capitalize(item.name);
       return (
-        <div className="item" key={item.name} style={{backgroundImage: `url(${item.url})`}}>
-          <p className="item-name form-group-item">
-            {name}
-          </p>
-          <button className="btn btn-secondary delete" value="delete" onClick={e => this.props.deleteItem(e)}>
+        <div
+          className="item"
+          key={item.name}
+          style={{ backgroundImage: `url(${item.url})` }}
+        >
+          <p className="item-name form-group-item">{name}</p>
+          <button
+            className="btn btn-secondary delete"
+            value="delete"
+            onClick={e => this.props.deleteItem(e)}
+          >
             <span
               className="fas fa-times fa-2x"
               id={item.name}
@@ -37,9 +53,8 @@ class Ingredient extends Component {
     event.preventDefault();
     let tempArray = [...this.props.items];
     let checkObject = tempArray.find(obj => {
-      return obj.IngredientName === this.refs.newItem.value;
+      return obj.name === this.refs.newItem.value;
     });
-
     if (!checkObject && this.refs.newItem.value !== "") {
       let newItem = this.refs.newItem.value;
       this.props.addItem(newItem);
@@ -59,13 +74,46 @@ class Ingredient extends Component {
     }
   }
 
+  autofillRecommend({ target: { value } }) {
+    if (value.length > 1) {
+      axios.post("/recommend", { recommend: value }).then(res => {
+        this.setState({
+          recommend: res.data
+        });
+      });
+    }
+  }
+
+  displayRecommendations() {
+    let recommendations = this.state.recommend;
+
+    return recommendations.map(item => {
+      return <option value={item.name} />;
+    });
+  }
+
   render() {
     return (
       <React.Fragment>
         <Header />
         <div className="form-group items">
           <div className="input-bar">
-          <input type="text" ref="newItem" />
+            <input
+              type="text"
+              ref="newItem"
+              onKeyUp={this.autofillRecommend.bind(this)}
+              list="suggestions"
+            />
+            <datalist id="suggestions">
+              {this.displayRecommendations()}
+            </datalist>
+            <Spinner
+              style={{
+                // marginRight: "25%",
+                display: this.props.loadingBarDisplay
+              }}
+              name="ball-spin-fade-loader"
+            />
             <button
               type="submit"
               value="Add ingredient"
@@ -78,11 +126,8 @@ class Ingredient extends Component {
           <p  className="how-to-ingredients">Verify your ingredients</p>
           {this.getItem()}
         </div>
-        <div className="actions">
-          <Link to="/list" onClick={this.props.getRecipes} className="btn btn-warning">
-            See Recipes
-          </Link>
-        </div>
+        <div className="actions">{this.showRecipeBtn()}</div>
+
         <Footer />
       </React.Fragment>
     );

@@ -3,6 +3,7 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+.sk-fade-in.sk-spinner.ball-spin-fade-loader {
+  position: fixed !important;
+  top: 50% !important;
 }

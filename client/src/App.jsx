@@ -19,7 +19,8 @@ class App extends Component {
         image: "none",
         chooseFile: "inline",
         submitPic: "none",
-        loadingBar: "none"
+        loadingBar: "none",
+        loadingBarIngredient: "none"
       }
     };
   }
@@ -39,7 +40,7 @@ class App extends Component {
   addItem(new_item) {
     // ADD AXIOS AND ROUTE RESPONSE. IF RESPONSE OKAY, THEN ADD , ESLE DO NOT ADD AND ALERT THE USEr
     axios.get(`/validate-item/${new_item}`).then(res => {
-    // Heroku Deploy // axios.get(`/api/validate-item/${new_item}`).then(res => {
+      // Heroku Deploy // axios.get(`/api/validate-item/${new_item}`).then(res => {
       if (res.data !== false) {
         let newArray = this.state.items.concat(res.data);
         this.setState({ items: newArray });
@@ -82,7 +83,8 @@ class App extends Component {
                 display: {
                   submitPic: "block",
                   chooseFile: "none",
-                  loadingBar: "none"
+                  loadingBar: "none",
+                  loadingBarIngredient: "none"
                 }
               });
             });
@@ -95,10 +97,11 @@ class App extends Component {
   // Recipes Method
   clearStates() {
     // delete this.state.recipes;
-  this.setState({
+    this.setState({
       display: {
         image: "none",
-        chooseFile: "inline"
+        chooseFile: "inline",
+        loadingBar: "none"
       },
       recipes: undefined
     });
@@ -125,9 +128,14 @@ class App extends Component {
   getRecipes(event) {
     event.preventDefault();
     let selectedIngredients = [...this.state.items].map(i => i.name);
+    this.setState({
+      display: {
+        loadingBarIngredient: "inline"
+      }
+    });
 
     axios.post("/recipe-lookup", { items: selectedIngredients }).then(res => {
-    // Heroku Deploy // axios.post("/api/recipe-lookup", { items: selectedIngredients }).then(res => {
+      // Heroku Deploy // axios.post("/api/recipe-lookup", { items: selectedIngredients }).then(res => {
       this.setState({
         recipes: res.data
       });
@@ -182,6 +190,7 @@ class App extends Component {
                     deleteItem={this.deleteItem.bind(this)}
                     addItem={this.addItem.bind(this)}
                     getRecipes={this.getRecipes.bind(this)}
+                    loadingBarDisplay={this.state.display.loadingBarIngredient}
                   />
                 )}
               />
