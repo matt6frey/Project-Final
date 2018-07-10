@@ -65,7 +65,11 @@ class Ingredient extends Component {
   showRecipeBtn() {
     if (this.props.items.length > 0) {
       return (
-        <Link to="/list" onClick={this.props.getRecipes} className="btn btn-warning">
+        <Link
+          to="/list"
+          onClick={this.props.getRecipes}
+          className="btn btn-warning"
+        >
           See Recipes
         </Link>
       );
@@ -74,8 +78,9 @@ class Ingredient extends Component {
 
   autofillRecommend({ target: { value } }) {
     if (value.length > 1) {
-      axios.post("/api/recommend", { recommend: value }).then(res => {
-      // axios.post("/recommend", { recommend: value }).then(res => {
+      let search = value.toLowerCase();
+      axios.post("/api/recommend", { recommend: search }).then(res => {
+      // axios.post("/recommend", { recommend: search }).then(res => {
         this.setState({
           recommend: res.data
         });
@@ -106,13 +111,14 @@ class Ingredient extends Component {
             <datalist id="suggestions">
               {this.displayRecommendations()}
             </datalist>
-            <Spinner
+            <div
               style={{
-                // marginRight: "25%",
                 display: this.props.loadingBarDisplay
               }}
-              name="ball-spin-fade-loader"
-            />
+              className="spinner"
+            >
+              <Spinner name="ball-spin-fade-loader" />
+            </div>
             <button
               type="submit"
               value="Add ingredient"
@@ -122,7 +128,7 @@ class Ingredient extends Component {
               Add Item
             </button>
           </div>
-          <p  className="how-to-ingredients">Did we miss anything?</p>
+          <p className="how-to-ingredients">Did we miss anything?</p>
           {this.getItem()}
         </div>
         <div className="actions">{this.showRecipeBtn()}</div>

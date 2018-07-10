@@ -95,8 +95,8 @@ function getRecipeDetails(recipes, details, cb, uniqueID) {
   }
   let recipe = recipes.pop();
   unirest.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${recipe.id}/information`)
-    .header("X-Mashape-Key", "UmggyaDjvCmsh4jkCmZdRKKLMQ7Dp1oLVUDjsnb1e0yJuWBKSr")
-    .header("X-Mashape-Host", "spoonacular-recipe-food-nutrition-v1.p.mashape.com")
+    .header("X-Mashape-Key", process.env.MASHAPE_KEY)
+    .header("X-Mashape-Host", process.env.MASHAPE_HOST)
     .end(function(result) {
       // reshape data
       const detail = result.body;
@@ -211,11 +211,11 @@ app.post("/api/recommend", (req, res) => {
   //Do knex DB check first
   checkDB(items).then(hasEntry => {
     if (!hasEntry) {
-    const number= 5; // Change number of results. Default: 5
+    const number= 6; // Change number of results. Default: 5
     // Make API call if none existent
     unirest.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?ingredients=${items}&number=${number}&ranking=2`)
-    .header("X-Mashape-Key", "UmggyaDjvCmsh4jkCmZdRKKLMQ7Dp1oLVUDjsnb1e0yJuWBKSr")
-    .header("X-Mashape-Host", "spoonacular-recipe-food-nutrition-v1.p.mashape.com")
+    .header("X-Mashape-Key", process.env.MASHAPE_KEY)
+    .header("X-Mashape-Host", process.env.MASHAPE_HOST)
     .end(function (result) {
       // Get recipe details and send them back to client
       getRecipeDetails(result.body, (detail) => {
@@ -247,6 +247,12 @@ app.post("/api/recommend", (req, res) => {
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+// Render 404 page
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './client/index.html'));
+  });
+
 
 // error handler
 app.use(function(err, req, res, next) {
