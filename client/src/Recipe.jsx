@@ -50,7 +50,7 @@ class Recipe extends Component {
         <section className="recipe">
           <header>
             <h2>{this.props.selectedObj.title}</h2>
-            <img src={this.props.selectedObj.image} className="recipe-image" alt={`Image for the recipe ${this.props.selectedObj.title}`} />
+            <img src={this.props.selectedObj.image} className="recipe-image" alt={`${this.props.selectedObj.title}`} />
           </header>
           <div className="recipe-stats">
             <p>

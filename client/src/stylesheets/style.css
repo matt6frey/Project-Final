@@ -230,6 +230,7 @@
         clear: both;
         margin-bottom: 1rem;
         overflow: hidden;
+        position: relative;
     }
 
      div.recipe h3 {
@@ -255,7 +256,14 @@
     }
 
     p.description {
-        margin-top: 1rem;
+        position: absolute;
+        bottom: 7.5rem;
+        right: 0;
+        padding: 0.5rem 1rem;
+        font-weight: bold;
+        color: yellow;
+        background-color: green;
+        border-radius: 7px  0 0 0;
     }
 
     /*
@@ -543,4 +551,9 @@ p.how-to-ingredients {
     font-weight: bold;
     color: #616161;
     padding: 1rem 0 0;
+}
+
+.sk-fade-in.sk-spinner.ball-spin-fade-loader {
+    position: fixed !important;
+    top: 50% !important;
 }

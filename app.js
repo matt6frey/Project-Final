@@ -186,7 +186,7 @@ app.post('/recipe-lookup', (req,res) => {
     if (!hasEntry) {
     const number= 5; // Change number of results. Default: 5
     // Make API call if none existent
-    unirest.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?ingredients=${items}&number=${number}&ranking=1`)
+    unirest.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?ingredients=${items}&number=${number}&ranking=2`)
     .header("X-Mashape-Key", "UmggyaDjvCmsh4jkCmZdRKKLMQ7Dp1oLVUDjsnb1e0yJuWBKSr")
     .header("X-Mashape-Host", "spoonacular-recipe-food-nutrition-v1.p.mashape.com")
     .end(function (result) {
@@ -195,7 +195,7 @@ app.post('/recipe-lookup', (req,res) => {
         let keys = Object.keys(detail);
         knex('recipe_queries').insert({query_id: detail[keys[0]].queryID, query_str: items}).then( (submitted) => {
             keys.forEach( (key) => {
-              knex('recipes').insert({rid: detail[key].rid, query_id: detail[key].queryID, title: detail[key].title, image: detail[key].image, serves: detail[key].serves, prep_time: detail[key].prepTime, ingredients: detail[key].ingredients, steps: detail[key].steps }).then( (submitted) => {
+              knex('recipes').insert({rid: detail[key].rid, query_id: detail[key].queryID, title: detail[key].title, image: detail[key].image, serves: detail[key].serves, prep_time: detail[key].prepTime, ingredients: detail[key].ingredients, rating: detail[key].rating, steps: detail[key].steps }).then( (submitted) => {
                 console.log(`Added ${keys.length} recipe entries to database.`);
               });
             });

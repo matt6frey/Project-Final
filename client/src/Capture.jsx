@@ -24,7 +24,6 @@ class Capture extends Component {
     return (
       <React.Fragment>
         <Header />
-
         <p className="how-to">Take a photo of the ingredients you want to cook with</p>
         <form
           className="form-group text-center add-photo"
@@ -51,7 +50,7 @@ class Capture extends Component {
           />
           <Spinner
             style={{
-              'margin-left': '50%',
+              marginLeft: '50%',
               display: this.props.displayStateProp.loadingBar
             }}
             name="ball-spin-fade-loader"

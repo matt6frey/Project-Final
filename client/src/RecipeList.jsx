@@ -6,11 +6,9 @@ import { Link } from "react-router-dom";
 class RecipeList extends Component {
 
   truncateTitle(str) {
-    console.log(typeof str);
     if(str.length > 29) {
     let end = str.search('-');
     if(end === -1) {
-      console.log(str.length, "<-- Length!");
       return str.split(' ').slice(0,3).join(' ') + "...";
     }
     return str.substr(0, end);
@@ -19,7 +17,7 @@ class RecipeList extends Component {
   }
 
   getRecipe() {
-    return Object.keys(this.props.recipeList).map(item => {
+    return Object.keys(this.props.recipeList).reverse().map(item => {
       let recipelist = this.props.recipeList;
       let completeLink = `/list/${recipelist[item].rid}`;
       let title = this.truncateTitle(recipelist[item].title);
@@ -27,7 +25,7 @@ class RecipeList extends Component {
         <div className="recipe" key={recipelist[item].rid}>
           <img src={recipelist[item].image} alt="" className="item-image" />
           <h3>{title}</h3>
-          <p className="description">{recipelist[item].rating}</p>
+          <p className="description">{recipelist[item].rating} Ingredients</p>
           <p className="text-right">
             <Link to={completeLink} onClick={() => this.props.selectIDRecipe(recipelist[item].rid)} className="select-recipe btn btn-primary">
                 <span className="fas fa-utensils"></span> Select
