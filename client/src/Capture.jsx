@@ -24,6 +24,8 @@ class Capture extends Component {
     return (
       <React.Fragment>
         <Header />
+
+        <p className="how-to">Take a photo of the ingredients you want to cook with</p>
         <form
           className="form-group text-center add-photo"
         >

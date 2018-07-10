@@ -66,15 +66,16 @@ class Ingredient extends Component {
         <div className="form-group items">
           <div className="input-bar">
           <input type="text" ref="newItem" />
-          <button
-            type="submit"
-            value="Add ingredient"
-            onClick={this.getIndvItem.bind(this)}
-            className="btn btn-primary"
-          >
-            Add Item
-          </button>
+            <button
+              type="submit"
+              value="Add ingredient"
+              onClick={this.getIndvItem.bind(this)}
+              className="btn btn-primary"
+            >
+              Add Item
+            </button>
           </div>
+          <p  className="how-to-ingredients">Verify your ingredients</p>
           {this.getItem()}
         </div>
         <div className="actions">

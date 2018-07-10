@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import logo from "./img/chef-logo.png"; // Tell Webpack this JS file uses this image
+import logo from "./img/chef-logo-w.png"; // Tell Webpack this JS file uses this image
 
 class Header extends Component {
   render() {

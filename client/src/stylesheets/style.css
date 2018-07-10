@@ -527,3 +527,20 @@ div.item > button > span.fas.fa-times {
     color: #fff !important;
     font-weight: bold;
 }
+
+p.how-to {
+    position: absolute;
+    top: 5rem;
+    width: 100%;
+    padding: 1rem;
+    font-weight: bold;
+    color: #616161;
+    text-align: center;
+}
+
+p.how-to-ingredients {
+    text-align: center;
+    font-weight: bold;
+    color: #616161;
+    padding: 1rem 0 0;
+}
