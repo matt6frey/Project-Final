@@ -88,11 +88,6 @@ class Recipe extends Component {
             </Link>
           </div>
         </section>
-        <div className="actions">
-          <Link to="/" className="btn btn-primary">
-            Start Over
-          </Link>
-        </div>
         <Footer />
       </React.Fragment>
     );

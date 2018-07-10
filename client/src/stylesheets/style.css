@@ -556,5 +556,6 @@ p.how-to-ingredients {
 .sk-fade-in.sk-spinner.ball-spin-fade-loader {
     position: fixed !important;
     top: 50% !important;
+    z-index: 7;
 }
 

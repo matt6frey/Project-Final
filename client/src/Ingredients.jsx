@@ -65,11 +65,9 @@ class Ingredient extends Component {
   showRecipeBtn() {
     if (this.props.items.length > 0) {
       return (
-        <button className="btn btn-warning">
-          <Link to="/list" onClick={this.props.getRecipes}>
-            See Recipes
-          </Link>
-        </button>
+        <Link to="/list" onClick={this.props.getRecipes} className="btn btn-warning">
+          See Recipes
+        </Link>
       );
     }
   }
@@ -123,7 +121,7 @@ class Ingredient extends Component {
               Add Item
             </button>
           </div>
-          <p  className="how-to-ingredients">Verify your ingredients</p>
+          <p  className="how-to-ingredients">Did we miss anything?</p>
           {this.getItem()}
         </div>
         <div className="actions">{this.showRecipeBtn()}</div>
