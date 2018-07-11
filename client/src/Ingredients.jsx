@@ -118,6 +118,7 @@ class Ingredient extends Component {
               className="spinner"
             >
               <Spinner name="ball-spin-fade-loader" />
+              <p class="loading-text">Loading</p>
             </div>
             <button
               type="submit"

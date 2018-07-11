@@ -74,8 +74,8 @@ class App extends Component {
         .post("https://api.cloudinary.com/v1_1/dybwmffcu/upload", fd)
         .then(res => {
           axios
-            .post("/api/upload", {
-            // .post("/upload", {
+            // .post("/api/upload", {
+            .post("/upload", {
               img: res.data.secure_url
             })
             .then(res => {
