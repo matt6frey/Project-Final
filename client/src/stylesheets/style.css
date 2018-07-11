@@ -10,7 +10,7 @@
         z-index: 5;
         width: 100%;
         background-color: #ff8b19;
-        background: linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(255,139,25,1) 0%, rgba(255,188,91,1) 100%, rgba(255,255,255,1) 100%) !important;
+        background: linear-gradient(115deg, rgba(0,0,0,1) 0%, rgba(232,125,20,1) 0%, rgba(236,173,81,1) 100%, rgba(255,255,255,1) 100%);
         color: #fff;
         height: 67px;
         padding: 0.25rem 0 0.5rem;
@@ -61,10 +61,10 @@
     form.add-photo {
         padding-top: 12rem;
         padding-bottom: 1rem;
-        /*outline: solid 1px blue;*/
         display: block;
         position: relative;
         z-index: 1;
+        margin-bottom: 4rem;
     }
 
     form.add-photo > div {
@@ -168,6 +168,7 @@
     div.form-group.items {
         padding-top: 7.5rem;
         padding-bottom:3rem;
+        margin-bottom: 3rem;
     }
 
     form.form-group.items {
@@ -263,9 +264,10 @@
         right: 0;
         padding: 0.5rem 1rem;
         font-weight: bold;
-        color: yellow;
-        background-color: green;
-        border-radius: 7px  0 0 0;
+        color: #fff;
+        background-color: rgba(200, 80, 0, 0.5);
+        border-radius: 7px 0 0 0;
+        text-align: center;
     }
 
     /*
@@ -279,6 +281,7 @@
 
     section.recipe-list {
         padding-top: 5rem;
+        margin-bottom: 3rem;
     }
 
     section.recipe > header,
@@ -424,7 +427,7 @@
 
     div.item > button {
         position:absolute;
-        border-radius: 50px;
+        border-radius: 0 0 0 15px;
         top:0;
         right: 0;
         border: solid 1px #d40808;
@@ -451,6 +454,7 @@
 }
 
 @media only screen and (min-width: 500px) {
+
     section.recipe > header {
         text-align: center;
     }
@@ -494,6 +498,35 @@
 
     section.recipe > div.return-recipelist {
         text-align: center;
+    }
+}
+
+@media only screen and (min-width: 768px) and (min-height: 1024px) {
+    p.how-to {
+        /*top: 15rem !important;*/
+        font-size: 1.5rem;
+    }
+
+    form.add-photo {
+        padding-top: 20rem;
+    }
+}
+
+@media only screen and (min-width: 1024px) and (min-height: 1366px) {
+    p.how-to {
+        top: 15rem !important;
+        font-size: 1.5rem;
+    }
+
+    form.add-photo {
+        padding-top: 25rem;
+    }
+}
+
+@media only screen and (min-width: 1366px) and (min-height: 1024px) {
+    p.how-to {
+        top: 25rem !important;
+        font-size: 1.5rem;
     }
 }
 
