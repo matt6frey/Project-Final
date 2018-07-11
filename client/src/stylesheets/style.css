@@ -43,6 +43,13 @@
     margin-left: -15px;
     }
 
+    .how-to-instructions, .hideInstructions {
+        top: 6rem;
+        margin-left: -162px;
+        width: 90%;
+        max-width: 324px;
+    }
+
     p.text-center.enter {
         position: absolute;
         width: 100%;
@@ -617,3 +624,91 @@ div.spinner > p.loading-text {
     font-weight: bold;
     color: #616161;
 }
+
+.how-to-instructions {
+    position: fixed;
+    top: 6rem;
+    left: 50%;
+    /*margin-left: -162px;*/
+    margin-bottom: 0;
+    padding: 1rem;
+    color: #fff;
+    text-shadow: 1px 1px 5px #666;
+    background-color: orange;
+    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(255,139,25,1) 0%, rgba(255,188,91,0.95) 100%, rgba(255,255,255,1) 100%);
+    z-index: 8;
+    /*width: 90%;
+    max-width: 324px;*/
+    border: solid 1px #ccc;
+    animation-name: showInstructions;
+    animation-duration: 1.25s;
+}
+
+@keyframes showInstructions {
+    0% { opacity: 0; top: 100%; }
+    100% {
+        opacity: 1; top: 6rem;
+    }
+}
+
+ .hideInstructions {
+    position: fixed;
+    top: 6rem;
+    left: 50%;
+    /*margin-left: -162px;*/
+    margin-bottom: 0;
+    padding: 1rem;
+    color: #fff;
+    text-shadow: 1px 1px 5px #666;
+    background-color: orange;
+    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(255,139,25,1) 0%, rgba(255,188,91,0.95) 100%, rgba(255,255,255,1) 100%);
+    z-index: 8;
+    /*width: 90%;
+    max-width: 324px;*/
+    border: solid 1px #ccc;
+ }
+
+.how-to-instructions > h4, .hideInstructions > h4 {
+    text-align: center;
+    padding-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.how-to-instructions > ol, .hideInstructions > ol {
+    margin: 1rem 0;
+}
+
+.how-to-instructions > ol li, .hideInstructions > ol li {
+    padding: 1rem;
+    list-style: none;
+    padding-left: 0;
+}
+
+p.close-instructions {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+}
+
+.hideInstructions {
+    /*display: none;*/
+    position: fixed;
+    animation-name: hideInstructions;
+
+    animation-duration: 1.25s;
+    top: 100%;
+    /*transition: top 1.25s linear ease-in;*/
+}
+
+@keyframes hideInstructions {
+    0% { opacity: 1; top: 6rem; }
+    99% {
+        opacity: 0;
+    }
+    100% {
+        display: none;
+        top: 100%;
+    }
+}
+
+.move { display: none; }

@@ -129,7 +129,7 @@ class Ingredient extends Component {
               Add Item
             </button>
           </div>
-          <p className="how-to-ingredients">Did we miss anything?</p>
+          <p className="how-to-ingredients">Confirm your ingredients.</p>
           {this.getItem()}
         </div>
         <div className="actions">{this.showRecipeBtn()}</div>

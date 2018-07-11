@@ -25,11 +25,38 @@ class Capture extends Component {
   }
 
   render() {
+      let howToClasses = ["how-to-instructions"];
+      if(this.props.addClass === 1) {
+        howToClasses.pop();
+        howToClasses.push('hideInstructions');
+        setTimeout(function () {
+          this.props.closeInstructions();
+        }.bind(this), 1250);
+      }
+      if (this.props.addClass === 2) {
+        howToClasses.pop();
+        howToClasses.push('move');
+      }
     return (
+
+
       <React.Fragment>
         <Header />
+        <div className={howToClasses.join(' ')}>
+        <h4>Welcome!</h4>
+
+        <ol>
+          <li>To begin, arrange the key ingredients you want to cook with on a flat surface.</li>
+          <li>Take a photo and our app will detect your ingredients!</li>
+          <li>Confirming your ingredients, you will be presented with a list of  recipes.</li>
+        </ol>
+
+        <p className="close-instructions" onClick={this.props.closeInstructions}>
+          close <span className="ml-2 fas fa-times"></span>
+        </p>
+      </div>
         <p className="how-to">
-          Take a photo of the key ingredients you want to cook with
+          Take a photo of the key ingredients you want to cook with!
         </p>
         <form className="form-group text-center add-photo">
           {this.getCameraDiv(this.props.displayStateProp.chooseFile)}
@@ -71,7 +98,7 @@ class Capture extends Component {
           className="spinner"
         >
           <Spinner name="ball-spin-fade-loader" />
-          <p class="loading-text">Loading</p>
+          <p className="loading-text">Loading</p>
         </div>
         <Footer />
       </React.Fragment>

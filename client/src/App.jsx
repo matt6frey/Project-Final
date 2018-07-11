@@ -21,7 +21,8 @@ class App extends Component {
         submitPic: "none",
         loadingBar: "none",
         loadingBarIngredient: "none"
-      }
+      },
+      addClass:0
     };
   }
 
@@ -102,7 +103,8 @@ class App extends Component {
       display: {
         image: "none",
         chooseFile: "inline",
-        loadingBar: "none"
+        loadingBar: "none",
+        submitPic: "none"
       },
       recipes: undefined
     });
@@ -143,6 +145,12 @@ class App extends Component {
     });
   }
 
+  closeInstructions () {
+    this.setState({
+      addClass: this.state.addClass + 1
+    });
+  }
+
   render() {
     return (
       <div className="app">
@@ -180,6 +188,8 @@ class App extends Component {
                     showImage={this.showImage.bind(this)}
                     imageURL={this.state.photoLoad.imageURL}
                     displayStateProp={this.state.display}
+                    addClass={this.state.addClass}
+                    closeInstructions={this.closeInstructions.bind(this)}
                   />
                 )}
               />

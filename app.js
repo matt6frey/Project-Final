@@ -207,7 +207,7 @@ app.post("/recipe-lookup", (req, res) => {
     res.status(200);
     res.json({ status: 200, error: "No items were sent." });
   }
-  const items = duplicateArray(req.body.items).join(",").toLowerCase(); // Join items into an http friendly str.
+  const items = duplicateArray(req.body.items).join(",").toLowerCase().replace(' ', '%20'); // Join items into an http friendly str.
   //Do knex DB check first
   checkDB(items).then(hasEntry => {
     if (!hasEntry) {
@@ -217,6 +217,10 @@ app.post("/recipe-lookup", (req, res) => {
     .header("X-Mashape-Key", process.env.MASHAPE_KEY)
     .header("X-Mashape-Host", process.env.MASHAPE_HOST)
     .end(function (result) {
+      if(result.body.length < 1) {
+        res.status(200);
+        res.json([{rid: 99999, query_id: 'none', title: 'No Recipes Found', image: "https://cdn.shopify.com/s/files/1/1061/1924/products/Frowning_Emoji_Icon_30260b4f-d601-45f5-9bb3-836f607cacbc_large.png?v=1513251036", serves: 0, prep_time: 0, ingredients: "We couldn't find any recipes.", rating: '0', steps: "Please try again." }]);
+      } else {
       // Get recipe details and send them back to client
       getRecipeDetails(result.body, (detail) => {
         let keys = Object.keys(detail);
@@ -230,6 +234,7 @@ app.post("/recipe-lookup", (req, res) => {
             res.json(detail);
         });
       }, null, uniqueString());
+    }
     });
     } else {
       console.log("Match Found");

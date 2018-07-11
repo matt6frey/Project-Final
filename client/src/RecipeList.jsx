@@ -16,6 +16,7 @@ class RecipeList extends Component {
   }
 
   getRecipe() {
+    // choose to send empty/array onbject with error message || redirect
     return Object.keys(this.props.recipeList).reverse().map(item => {
       let recipelist = this.props.recipeList;
       let completeLink = `/list/${recipelist[item].rid}`;
