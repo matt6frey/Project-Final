@@ -54,7 +54,7 @@ class Ingredient extends Component {
     event.preventDefault();
     let tempArray = [...this.props.items];
     let checkObject = tempArray.find(obj => {
-      return obj.name === this.refs.newItem.value;
+      return obj.name === this.refs.newItem.value.toLowerCase();
     });
     if (!checkObject && this.refs.newItem.value !== "") {
       let newItem = this.refs.newItem.value;
