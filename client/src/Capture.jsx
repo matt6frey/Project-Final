@@ -71,7 +71,7 @@ class Capture extends Component {
           className="spinner"
         >
           <Spinner name="ball-spin-fade-loader" />
-          <p class="loading-text">Loading</p>
+          <p className="loading-text">Loading</p>
         </div>
         <Footer />
       </React.Fragment>
