@@ -52,14 +52,6 @@ class Capture extends Component {
             src={this.props.imageURL}
             alt=""
           />
-          <div
-            style={{
-              display: this.props.displayStateProp.loadingBar
-            }}
-            className="spinner"
-          >
-            <Spinner name="ball-spin-fade-loader" />
-          </div>
           <Link to="/ingredients">
             <button
               className="btn btn-primary submit"
@@ -72,6 +64,15 @@ class Capture extends Component {
             </button>
           </Link>
         </form>
+        <div
+          style={{
+            display: this.props.displayStateProp.loadingBar
+          }}
+          className="spinner"
+        >
+          <Spinner name="ball-spin-fade-loader" />
+          <p class="loading-text">Loading</p>
+        </div>
         <Footer />
       </React.Fragment>
     );

@@ -55,8 +55,8 @@ function termEvaluator(terms, cb) {
     });
 }
 
-// app.post("/upload", (req, res) => {
- app.post('/api/upload', (req, res) => {
+app.post("/upload", (req, res) => {
+ // app.post('/api/upload', (req, res) => {
   clApp.models.predict(Clarifai.GENERAL_MODEL, req.body.img).then(
     function(response) {
       let terms = response.outputs[0].data.concepts;
@@ -170,8 +170,8 @@ function duplicateArray(array) {
   return array.concat(array2);
 }
 
-// app.get("/validate-item/:name", (req, res) => {
-  app.get('/api/validate-item/:name', (req,res) => {
+app.get("/validate-item/:name", (req, res) => {
+  // app.get('/api/validate-item/:name', (req,res) => {
   if (req.params.name) {
     let names = duplicateArray([req.params.name.toLowerCase()]);
     console.log(names instanceof Array, names);
@@ -189,8 +189,8 @@ function duplicateArray(array) {
 });
 
 // Route for getting ingredient recommendations
-// app.post("/recommend", (req, res) => {
-app.post("/api/recommend", (req, res) => {
+app.post("/recommend", (req, res) => {
+// app.post("/api/recommend", (req, res) => {
   console.log(req.body);
   knex("foods")
     .where("name", "like", `${req.body.recommend}%`)
@@ -201,8 +201,8 @@ app.post("/api/recommend", (req, res) => {
 });
 
 // Call to Spoonacular Recipe Lookup.
-// app.post("/recipe-lookup", (req, res) => {
-  app.post('/api/recipe-lookup', (req,res) => {
+app.post("/recipe-lookup", (req, res) => {
+  // app.post('/api/recipe-lookup', (req,res) => {
   if (req.body.items.length < 1 || typeof req.body.items === "string") {
     res.status(200);
     res.json({ status: 200, error: "No items were sent." });

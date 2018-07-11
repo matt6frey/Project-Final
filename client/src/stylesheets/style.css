@@ -10,6 +10,7 @@
         z-index: 5;
         width: 100%;
         background-color: #ff8b19;
+        background: linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(255,139,25,1) 0%, rgba(255,188,91,1) 100%, rgba(255,255,255,1) 100%) !important;
         color: #fff;
         height: 67px;
         padding: 0.25rem 0 0.5rem;
@@ -151,6 +152,7 @@
         padding: 1rem 1rem 0;
         bottom: 0;
         background-color: #ffbc5b;
+        background: linear-gradient(225deg, rgba(0,0,0,1) 0%, rgba(255,139,25,1) 0%, rgba(255,188,91,1) 100%, rgba(255,255,255,1) 100%);
         color: #fff;
     }
 
@@ -554,14 +556,31 @@ p.how-to-ingredients {
 }
 
 .sk-fade-in.sk-spinner.ball-spin-fade-loader {
-    position: fixed !important;
-    top: 50% !important;
-    z-index: 7;
+    position: relative;
+    top: 35% !important;
+    left: 46%;
 }
 
-
 div.spinner {
-    margin-left: 50%;
+    margin-left: 10%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -65px;
+    margin-left: -125px;
+    z-index: 7;
+    height: 130px;
+    border: solid 1px #ccc;
+    width: 250px;
+    background-color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    border-radius: 7px;
+}
+
+div.spinner > p.loading-text {
     position: absolute;
-    top: 50%
+    bottom: -7%;
+    left: 38%;
+    font-weight: bold;
+    color: #616161;
 }
