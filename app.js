@@ -178,7 +178,7 @@ app.get("/validate-item/:name", (req, res) => {
     knex("foods")
       .whereIn("name", names)
       .then(result => {
-        console.log(result, result instanceof Array, result.length);
+        // console.log(result, result instanceof Array, result.length);
         if (result.length > 0) {
           res.send(result);
         } else {

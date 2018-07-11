@@ -29,7 +29,7 @@ class Capture extends Component {
       <React.Fragment>
         <Header />
         <p className="how-to">
-          Take a photo of the ingredients you want to cook with
+          Take a photo of the key ingredients you want to cook with
         </p>
         <form className="form-group text-center add-photo">
           {this.getCameraDiv(this.props.displayStateProp.chooseFile)}
