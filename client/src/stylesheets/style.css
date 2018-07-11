@@ -44,8 +44,8 @@
     }
 
     .how-to-instructions, .hideInstructions {
-        top: 6rem;
-        margin-left: -162px;
+        top: 4.75rem;
+        margin-left: -144px;
         width: 90%;
         max-width: 324px;
     }
@@ -357,6 +357,24 @@
     div.input-bar {
         text-align: center !important;
     }
+
+    @keyframes showInstructions {
+        0% { opacity: 0; top: 100%; }
+        100% {
+            opacity: 1; top: 4.75rem;
+        }
+    }
+
+    @keyframes hideInstructions {
+        0% { opacity: 1; top: 4.75rem; }
+        99% {
+            opacity: 0;
+        }
+        100% {
+            display: none;
+            top: 100%;
+        }
+    }
 }
 
 @media only screen and (min-width: 360px) {
@@ -364,6 +382,13 @@
         text-align: center;
         width: 320px;
         font-size: 1.25rem;
+    }
+
+    .how-to-instructions, .hideInstructions {
+        top: 6rem;
+        margin-left: -162px;
+        width: 90%;
+        max-width: 324px;
     }
 }
 
@@ -510,30 +535,66 @@
 
 @media only screen and (min-width: 768px) and (min-height: 1024px) {
     p.how-to {
-        /*top: 15rem !important;*/
         font-size: 1.5rem;
     }
 
     form.add-photo {
         padding-top: 20rem;
     }
+
+    .hideInstructions, .how-to-instructions {
+        top: 15rem;
+    }
+
+    @keyframes showInstructions {
+        0% { opacity: 0; top: 100%; }
+        100% {
+            opacity: 1; top: 15rem;
+        }
+    }
+
+    @keyframes hideInstructions {
+        0% { opacity: 1; top: 15rem; }
+        99% {
+            opacity: 0;
+        }
+        100% {
+            display: none;
+            top: 100%;
+        }
+    }
 }
 
-@media only screen and (min-width: 1024px) and (min-height: 1366px) {
+@media only screen and (min-width: 1024px) {
     p.how-to {
-        top: 15rem !important;
+        top: 10rem !important;
         font-size: 1.5rem;
     }
 
     form.add-photo {
-        padding-top: 25rem;
+        padding-top: 15rem;
     }
-}
 
-@media only screen and (min-width: 1366px) and (min-height: 1024px) {
-    p.how-to {
-        top: 25rem !important;
-        font-size: 1.5rem;
+    .hideInstructions, .how-to-instructions {
+        top: 11rem;
+    }
+
+    @keyframes showInstructions {
+        0% { opacity: 0; top: 100%; }
+        100% {
+            opacity: 1; top: 11rem;
+        }
+    }
+
+    @keyframes hideInstructions {
+        0% { opacity: 1; top: 11rem; }
+        99% {
+            opacity: 0;
+        }
+        100% {
+            display: none;
+            top: 100%;
+        }
     }
 }
 
@@ -626,10 +687,8 @@ div.spinner > p.loading-text {
 }
 
 .how-to-instructions {
-    position: fixed;
-    top: 6rem;
+    position: absolute;
     left: 50%;
-    /*margin-left: -162px;*/
     margin-bottom: 0;
     padding: 1rem;
     color: #fff;
@@ -637,25 +696,15 @@ div.spinner > p.loading-text {
     background-color: orange;
     background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(255,139,25,1) 0%, rgba(255,188,91,0.95) 100%, rgba(255,255,255,1) 100%);
     z-index: 8;
-    /*width: 90%;
-    max-width: 324px;*/
     border: solid 1px #ccc;
     animation-name: showInstructions;
     animation-duration: 1.25s;
 }
 
-@keyframes showInstructions {
-    0% { opacity: 0; top: 100%; }
-    100% {
-        opacity: 1; top: 6rem;
-    }
-}
-
- .hideInstructions {
-    position: fixed;
+.hideInstructions {
+    position: absolute;
     top: 6rem;
     left: 50%;
-    /*margin-left: -162px;*/
     margin-bottom: 0;
     padding: 1rem;
     color: #fff;
@@ -663,10 +712,8 @@ div.spinner > p.loading-text {
     background-color: orange;
     background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(255,139,25,1) 0%, rgba(255,188,91,0.95) 100%, rgba(255,255,255,1) 100%);
     z-index: 8;
-    /*width: 90%;
-    max-width: 324px;*/
     border: solid 1px #ccc;
- }
+}
 
 .how-to-instructions > h4, .hideInstructions > h4 {
     text-align: center;
@@ -691,24 +738,11 @@ p.close-instructions {
 }
 
 .hideInstructions {
-    /*display: none;*/
     position: fixed;
     animation-name: hideInstructions;
-
     animation-duration: 1.25s;
     top: 100%;
-    /*transition: top 1.25s linear ease-in;*/
+    cursor: pointer;
 }
 
-@keyframes hideInstructions {
-    0% { opacity: 1; top: 6rem; }
-    99% {
-        opacity: 0;
-    }
-    100% {
-        display: none;
-        top: 100%;
-    }
-}
-
-.move { display: none; }
+.move { display: none; } /*Maintains position of the instructions on capture*/
