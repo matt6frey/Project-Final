@@ -168,7 +168,7 @@ class App extends Component {
               />
               <Redirect from="/ingredients" to="/list" />
               <Route path="/about" component={About} />
-              <Route path="*" component={NotFound} />
+              <Redirect to="/" />
             </Switch>
           ) : (
             <Switch>
@@ -196,7 +196,7 @@ class App extends Component {
                   />
                 )}
               />
-              <Route path="*" component={NotFound} />
+              <Redirect to="/" />
             </Switch>
           )}
         </HashRouter>

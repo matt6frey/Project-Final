@@ -4,6 +4,7 @@ import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Spinner from "react-spinkit";
+import { Redirect } from "react-router-dom";
 
 // import { CSSTransitionGroup } from "react-transition-group/CSSTransitionGroup";
 
@@ -97,46 +98,50 @@ class Ingredient extends Component {
   }
 
   render() {
-    return (
-      <React.Fragment>
-        <Header />
-        <div className="form-group items">
-          <div className="input-bar">
-            <input
-              type="text"
-              ref="newItem"
-              onKeyUp={this.autofillRecommend.bind(this)}
-              list="suggestions"
-            />
-            <datalist id="suggestions">
-              {this.displayRecommendations()}
-            </datalist>
-            <div
-              style={{
-                display: this.props.loadingBarDisplay
-              }}
-              className="spinner"
-            >
-              <Spinner name="ball-spin-fade-loader" />
-              <p class="loading-text">Loading</p>
+    if (this.props.items !== undefined) {
+      return (
+        <React.Fragment>
+          <Header />
+          <div className="form-group items">
+            <div className="input-bar">
+              <input
+                type="text"
+                ref="newItem"
+                onKeyUp={this.autofillRecommend.bind(this)}
+                list="suggestions"
+              />
+              <datalist id="suggestions">
+                {this.displayRecommendations()}
+              </datalist>
+              <div
+                style={{
+                  display: this.props.loadingBarDisplay
+                }}
+                className="spinner"
+              >
+                <Spinner name="ball-spin-fade-loader" />
+                <p class="loading-text">Loading</p>
+              </div>
+              <button
+                type="submit"
+                value="Add ingredient"
+                onClick={this.getIndvItem.bind(this)}
+                className="btn btn-primary"
+              >
+                Add Item
+              </button>
             </div>
-            <button
-              type="submit"
-              value="Add ingredient"
-              onClick={this.getIndvItem.bind(this)}
-              className="btn btn-primary"
-            >
-              Add Item
-            </button>
+            <p className="how-to-ingredients">Did we miss anything?</p>
+            {this.getItem()}
           </div>
-          <p className="how-to-ingredients">Did we miss anything?</p>
-          {this.getItem()}
-        </div>
-        <div className="actions">{this.showRecipeBtn()}</div>
+          <div className="actions">{this.showRecipeBtn()}</div>
 
-        <Footer />
-      </React.Fragment>
-    );
+          <Footer />
+        </React.Fragment>
+      );
+    } else {
+      return <Redirect to="/" />;
+    }
   }
 }
 export default Ingredient;
