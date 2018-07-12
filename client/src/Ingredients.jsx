@@ -80,8 +80,8 @@ class Ingredient extends Component {
   autofillRecommend({ target: { value } }) {
     if (value.length > 1) {
       let search = value.toLowerCase();
-      axios.post("/api/recommend", { recommend: search }).then(res => {
-      // axios.post("/recommend", { recommend: search }).then(res => {
+      // axios.post("/api/recommend", { recommend: search }).then(res => {
+      axios.post("/recommend", { recommend: search }).then(res => {
         this.setState({
           recommend: res.data
         });
