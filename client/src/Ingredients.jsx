@@ -4,6 +4,7 @@ import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Spinner from "react-spinkit";
+import { Redirect } from "react-router-dom";
 
 // import { CSSTransitionGroup } from "react-transition-group/CSSTransitionGroup";
 
@@ -53,7 +54,7 @@ class Ingredient extends Component {
     event.preventDefault();
     let tempArray = [...this.props.items];
     let checkObject = tempArray.find(obj => {
-      return obj.name === this.refs.newItem.value;
+      return obj.name === this.refs.newItem.value.toLowerCase();
     });
     if (!checkObject && this.refs.newItem.value !== "") {
       let newItem = this.refs.newItem.value;
@@ -97,46 +98,49 @@ class Ingredient extends Component {
   }
 
   render() {
-    return (
-      <React.Fragment>
-        <Header />
-        <div className="form-group items">
-          <div className="input-bar">
-            <input
-              type="text"
-              ref="newItem"
-              onKeyUp={this.autofillRecommend.bind(this)}
-              list="suggestions"
-            />
-            <datalist id="suggestions">
-              {this.displayRecommendations()}
-            </datalist>
-            <div
-              style={{
-                display: this.props.loadingBarDisplay
-              }}
-              className="spinner"
-            >
-              <Spinner name="ball-spin-fade-loader" />
-              <p class="loading-text">Loading</p>
+    if (this.props.items !== undefined) {
+      return (
+        <React.Fragment>
+          <Header />
+          <div className="form-group items">
+            <div className="input-bar">
+              <input
+                type="text"
+                ref="newItem"
+                onKeyUp={this.autofillRecommend.bind(this)}
+                list="suggestions"
+              />
+              <datalist id="suggestions">
+                {this.displayRecommendations()}
+              </datalist>
+              <div
+                style={{
+                  display: this.props.loadingBarDisplay
+                }}
+                className="spinner"
+              >
+                <Spinner name="ball-spin-fade-loader" />
+                <p className="loading-text">Loading</p>
+              </div>
+              <button
+                type="submit"
+                value="Add ingredient"
+                onClick={this.getIndvItem.bind(this)}
+                className="btn btn-primary"
+              >
+                Add Item
+              </button>
             </div>
-            <button
-              type="submit"
-              value="Add ingredient"
-              onClick={this.getIndvItem.bind(this)}
-              className="btn btn-primary"
-            >
-              Add Item
-            </button>
+            <p className="how-to-ingredients">Confirm your ingredients.</p>
+            {this.getItem()}
           </div>
-          <p className="how-to-ingredients">Confirm your ingredients.</p>
-          {this.getItem()}
-        </div>
-        <div className="actions">{this.showRecipeBtn()}</div>
-
-        <Footer />
-      </React.Fragment>
-    );
+          <div className="actions">{this.showRecipeBtn()}</div>
+          <Footer />
+        </React.Fragment>
+      );
+    } else {
+      return <Redirect to="/" />;
+    }
   }
 }
 export default Ingredient;

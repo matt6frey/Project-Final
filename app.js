@@ -255,7 +255,7 @@ app.use(function(req, res, next) {
 
 // Render 404 page
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './client/index.html'));
+  res.redirect('/')
   });
 
 
