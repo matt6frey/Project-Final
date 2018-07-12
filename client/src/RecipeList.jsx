@@ -52,7 +52,9 @@ class RecipeList extends Component {
 
   render() {
     let getContent;
-    if(this.props.recipeList[0].error) {
+    let recipeListObject = this.props.recipeList[0];
+    console.log(recipeListObject, this.props.recipeList);
+    if(this.props.recipeList.length === 1) {
       getContent = this.noRecipes(this.props.recipeList[0]);
       console.log(getContent);
     } else {

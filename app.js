@@ -219,6 +219,7 @@ app.post("/recipe-lookup", (req, res) => {
     .end(function (result) {
       if(result.body.length < 1) {
         res.status(200);
+        console.log("BODY len < 1: ", result.body);
         res.json([{rid: 99999, query_id: 'none', title: 'No Recipes Found', image: "https://cdn.shopify.com/s/files/1/1061/1924/products/Frowning_Emoji_Icon_30260b4f-d601-45f5-9bb3-836f607cacbc_large.png?v=1513251036", serves: 0, prep_time: 0, ingredients: "We couldn't find any recipes.", rating: '0', steps: "Please try again.", error: true }]);
       } else {
       // Get recipe details and send them back to client
