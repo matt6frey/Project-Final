@@ -55,8 +55,8 @@ function termEvaluator(terms, cb) {
     });
 }
 
-app.post("/upload", (req, res) => {
- // app.post('/api/upload', (req, res) => {
+// app.post("/upload", (req, res) => {
+ app.post('/api/upload', (req, res) => {
   clApp.models.predict(Clarifai.GENERAL_MODEL, req.body.img).then(
     function(response) {
       let terms = response.outputs[0].data.concepts;
@@ -170,8 +170,8 @@ function duplicateArray(array) {
   return array.concat(array2);
 }
 
-app.get("/validate-item/:name", (req, res) => {
-  // app.get('/api/validate-item/:name', (req,res) => {
+// app.get("/validate-item/:name", (req, res) => {
+  app.get('/api/validate-item/:name', (req,res) => {
   if (req.params.name) {
     let names = duplicateArray([req.params.name.toLowerCase()]);
     console.log(names instanceof Array, names);
@@ -189,8 +189,8 @@ app.get("/validate-item/:name", (req, res) => {
 });
 
 // Route for getting ingredient recommendations
-app.post("/recommend", (req, res) => {
-// app.post("/api/recommend", (req, res) => {
+// app.post("/recommend", (req, res) => {
+app.post("/api/recommend", (req, res) => {
   console.log(req.body);
   knex("foods")
     .where("name", "like", `${req.body.recommend}%`)
@@ -201,8 +201,8 @@ app.post("/recommend", (req, res) => {
 });
 
 // Call to Spoonacular Recipe Lookup.
-app.post("/recipe-lookup", (req, res) => {
-  // app.post('/api/recipe-lookup', (req,res) => {
+// app.post("/recipe-lookup", (req, res) => {
+  app.post('/api/recipe-lookup', (req,res) => {
   if (req.body.items.length < 1 || typeof req.body.items === "string") {
     res.status(200);
     res.json({ status: 200, error: "No items were sent." });
@@ -219,8 +219,7 @@ app.post("/recipe-lookup", (req, res) => {
     .end(function (result) {
       if(result.body.length < 1) {
         res.status(200);
-        console.log("BODY len < 1: ", result.body);
-        res.json([{rid: 99999, query_id: 'none', title: 'No Recipes Found', image: "https://cdn.shopify.com/s/files/1/1061/1924/products/Frowning_Emoji_Icon_30260b4f-d601-45f5-9bb3-836f607cacbc_large.png?v=1513251036", serves: 0, prep_time: 0, ingredients: "We couldn't find any recipes.", rating: '0', steps: "Please try again.", error: true }]);
+        res.json([{rid: 99999, query_id: 'none', title: 'No Recipes Found', image: "https://cdn.shopify.com/s/files/1/1061/1924/products/Frowning_Emoji_Icon_30260b4f-d601-45f5-9bb3-836f607cacbc_large.png?v=1513251036", serves: 0, prep_time: 0, ingredients: "We couldn't find any recipes.", rating: '0', steps: "Please try again." }]);
       } else {
       // Get recipe details and send them back to client
       getRecipeDetails(result.body, (detail) => {
@@ -256,7 +255,7 @@ app.use(function(req, res, next) {
 
 // Render 404 page
 app.get('*', (req, res) => {
-  res.redirect('/')
+  res.sendFile(path.join(__dirname, './client/index.html'));
   });
 
 
