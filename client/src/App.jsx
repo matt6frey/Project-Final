@@ -22,7 +22,7 @@ class App extends Component {
         loadingBar: "none",
         loadingBarIngredient: "none"
       },
-      addClass:0
+      addClass: 0
     };
   }
 
@@ -145,7 +145,7 @@ class App extends Component {
     });
   }
 
-  closeInstructions () {
+  closeInstructions() {
     this.setState({
       addClass: this.state.addClass + 1
     });
