@@ -17,7 +17,7 @@
         text-align: center;
         top:0;
     }
-
+    
     .app h1.text-center {
         text-align: center!important;
         padding: 1.2rem 0;
@@ -784,3 +784,7 @@ p.close-instructions {
 
 .move { display: none; } /*Maintains position of the instructions on capture*/
 
+
+.camera-show{
+    opacity: 0;
+}
