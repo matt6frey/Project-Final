@@ -40,11 +40,30 @@ class RecipeList extends Component {
     });
   }
 
+  noRecipes(error) {
+    return (
+      <div className="error">
+        <h3 className="text-center my-3">No Recipes found!</h3>
+        <img src="https://t3.ftcdn.net/jpg/00/73/79/40/240_F_73794000_tF1Q1e5vNP9n26VaFpZdGr7GceJRKXF4.jpg" className="img-fluid p-2" alt="No recipes found."/>
+        <p className="text-center">We couldn't find any recipes matching your query. Please try adding more ingredients on another search.</p>
+      </div>
+    );
+  }
+
   render() {
+    let getContent;
+    let recipeListObject = this.props.recipeList[0];
+    console.log(recipeListObject, this.props.recipeList);
+    if(this.props.recipeList.length === 1) {
+      getContent = this.noRecipes(this.props.recipeList[0]);
+      console.log(getContent);
+    } else {
+      getContent = this.getRecipe();
+    }
     return (
       <React.Fragment>
         <Header />
-        <section className="recipe-list">{this.getRecipe()}</section>
+        <section className="recipe-list">{getContent}</section>
         <div className="actions">
           <Link
             to="/"

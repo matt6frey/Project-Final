@@ -375,6 +375,28 @@
             top: 100%;
         }
     }
+
+    .error {
+        position: absolute;
+        max-width: 320px;
+        padding: 1rem;
+        top: 50%;
+        left: 50%;
+        margin-left: -160px;
+        margin-top: -225px;
+    }
+
+    img.img-fluid.p-2 {
+        margin-left: 1rem;
+    }
+}
+
+@media only screen and (min-width: 568px) and (min-height: 320px) {
+    .error {
+        top: 4rem;
+        margin-top: 0;
+        height: 600px;
+    }
 }
 
 @media only screen and (min-width: 360px) {
@@ -563,6 +585,20 @@
             top: 100%;
         }
     }
+
+    .error {
+        position: absolute;
+        max-width: 320px;
+        padding: 1rem;
+        top: 50%;
+        left: 50%;
+        margin-left: -160px;
+        margin-top: -225px;
+    }
+
+    img.img-fluid.p-2 {
+        margin-left: 1rem;
+    }
 }
 
 @media only screen and (min-width: 1024px) {
@@ -746,3 +782,4 @@ p.close-instructions {
 }
 
 .move { display: none; } /*Maintains position of the instructions on capture*/
+
