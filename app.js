@@ -145,6 +145,7 @@ function getRecipeDetails(recipes, details, cb, uniqueID) {
 
 // checks database for matching ingredient item queries and returns a promise
 function checkDB(query_str) {
+  if (typeof query_str !== 'string') { return false; }
   return new Promise((resolve, reject) => {
     knex("recipe_queries")
       .where("query_str", "like", query_str)
@@ -160,6 +161,7 @@ function checkDB(query_str) {
 
 // Adds pluralized elements to array
 function duplicateArray(array) {
+  if (array instanceof Array === false) { return false; }
   let array2 = array.map(value => {
     if (value.endsWith("s")) {
       return (value = value.substr(0, value.length - 1));
