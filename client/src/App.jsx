@@ -41,7 +41,7 @@ class App extends Component {
   addItem(newItem) {
     // ADD AXIOS AND ROUTE RESPONSE. IF RESPONSE OKAY, THEN ADD , ESLE DO NOT ADD AND ALERT THE USEr
     // axios.get(`/validate-item/${newItem}`).then(res => {
-      axios.get(`/api/validate-item/${new_item}`).then(res => {
+      axios.get(`/api/validate-item/${newItem}`).then(res => {
       if (res.data !== false) {
         let newArray = this.state.items.concat(res.data);
         this.setState({ items: newArray });
