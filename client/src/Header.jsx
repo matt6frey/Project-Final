@@ -14,7 +14,7 @@ class Header extends Component {
             alt="Right Recipe Logo"
           />
         </div>
-        <h1 className="text-center">Right Recipe</h1>
+        <h1 className="text-center">SnapCook</h1>
       </header>
     );
   }

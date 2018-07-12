@@ -5,7 +5,7 @@ class Footer extends Component {
     return (
       <footer>
         <p className="text-right">
-          <Link to="/about">About this site</Link>
+          <Link to="/about" style={{display: "none"}}>About this site</Link>
         </p>
       </footer>
     );

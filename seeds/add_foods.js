@@ -73,7 +73,6 @@ exports.seed = function(knex, Promise) {
         { id: 68, name: "orange", type: "fruit", url: "https://png.pngtree.com/element_origin_min_pic/16/11/11/552394983196f8633cc580b6146d9942.jpg"},
         { id: 69, name: "papaya", type: "fruit", url: "https://5.imimg.com/data5/YU/YC/MY-40565349/papaya-fruit-500x500.jpg"},
         { id: 70, name: "passionfruit", type: "fruit", url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRgtcdSq7lV93CbsQrJAo5LIrrZ38IPvBLTIo_Y2oNqxb0fHc"},
-        { id: 71, name: "pea", type: "fruit", url: "https://qph.fs.quoracdn.net/main-qimg-83429b50610e2c1890e55f61208a566c-c"},
         { id: 72, name: "peach", type: "fruit", url: "https://www.apnikheti.com/upload/crops/9517idea99peach.jpg"},
         { id: 73, name: "pear", type: "fruit", url: "https://cdn1.medicalnewstoday.com/content/images/articles/285/285430/pears.jpg"},
         { id: 74, name: "persimmon", type: "fruit", url: "http://befreshcorp.net/wp-content/uploads/2017/06/product-packshot-Persimmon-558x600.jpg"},
