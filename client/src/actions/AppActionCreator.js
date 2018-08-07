@@ -14,6 +14,20 @@ export function displayChange(displayObject){
   };
 }
 
+export const ThunkAddNewItem = (newItem) => {
+    return(dispatch) => {
+        fetch(`validate-item/${newItem}`)
+        .then(res => res.json())
+        .then(res => {
+            if(res.data !== false){
+                dispatch({
+                    type: 'addItem',
+                    payload: newItem
+                })
+            }
+        })
+    }
+}
 
 export function showIngredientLoading(displayType){
     return{
@@ -70,3 +84,4 @@ export function addSelectedObject(newSelectedObj){
         payload: newSelectedObj
     }
 }
+
