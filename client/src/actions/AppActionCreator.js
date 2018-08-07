@@ -1,3 +1,6 @@
+import axios from "axios";
+
+
 // under add class reducer
 export function classIncrement(){
     return{
@@ -13,19 +16,17 @@ export function displayChange(displayObject){
     payload: displayObject
   };
 }
-
+// Note: Thunk allows functions in dispatch items + delay if required
 export const ThunkAddNewItem = (newItem) => {
     return(dispatch) => {
-        fetch(`validate-item/${newItem}`)
-        .then(res => res.json())
-        .then(res => {
-            if(res.data !== false){
-                dispatch({
-                    type: 'addItem',
-                    payload: newItem
+        axios.get(`validate-item/${newItem}`).then(res => {
+            if (res.data !== false) {
+              dispatch({
+                  type: 'addItem',
+                  payload: res.data
                 })
             }
-        })
+          });
     }
 }
 
@@ -33,14 +34,6 @@ export function showIngredientLoading(displayType){
     return{
         type: 'showIngredientLoading',
         payload: displayType
-    }
-}
-// for items
-
-export function addItem(item){
-    return {
-        type: 'addItem',
-        payload: item
     }
 }
 
