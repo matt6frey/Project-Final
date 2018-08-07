@@ -9,6 +9,14 @@ import { connect } from 'react-redux';
 import * as AppActionCreator from './actions/AppActionCreator'
 class Ingredient extends Component {
 
+addNewItem(newItem) {
+  axios.get(`validate-item/${newItem}`).then(res => {
+    if (res.data !== false) {
+      this.props.addItem(res.data)
+    }
+  });
+}
+
 deleteItem(event) {
   var array = [...this.props.items];
   let newArray = array.filter(obj => {
@@ -46,12 +54,12 @@ getRecipes(event) {
           <button
             className="btn btn-secondary delete"
             value="delete"
-            onClick={e => this.deleteItem(e).bind(this)}
+            onClick={e => this.deleteItem(e)}
           >
             <span
               className="fas fa-times fa-2x"
               id={item.name}
-              onClick={e => this.deleteItem(e).bind(this)}
+              onClick={e => this.deleteItem(e)}
             />
           </button>
         </div>
@@ -68,7 +76,7 @@ getRecipes(event) {
     });
     if (!checkObject && this.refs.newItem.value !== "") {
       let newItem = this.refs.newItem.value;
-      this.props.ThunkAddNewItem(newItem);
+      this.addNewItem(newItem);
       this.refs.newItem.value = "";
     }
   }
