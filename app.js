@@ -56,7 +56,7 @@ function termEvaluator(terms, cb) {
 }
 
 app.post("/upload", (req, res) => {
- // app.post('/api/upload', (req, res) => {
+  console.log(req.body.img)
   clApp.models.predict(Clarifai.GENERAL_MODEL, req.body.img).then(
     function(response) {
       let terms = response.outputs[0].data.concepts;

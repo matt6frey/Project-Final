@@ -3,10 +3,11 @@ import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
 import uuidv4 from "uuid/v4";
+import { connect } from 'react-redux';
 
 class Recipe extends Component {
+  
   getIngredientList() {
-    // console.log(this.props);
     return this.props.selectedObj.ingredients.split("LOLOL").map(item => {
       return <li key={uuidv4()}>{item}</li>;
     });
@@ -43,6 +44,7 @@ class Recipe extends Component {
   }
 
   render() {
+    console.log(this.props.selectedObj)
     let prepTime = this.getPrepTime(this.props.selectedObj);
     return (
       <React.Fragment>
@@ -93,4 +95,9 @@ class Recipe extends Component {
     );
   }
 }
-export default Recipe;
+export default connect(
+  (state) => {
+  return{
+    selectedObj: state.selectedObj
+  }
+})(Recipe);

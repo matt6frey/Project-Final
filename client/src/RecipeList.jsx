@@ -2,8 +2,38 @@ import React, { Component } from "react";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
-
+import { connect } from 'react-redux';
+// import { displayChange, clearRecipes, addSelectedObject } from './actions/AppActionCreator'
+import * as AppActionCreator from './actions/AppActionCreator'
 class RecipeList extends Component {
+
+// From main App.jsx
+selectIDRecipe(selected_rid) {
+  let recipes;
+  if (this.props.recipeList instanceof Array) {
+    recipes = this.props.recipeList;
+  } else {
+    recipes = Object.keys(this.props.recipeList).map(key => {
+      return this.props.recipeList[key];
+    });
+  }
+  let obj = recipes.find(obj => {
+    return obj.rid === selected_rid;
+  });
+
+  this.props.addSelectedObject(obj)
+}
+
+clearStates() {
+  this.props.displayChange({
+      image: "none",
+      chooseFile: "inline",
+      loadingBar: "none",
+      submitPic: "none"
+  })
+  this.props.clearRecipes()
+}
+
   truncateTitle(str) {
     if(str.length > 29) {
       let end = str.search('-');
@@ -16,7 +46,6 @@ class RecipeList extends Component {
   }
 
   getRecipe() {
-    // choose to send empty/array onbject with error message || redirect
     return Object.keys(this.props.recipeList).reverse().map(item => {
       let recipelist = this.props.recipeList;
       let completeLink = `/list/${recipelist[item].rid}`;
@@ -29,7 +58,7 @@ class RecipeList extends Component {
           <p className="text-right">
             <Link
               to={completeLink}
-              onClick={() => this.props.selectIDRecipe(recipelist[item].rid)}
+              onClick={() => this.selectIDRecipe(recipelist[item].rid)}
               className="select-recipe btn btn-primary"
             >
               <span className="fas fa-utensils" /> Select
@@ -40,7 +69,7 @@ class RecipeList extends Component {
     });
   }
 
-  noRecipes(error) {
+  noRecipes() {
     return (
       <div className="error">
         <h3 className="text-center my-3">No Recipes found!</h3>
@@ -52,11 +81,8 @@ class RecipeList extends Component {
 
   render() {
     let getContent;
-    let recipeListObject = this.props.recipeList[0];
-    console.log(recipeListObject, this.props.recipeList);
     if(this.props.recipeList.length === 1) {
       getContent = this.noRecipes(this.props.recipeList[0]);
-      console.log(getContent);
     } else {
       getContent = this.getRecipe();
     }
@@ -65,13 +91,13 @@ class RecipeList extends Component {
         <Header />
         <section className="recipe-list">{getContent}</section>
         <div className="actions">
-          <Link
+          {/* <Link
             to="/"
             className="btn btn-primary"
-            onClick={this.props.clearStates}
+            onClick={this.clearStates.bind(this)}
           >
             Start Over
-          </Link>
+          </Link> */}
         </div>
         <Footer />
       </React.Fragment>
@@ -79,4 +105,10 @@ class RecipeList extends Component {
   }
 }
 
-export default RecipeList;
+export default connect(
+  (state) => {
+  return{
+    recipeList: state.recipes,
+    selectedObj: state.selectedObj
+  }
+}, AppActionCreator)(RecipeList);
