@@ -18,8 +18,8 @@ http://lhl-recipe-app.herokuapp.com/#/
 ### 4. Tech Stack
 1. React, NodeJS
 2. 3 APIs: 
-    a. Cloudinary: Image upload
-    b. Clarifai: Image Detection using Machine Learning
-    c. Spoonacular: Recipes
+    * Cloudinary: Image upload
+    * Clarifai: Image Detection using Machine Learning
+    * Spoonacular: Recipes
 3. Express for Server
 4. Postgres for Database
