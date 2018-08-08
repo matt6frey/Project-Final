@@ -172,10 +172,8 @@ class Capture extends Component {
 }
 
 export default connect(
-  (state) => {
-    return{
-      displayStateProp: displaySelector(state),
-      photoLoad: photoLoadSelector(state),
-      addClass: addClassSelector(state)
-    };
-  }, ActionCreator)(Capture);
+  (state, props) => Object.assign({
+      displayStateProp: displaySelector(state, props),
+      photoLoad: photoLoadSelector(state, props),
+      addClass: addClassSelector(state, props)
+    }), ActionCreator)(Capture);
