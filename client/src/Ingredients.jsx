@@ -7,6 +7,8 @@ import Spinner from "react-spinkit";
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 import * as AppActionCreator from './actions/AppActionCreator'
+import { displaySelector, itemsSelector, recommendSelector } from './selectors/selectors'
+
 class Ingredient extends Component {
 
 deleteItem(event) {
@@ -152,8 +154,8 @@ getRecipes(event) {
 export default connect(
   (state) => {
   return{
-    recommend: state.recommend,
-    items: state.items,
-    displayState: state.display,
+      recommend: recommendSelector(state),
+      items: itemsSelector(state),
+      displayState: displaySelector(state)
   }
 }, AppActionCreator)(Ingredient);

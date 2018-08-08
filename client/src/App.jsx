@@ -5,6 +5,7 @@ import RecipeList from "./RecipeList.jsx";
 import { Switch, HashRouter, Route, Redirect } from "react-router-dom";
 import Ingredient from "./Ingredients.jsx";
 import { connect } from 'react-redux';
+import { recipesSelector } from './selectors/selectors'
 
 // const App = (props) => {
 //   return (
@@ -101,6 +102,6 @@ class App extends Component {
 export default connect(
   (state) => {
   return{
-    recipe: state.recipes
+    recipe: recipesSelector(state)
   }
 })(App);

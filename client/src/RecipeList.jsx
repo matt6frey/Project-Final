@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 // import { displayChange, clearRecipes, addSelectedObject } from './actions/AppActionCreator'
 import * as AppActionCreator from './actions/AppActionCreator'
+import { recipesSelector, selectedObjSelector } from './selectors/selectors'
 class RecipeList extends Component {
 
 // From main App.jsx
@@ -107,8 +108,8 @@ clearStates() {
 
 export default connect(
   (state) => {
-  return{
-    recipeList: state.recipes,
-    selectedObj: state.selectedObj
-  }
-}, AppActionCreator)(RecipeList);
+    return{
+      recipeList: recipesSelector(state),
+      selectedObj: selectedObjSelector(state)
+    };
+  }, AppActionCreator)(RecipeList);

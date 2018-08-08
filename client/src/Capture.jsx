@@ -6,6 +6,8 @@ import Spinner from "react-spinkit";
 import { connect } from 'react-redux';
 import * as ActionCreator from './actions/AppActionCreator'
 import axios from "axios";
+import { displaySelector, photoLoadSelector, addClassSelector } from './selectors/selectors'
+
 class Capture extends Component {
   
   showImage(event) {
@@ -172,8 +174,8 @@ class Capture extends Component {
 export default connect(
   (state) => {
     return{
-      displayStateProp: state.display,
-      photoLoad: state.photoLoad,
-      addClass: state.addClass
+      displayStateProp: displaySelector(state),
+      photoLoad: photoLoadSelector(state),
+      addClass: addClassSelector(state)
     };
   }, ActionCreator)(Capture);

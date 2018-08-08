@@ -4,7 +4,7 @@ import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
 import uuidv4 from "uuid/v4";
 import { connect } from 'react-redux';
-
+import { selectedObjSelector } from './selectors/selectors'
 class Recipe extends Component {
   
   getIngredientList() {
@@ -98,6 +98,6 @@ class Recipe extends Component {
 export default connect(
   (state) => {
   return{
-    selectedObj: state.selectedObj
+    selectedObj: selectedObjSelector(state)
   }
 })(Recipe);
