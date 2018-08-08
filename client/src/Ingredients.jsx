@@ -5,17 +5,29 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Spinner from "react-spinkit";
 import { Redirect } from "react-router-dom";
-
-// import { CSSTransitionGroup } from "react-transition-group/CSSTransitionGroup";
+import { connect } from 'react-redux';
+import * as AppActionCreator from './actions/AppActionCreator'
+import { displaySelector, itemsSelector, recommendSelector } from './selectors/selectors'
 
 class Ingredient extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      recommend: []
-      // loadingBar: 'none'
-    };
-  }
+
+deleteItem(event) {
+  var array = [...this.props.items];
+  let newArray = array.filter(obj => {
+    return obj.name !== event.target.id;
+  });
+  this.props.addCompleteItemList(newArray)
+}
+
+getRecipes(event) {
+  event.preventDefault();
+  let selectedIngredients = [...this.props.items].map(i => i.name);
+  this.props.showIngredientLoading("inline")
+  axios.post("recipe-lookup", { items: selectedIngredients }).then(res => {
+    this.props.addRecipes(res.data)
+  });
+}
+
 
   capitalize(name) {
     return name.charAt(0).toUpperCase() + name.substr(1);
@@ -36,12 +48,12 @@ class Ingredient extends Component {
           <button
             className="btn btn-secondary delete"
             value="delete"
-            onClick={e => this.props.deleteItem(e)}
+            onClick={e => this.deleteItem(e)}
           >
             <span
               className="fas fa-times fa-2x"
               id={item.name}
-              onClick={e => this.props.deleteItem(e)}
+              onClick={e => this.deleteItem(e)}
             />
           </button>
         </div>
@@ -58,7 +70,7 @@ class Ingredient extends Component {
     });
     if (!checkObject && this.refs.newItem.value !== "") {
       let newItem = this.refs.newItem.value;
-      this.props.addItem(newItem);
+      this.props.ThunkAddNewItem(newItem);
       this.refs.newItem.value = "";
     }
   }
@@ -66,9 +78,8 @@ class Ingredient extends Component {
   showRecipeBtn() {
     if (this.props.items.length > 0) {
       return (
-        <Link
-          to="/list"
-          onClick={this.props.getRecipes}
+        <Link to ="/list"
+          onClick={this.getRecipes.bind(this)}
           className="btn btn-warning"
         >
           See Recipes
@@ -80,19 +91,15 @@ class Ingredient extends Component {
   autofillRecommend({ target: { value } }) {
     if (value.length > 1) {
       let search = value.toLowerCase();
-      axios.post("/api/recommend", { recommend: search }).then(res => {
-      // axios.post("/recommend", { recommend: search }).then(res => {
-        this.setState({
-          recommend: res.data
-        });
+      axios.post("/recommend", { recommend: search }).then(res => {
+        this.props.changeRecommend(res.data)
       });
     }
   }
 
   displayRecommendations() {
-    let recommendations = this.state.recommend;
 
-    return recommendations.map(item => {
+    return this.props.recommend.map(item => {
       return <option value={item.name} />;
     });
   }
@@ -115,7 +122,7 @@ class Ingredient extends Component {
               </datalist>
               <div
                 style={{
-                  display: this.props.loadingBarDisplay
+                  display: this.props.displayState.loadingBarIngredient
                 }}
                 className="spinner"
               >
@@ -134,7 +141,8 @@ class Ingredient extends Component {
             <p className="how-to-ingredients">Confirm your ingredients.</p>
             {this.getItem()}
           </div>
-          <div className="actions">{this.showRecipeBtn()}</div>
+          <div className="actions">{this.showRecipeBtn()}
+          </div>
           <Footer />
         </React.Fragment>
       );
@@ -143,4 +151,11 @@ class Ingredient extends Component {
     }
   }
 }
-export default Ingredient;
+export default connect(
+  (state) => {
+  return{
+      recommend: recommendSelector(state),
+      items: itemsSelector(state),
+      displayState: displaySelector(state)
+  }
+}, AppActionCreator)(Ingredient);

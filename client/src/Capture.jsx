@@ -3,8 +3,59 @@ import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
 import Spinner from "react-spinkit";
+import { connect } from 'react-redux';
+import * as ActionCreator from './actions/AppActionCreator'
+import axios from "axios";
+import { displaySelector, photoLoadSelector, addClassSelector } from './selectors/selectors'
 
 class Capture extends Component {
+  
+  showImage(event) {
+    const name = event.target.files[0].name;
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.props.displayChange({
+        image: "block",
+        chooseFile: "none",
+        submitPic: "none",
+        loadingBar: "block"
+      });
+      this.props.addPhoto({
+        imageURL: reader.result,
+        imageName: name
+      })
+      const fd = new FormData();
+      fd.append("public_id", this.props.photoLoad.imageName);
+      fd.append("upload_preset", "bkb49fvr");
+      fd.append("file", this.props.photoLoad.imageURL);
+
+      axios
+        .post("https://api.cloudinary.com/v1_1/dybwmffcu/upload", fd)
+        .then(res => {
+          axios
+            .post("/upload", {
+              img: res.data.secure_url
+            })
+            .then(res => {
+              this.props.addCompleteItemList(res.data)
+              this.props.displayChange({
+                submitPic: "block",
+                chooseFile: "none",
+                loadingBar: "none",
+                loadingBarIngredient: "none"
+              })
+            })
+            .catch(err => console.log(err))
+        })
+    };
+
+    reader.readAsDataURL(event.target.files[0]);
+  }
+
+  closeInstructions() {
+    this.props.classIncrement()
+  }
+
   getCameraDiv(prop) {
     if (prop === "inline") {
       return (
@@ -31,9 +82,7 @@ class Capture extends Component {
       howToClasses.pop();
       howToClasses.push("hideInstructions");
       setTimeout(
-        function() {
-          this.props.closeInstructions();
-        }.bind(this),
+        () => this.closeInstructions(),
         1200
       );
     }
@@ -42,6 +91,8 @@ class Capture extends Component {
       howToClasses.push("move");
       cameraClass.shift();
     }
+
+    const chooseFileStyle = this.props.displayStateProp.chooseFile
     return (
       <React.Fragment>
         <Header />
@@ -62,7 +113,7 @@ class Capture extends Component {
 
           <p
             className="close-instructions"
-            onClick={this.props.closeInstructions}
+            onClick={this.closeInstructions.bind(this)}
           >
             close <span className="ml-2 fas fa-times" />
           </p>
@@ -72,24 +123,25 @@ class Capture extends Component {
         </p>
 
         <form className={cameraClass.join(" ")}>
-          {this.getCameraDiv(this.props.displayStateProp.chooseFile)}
+          { 
+            this.getCameraDiv(chooseFileStyle)
+          }
           <input
             style={{
-              display: this.props.displayStateProp.chooseFile
+              display: chooseFileStyle
             }}
             type="file"
             accept="image/*"
             capture="camera"
             name="imgFile"
-            onChange={this.props.showImage}
+            onChange={this.showImage.bind(this)}
           />
-
           <img
             className="preview"
             style={{
               display: this.props.displayStateProp.image
             }}
-            src={this.props.imageURL}
+            src={this.props.photoLoad.imageURL}
             alt=""
           />
           <Link to="/ingredients">
@@ -118,4 +170,10 @@ class Capture extends Component {
     );
   }
 }
-export default Capture;
+
+export default connect(
+  (state, props) => Object.assign({
+      displayStateProp: displaySelector(state, props),
+      photoLoad: photoLoadSelector(state, props),
+      addClass: addClassSelector(state, props)
+    }), ActionCreator)(Capture);
