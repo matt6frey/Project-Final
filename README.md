@@ -5,16 +5,15 @@ This is a recipe generating app that allows users to take photos of raw food ing
 ## Screenshots
 
 <div>
-  <img src="snapcook1.png" alt="Instructions of the Home Page" style="display:inline; width:30%!important; margin: 1rem auto;">
-  <img src="snapcook2.png" alt="Instructions of the Home Page" style="display:inline; width:30%!important; margin: 1rem auto;">
-  <img src="snapcook3.png" alt="Instructions of the Home Page" style="display:inline; width:30%!important; margin: 1rem auto;">
+  <a target="_blank" rel="noopener noreferrer" href="/matt6frey/Project-Final/blob/master/snapcook1.png"><img src="/matt6frey/Project-Final/raw/master/snapcook1.png" alt="Instructions of the Home Page" style="max-width:30%;"></a>
+  <a target="_blank" rel="noopener noreferrer" href="/matt6frey/Project-Final/blob/master/snapcook1.png"><img src="/matt6frey/Project-Final/raw/master/snapcook1.png" alt="Instructions of the Home Page" style="max-width:30%;"></a>
+  <a target="_blank" rel="noopener noreferrer" href="/matt6frey/Project-Final/blob/master/snapcook1.png"><img src="/matt6frey/Project-Final/raw/master/snapcook1.png" alt="Instructions of the Home Page" style="max-width:30%;"></a>
 </div>
 
 <div>
-  <img src="snapcook4.png" alt="Instructions of the Home Page" style="display:inline; width:30%!important; margin: 1rem auto;">
-  <img src="snapcook5.png" alt="Instructions of the Home Page" style="display:inline; width:30%!important; margin: 1rem auto;">
-  <img src="snapcook6.png" alt="Instructions of the Home Page" style="display:inline; width:30%!important; margin: 1rem auto;">
-</div>
+  <a target="_blank" rel="noopener noreferrer" href="/matt6frey/Project-Final/blob/master/snapcook1.png"><img src="/matt6frey/Project-Final/raw/master/snapcook1.png" alt="Instructions of the Home Page" style="max-width:30%;"></a>
+  <a target="_blank" rel="noopener noreferrer" href="/matt6frey/Project-Final/blob/master/snapcook1.png"><img src="/matt6frey/Project-Final/raw/master/snapcook1.png" alt="Instructions of the Home Page" style="max-width:30%;"></a>
+  <a target="_blank" rel="noopener noreferrer" href="/matt6frey/Project-Final/blob/master/snapcook1.png"><img src="/matt6frey/Project-Final/raw/master/snapcook1.png" alt="Instructions of the Home Page" style="max-width:30%;"></a></div>
   
 ## API's Used
 
