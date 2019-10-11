@@ -5,15 +5,29 @@ This is a recipe generating app that allows users to take photos of raw food ing
 ## Screenshots
 
 <div>
-  <a target="_blank" rel="noopener noreferrer" href="snapcook1.png"><img src="snapcook1.png" alt="Instructions of the Home Page" style="max-width:30%;"></a>
-  <a target="_blank" rel="noopener noreferrer" href="snapcook1.png"><img src="snapcook2.png" alt="Instructions of the Home Page" style="max-width:30%;"></a>
-  <a target="_blank" rel="noopener noreferrer" href="snapcook1.png"><img src="snapcook3.png" alt="Instructions of the Home Page" style="max-width:30%;"></a>
+ <div style="max-width:30%;">
+ 	<img src="snapcook1.png" alt="Instructions of the Home Page" style="max-width:100%;">
+ 	</div>
+ <div style="max-width:30%;">
+ 	<img src="snapcook2.png" alt="Instructions of the Home Page" style="max-width:100%;">
+ 	</div>
+ <div style="max-width:30%;">
+ 	<img src="snapcook3.png" alt="Instructions of the Home Page" style="max-width:100%;">
+ 	</div>
 </div>
 
 <div>
-  <a target="_blank" rel="noopener noreferrer" href="snapcook1.png"><img src="snapcook4.png" alt="Instructions of the Home Page" style="max-width:30%;"></a>
-  <a target="_blank" rel="noopener noreferrer" href="snapcook1.png"><img src="snapcook5.png" alt="Instructions of the Home Page" style="max-width:30%;"></a>
-  <a target="_blank" rel="noopener noreferrer" href="snapcook1.png"><img src="snapcook6.png" alt="Instructions of the Home Page" style="max-width:30%;"></a></div>
+ <div style="max-width:30%;">
+ 	<img src="snapcook4.png" alt="Instructions of the Home Page" style="max-width:100%;">
+ 	</div>
+ <div style="max-width:30%;">
+ 	<img src="snapcook5.png" alt="Instructions of the Home Page" style="max-width:100%;">
+ 	</div>
+ <div style="max-width:30%;">
+ 	<img src="snapcook6.png" alt="Instructions of the Home Page" style="max-width:100%;">
+ 	</div>
+</div>
+
 
   
 ## API's Used
