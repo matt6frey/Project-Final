@@ -5,30 +5,16 @@ This is a recipe generating app that allows users to take photos of raw food ing
 ## Screenshots
 
 <div>
- <span style="max-width:30%; display:inline-block">
- 	<img src="snapcook1.png" alt="Instructions of the Home Page" style="max-width:100%;">
- 	</span>
- <span style="max-width:30%; display:inline-block">
- 	<img src="snapcook2.png" alt="Instructions of the Home Page" style="max-width:100%;">
- 	</span>
- <span style="max-width:30%; display:inline-block">
- 	<img src="snapcook3.png" alt="Instructions of the Home Page" style="max-width:100%;">
- 	</span>
+ 	<img align="left" width="30" height="auto" src="snapcook1.png" alt="Instructions of the Home Page" style="max-width:100%;">
+ 	<img align="center" width="30" height="auto" src="snapcook2.png" alt="Instructions of the Home Page" style="max-width:100%;">
+ 	<img align="right" width="30" height="auto" src="snapcook3.png" alt="Instructions of the Home Page" style="max-width:100%;">
 </div>
 
 <div>
- <span style="max-width:30%; display:inline-block">
- 	<img src="snapcook4.png" alt="Instructions of the Home Page" style="max-width:100%;">
- 	</span>
- <span style="max-width:30%; display:inline-block">
- 	<img src="snapcook5.png" alt="Instructions of the Home Page" style="max-width:100%;">
- 	</span>
- <span style="max-width:30%; display:inline-block">
- 	<img src="snapcook6.png" alt="Instructions of the Home Page" style="max-width:100%;">
- 	</span>
+ 	<img align="left" width="30" height="auto" src="snapcook4.png" alt="Instructions of the Home Page" style="max-width:100%;">
+ 	<img align="center" width="30" height="auto" src="snapcook5.png" alt="Instructions of the Home Page" style="max-width:100%;">
+ 	<img align="right" width="30" height="auto" src="snapcook6.png" alt="Instructions of the Home Page" style="max-width:100%;">
 </div>
-
-
 
   
 ## API's Used
